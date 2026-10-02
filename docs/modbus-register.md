@@ -49,6 +49,34 @@ Wichtig: Das schließt **andere Modbus-Funktionsbereiche** wie Coils, Discrete I
 
 ---
 
+
+## FC01 – Read Coils
+
+Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC01 Read Coils** über die PDU-Adressen **0–1000** durchgeführt.
+
+Scan-Ergebnis:
+
+| Coil-Adresse | Wert beim Scan | Ergebnis | Stand |
+|---:|:---:|---|---|
+| 0 | 0 | `Write error` im Modbus-Poll-Export | nochmals manuell prüfen; kein belastbarer FC01-Befund |
+| 1 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 2 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 3 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 4 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 5 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 6 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 7 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 8 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 9–1000 | – | **02 Illegal Data Address** | keine weiteren Coils gefunden |
+
+Damit sind aktuell **acht sicher lesbare Coils an den Adressen 1–8** nachgewiesen. Beim aufgenommenen Zustand waren **Coil 1, 2 und 7 = TRUE**, die übrigen lesbaren Coils = FALSE.
+
+Die Bedeutung der einzelnen Coils ist noch vollständig offen. Gerade für **Ladefreigabe, Verriegelung, RFID-Autorisierung und 1P/3P-Umschaltung** sind diese Bits sehr interessant und sollen als Nächstes gegen definierte Zustände (CP A/B/C, RFID, Ladung aktiv, Phasenumschaltung) verglichen werden.
+
+**Hinweis zu Coil 0:** Der Export meldet dort `Write error`, obwohl ein FC01-Scan gewählt wurde. Deshalb wird Adresse 0 nicht als ungültig interpretiert, sondern separat manuell nachgetestet.
+
+---
+
 ## Statuskennzeichnung
 
 - **Verifiziert** – am eigenen Gerät reproduzierbar getestet.
@@ -399,4 +427,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. weitere Funktionsbereiche wie **Coils / Discrete Inputs / Input Registers**; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
+9. Bedeutung der über FC01 gefundenen **Coils 1–8** ermitteln; Coil 0 separat nachprüfen
+10. **Discrete Inputs / Input Registers** scannen; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
