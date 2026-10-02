@@ -120,6 +120,23 @@ Gerade diese acht Bits sollten bei definierten Zustandswechseln weiter vergliche
 
 ---
 
+
+## FC04 – Read Input Registers
+
+Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC04 Read Input Registers** über die PDU-Adressen **0–1000** durchgeführt.
+
+Ergebnis:
+
+| PDU-Adresse | Ergebnis |
+|---:|---|
+| 0–1000 | **02 Illegal Data Address** |
+
+Damit wurden bei dieser Wallbox/Firmware im geprüften Bereich **keine Input Register (FC04)** gefunden.
+
+Der gesamte Bereich 0–1000 wurde geprüft; es gab **keine einzige gültige FC04-Antwort**. Die bisher bekannten Mess- und Statuswerte liegen damit weiterhin im **Holding-Register-Bereich FC03** bzw. in den bereits gefundenen Bit-Bereichen FC01/FC02.
+
+---
+
 ## Statuskennzeichnung
 
 - **Verifiziert** – am eigenen Gerät reproduzierbar getestet.
@@ -472,4 +489,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 8. Leistungs- und Energiezählerregister
 9. Bedeutung der über FC01 gefundenen **Coils 1–8** ermitteln; Coil 0 separat nachprüfen
 10. Bedeutung der über FC02 gefundenen **Discrete Inputs 1–8** ermitteln; FC02 entspricht aktuell exakt FC01
-11. **Input Registers (FC04)** scannen; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
+11. **FC04 Input Registers:** Bereich 0–1000 vollständig negativ gescannt (durchgehend 02 Illegal Data Address)
+12. Bedeutung der über FC01/FC02 gefundenen Bits weiter untersuchen
