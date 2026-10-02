@@ -372,6 +372,86 @@ Der nächste sinnvolle Test ist, nach einem 1-phasigen Start über **Coil 3 = 1*
 
 ---
 
+
+## Geplanter Ablauf für Phasenumschaltung während einer Ladesitzung
+
+Aus den bisherigen Tests ergibt sich ein möglicher Ablauf, um die Phasenumschaltung ohne Abziehen des Fahrzeugs zu erreichen.
+
+Wichtig: Der vollständige Ablauf ist **noch nicht mit einem realen Fahrzeug verifiziert**. Sicher bestätigt sind bisher nur:
+- Coil 3 schaltet die Phasenwahl beim nächsten Ladebeginn.
+- Eine Änderung von Coil 3 während laufender Ladung wird nicht übernommen.
+- 40081 steuert den angebotenen Ladestrom / CP-PWM.
+
+### Ausgangszustand 3-phasig
+
+Beispiel:
+
+```text
+CP = A
+40081 Ladestrom-Sollwert = 32 A
+Coil 3 Phasenwahl = 0   (3-phasig)
+
+danach:
+CP = B
+
+danach:
+CP = C
+```
+
+Das entspricht einem normalen Start mit 3-phasiger Phasenwahl.
+
+### Vorgeschlagene Umschaltsequenz 3P → 1P
+
+Die Idee ist, den angebotenen Ladestrom zunächst auf **0 A** zu setzen, damit das Fahrzeug die Leistungsaufnahme beendet und die Wallbox den Leistungspfad abschalten kann.
+
+```text
+40081 Ladestrom-Sollwert = 0 A
+→ Fahrzeug soll theoretisch aufhören zu laden
+→ erwarteter Zustand entspricht funktional CP = B
+→ Leistungsschütze sollen abfallen
+
+Coil 3 Phasenwahl = 1   (1-phasig)
+
+40081 Ladestrom-Sollwert = 32 A
+→ Fahrzeug soll erneut Ladefreigabe erhalten
+→ erwarteter Zustand entspricht funktional CP = C
+→ nur L1 soll zugeschaltet werden
+```
+
+### Erwartetes Prinzip
+
+Damit wäre die Phasenumschaltung prinzipiell:
+
+```text
+Ladestrom auf 0 A
+→ warten bis Leistungsschütze abgefallen sind
+→ Coil 3 auf gewünschte Phasenart setzen
+→ Ladestrom wieder > 0 A setzen
+```
+
+Für 1P → 3P entsprechend umgekehrt:
+
+```text
+40081 = 0 A
+→ Schütze aus
+→ Coil 3 = 0
+→ 40081 wieder auf gewünschten Ladestrom
+```
+
+### Noch zu verifizieren
+
+Bei einem realen Fahrzeug muss noch geprüft werden:
+
+1. ob **40081 = 0 A** tatsächlich einen sauberen Ladestopp auslöst,
+2. ob dadurch der Wallboxzustand zuverlässig auf einen Zustand mit abgefallenen Schützen zurückgeht,
+3. ob danach Coil 3 übernommen wird,
+4. ob das erneute Setzen von 40081 > 0 A die Ladung automatisch wieder startet,
+5. ob dafür zusätzliche Wartezeiten oder eine weitere Freigabe erforderlich sind.
+
+Bis diese Sequenz reproduzierbar bestätigt ist, bleibt sie als **Hypothese / geplanter Testablauf** dokumentiert.
+
+---
+
 ## Schreibtests Holding Register
 
 ### Sicher als RW bestätigt
@@ -436,7 +516,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 
 ## Offene Punkte
 
-1. Zusammenhang von **Coil 3** mit **40102** und den Discrete Inputs prüfen
+1. Phasenumschalt-Sequenz am realen Fahrzeug verifizieren: **40081=0 A → Schütze aus → Coil 3 ändern → 40081 wieder >0 A**
 2. **40102** nach 1-phasigem Neustart prüfen: wechselt der Wert von 3 auf 1?
 3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
