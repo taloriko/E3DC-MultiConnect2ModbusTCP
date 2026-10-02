@@ -77,6 +77,49 @@ Die Bedeutung der einzelnen Coils ist noch vollständig offen. Gerade für **Lad
 
 ---
 
+
+## FC02 – Read Discrete Inputs
+
+Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC02 Read Discrete Inputs** über die PDU-Adressen **0–1000** durchgeführt.
+
+Scan-Ergebnis:
+
+| Discrete Input | Wert beim Scan | Ergebnis | Stand |
+|---:|:---:|---|---|
+| 0 | 0 | `Write error` im Modbus-Poll-Export | nochmals manuell prüfen; kein belastbarer FC02-Befund |
+| 1 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 2 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 3 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 4 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 5 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 6 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 7 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 8 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
+| 9–1000 | – | **02 Illegal Data Address** | keine weiteren Discrete Inputs gefunden |
+
+Der FC02-Scan ist damit im aktuellen Zustand **identisch zum zuvor gemessenen FC01-Scan**:
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+FC01:    1 1 0 0 0 0 1 0
+FC02:    1 1 0 0 0 0 1 0
+```
+
+Das kann bedeuten, dass die Firmware dieselben internen Statusbits sowohl im Coil- als auch im Discrete-Input-Bereich abbildet. Das ist derzeit jedoch nur eine Beobachtung; die Bedeutung der Bits ist noch unbekannt.
+
+Gerade diese acht Bits sollten bei definierten Zustandswechseln weiter verglichen werden:
+
+- CP A / B / C / D / E
+- Kabel vorhanden / nicht vorhanden
+- RFID-Karte erkannt
+- Ladefreigabe
+- Leistungsschütze ein / aus
+- spätere 1P/3P-Umschaltung
+
+**Hinweis zu Adresse 0:** Wie bereits beim FC01-Scan meldet der Modbus-Poll-Export für Adresse 0 `Write error`. Deshalb wird Adresse 0 separat behandelt und nicht als gültig oder ungültig bewertet.
+
+---
+
 ## Statuskennzeichnung
 
 - **Verifiziert** – am eigenen Gerät reproduzierbar getestet.
@@ -428,4 +471,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
 9. Bedeutung der über FC01 gefundenen **Coils 1–8** ermitteln; Coil 0 separat nachprüfen
-10. **Discrete Inputs / Input Registers** scannen; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
+10. Bedeutung der über FC02 gefundenen **Discrete Inputs 1–8** ermitteln; FC02 entspricht aktuell exakt FC01
+11. **Input Registers (FC04)** scannen; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
