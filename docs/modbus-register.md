@@ -66,8 +66,8 @@ Beim Scan waren die Adressen 1–8 lesbar; ab Adresse 9 kam durchgehend **02 Ill
 | 4 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
 | 5 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
 | 6 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
-| 7 | RW getestet | Unbekannt | beim ersten Scan = 1 | offen |
-| 8 | RW getestet | Unbekannt | beim ersten Scan = 0 | offen |
+| 7 | **RO** | Unbekannt | Lesen möglich; Schreibversuch per FC05 → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
+| 8 | **RO** | Unbekannt | Lesen möglich; Schreibversuch per FC05 → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
 
 ### Verhalten der Phasenwahl über Coil 3
 
@@ -503,7 +503,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. Bedeutung der noch offenen **Coils 2 und 4–8** ermitteln; Coil 0 separat nachprüfen
+9. Bedeutung der noch offenen **Coils 2 und 4–6** ermitteln; **Coils 7/8 sind lesbar, aber per FC05 nicht schreibbar**; Coil 0 separat nachprüfen
 10. Bedeutung der über FC02 gefundenen **Discrete Inputs 1–8** ermitteln; FC02 entspricht aktuell exakt FC01
 11. **FC04 Input Registers:** Bereich 0–1000 vollständig negativ gescannt (durchgehend 02 Illegal Data Address)
 12. Bedeutung der über FC01/FC02 gefundenen Bits weiter untersuchen
