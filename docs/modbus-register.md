@@ -99,7 +99,7 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
 | **4** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
 | **5** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
-| **6** | **RW** | **Entriegelungsverhalten beim Übergang CP B → CP A** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
+| **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
 | **8** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
 
@@ -155,16 +155,16 @@ Laden stoppen
 Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
 
 
-## Coil 6 – Entriegelung bei CP B → CP A
+## Coil 6 – Stecker nach Ladeende verriegelt lassen
 
-Coil 6 beeinflusst das Verhalten der Steckerverriegelung beim Übergang des simulierten Fahrzeugzustands von **CP B** auf **CP A**.
+Coil 6 legt fest, ob der Stecker nach Ende der Verbindung bzw. beim Übergang von **CP B** auf **CP A** verriegelt bleibt.
 
 Verifiziertes Verhalten:
 
 - **Coil 6 = 0** → Wechsel von CP B auf CP A → **Stecker wird entriegelt**
 - **Coil 6 = 1** → Wechsel von CP B auf CP A → **Stecker bleibt verriegelt**
 
-Damit ist Coil 6 kein einfacher aktueller Verriegelungsstatus, sondern steuert das **Entriegelungsverhalten beim Übergang B → A**.
+Damit beschreibt Coil 6 am verständlichsten die Option **„Stecker nach Ladeende verriegelt lassen“**.
 
 
 ---
