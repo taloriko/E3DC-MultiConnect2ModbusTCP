@@ -554,6 +554,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. Bedeutung der noch offenen **Coils 2, 4 und 5**
-10. Coil 0 separat nachprüfen
-11. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
+9. Bedeutung der noch offenen **Coils 2 und 4**
+10. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
+11. Coil 0 separat nachprüfen
+12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
