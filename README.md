@@ -78,6 +78,16 @@ verwendet.
 
 Diese ID konnte vollständig in den Modbus-Registern wiedergefunden werden.
 
+
+### Interne Taster BP1
+
+Auf beiden Platinen der Wallbox befindet sich jeweils ein Taster mit der Bezeichnung **BP1**.
+
+Beide Taster wurden betätigt. Dabei wurde **keine beobachtbare Änderung** am Verhalten der Wallbox bzw. an den während des Tests überwachten Modbus-Werten festgestellt.
+
+Die Funktion der beiden BP1-Taster ist damit weiterhin **unbekannt**.
+
+
 ### Software
 
 Für die Untersuchung wurden verwendet:
