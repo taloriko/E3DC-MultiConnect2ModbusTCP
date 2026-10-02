@@ -21,7 +21,31 @@ Bisher verwendet:
 
 **40000 wird in dieser Doku nicht als eigenes Register geführt.** Der Modbus-PDU-Offset 0 entspricht hier 40001.
 
-Eigene Leseversuche liefern sinnvolle Daten bis mindestens **40102**. Oberhalb davon wurden bislang keine zusätzlichen verwertbaren Werte gefunden.
+Ein vollständiger **FC03-Adressscan mit Modbus Poll über die PDU-Adressen 0–1000** bestätigt den gültigen Holding-Register-Bereich exakt: **Adresse 0–101 antwortet mit `Response ok`, ab Adresse 102 bis einschließlich 1000 kommt durchgehend Modbus-Exception `02 Illegal Data Address`.** In der hier verwendeten 40001-Darstellung entspricht das **40001–40102 gültig** und **40103–41001 nicht vorhanden**.
+
+---
+
+
+## Vollständiger FC03-Adressscan
+
+Am 02.10.2026 wurde mit **Modbus Poll** ein Address Scan durchgeführt:
+
+- Slave ID: **1**
+- Funktion: **03 Read Holding Registers (4x)**
+- Start Address: **0**
+- End Address: **1000**
+- Modbus TCP: Port **502**
+
+Ergebnis:
+
+| PDU-Adresse | 40001-Darstellung | Ergebnis |
+|---:|---:|---|
+| 0–101 | 40001–40102 | **Response ok** |
+| 102–1000 | 40103–41001 | **02 Illegal Data Address** |
+
+Damit ist für die getestete Wallbox/Firmware der direkt per **FC03 lesbare Holding-Register-Bereich auf 40001–40102 begrenzt**. Es wurden im Bereich 40103–41001 keine weiteren Holding Register gefunden.
+
+Wichtig: Das schließt **andere Modbus-Funktionsbereiche** wie Coils, Discrete Inputs oder Input Registers nicht aus.
 
 ---
 
@@ -113,7 +137,7 @@ Ergebnis: "C08D62C4"
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
 | **40102** | R | UINT16 | **Hypothese: aktive/verfügbare Phasenanzahl** | Wert aktuell 3. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS** | Eigene Messung / Hypothese |
-| **>40102** | bisher ohne verwertbaren Fund | – | noch offen | weitere Adressen mit ModbusPoll geprüft; bislang keine zusätzlichen verwertbaren Werte | Eigene Messung |
+| **40103–41001** | nicht vorhanden via FC03 | – | kein Holding-Register-Bereich | vollständiger Modbus-Poll-Scan: PDU 102–1000 liefert durchgehend **02 Illegal Data Address** | Eigener FC03-Adressscan mit Modbus Poll |
 
 ---
 
@@ -375,4 +399,4 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. weitere Funktionsbereiche wie **Coils / Discrete Inputs / Input Registers**
+9. weitere Funktionsbereiche wie **Coils / Discrete Inputs / Input Registers**; der Holding-Register-Bereich 40103–41001 ist per FC03 bereits negativ gescannt
