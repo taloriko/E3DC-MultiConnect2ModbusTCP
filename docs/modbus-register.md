@@ -99,7 +99,7 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
 | **4** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
 | **5** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
-| **6** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
+| **6** | **RW** | **Entriegelungsverhalten beim Übergang CP B → CP A** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
 | **8** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
 
@@ -153,6 +153,19 @@ Laden stoppen
 ```
 
 Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
+
+
+## Coil 6 – Entriegelung bei CP B → CP A
+
+Coil 6 beeinflusst das Verhalten der Steckerverriegelung beim Übergang des simulierten Fahrzeugzustands von **CP B** auf **CP A**.
+
+Verifiziertes Verhalten:
+
+- **Coil 6 = 0** → Wechsel von CP B auf CP A → **Stecker wird entriegelt**
+- **Coil 6 = 1** → Wechsel von CP B auf CP A → **Stecker bleibt verriegelt**
+
+Damit ist Coil 6 kein einfacher aktueller Verriegelungsstatus, sondern steuert das **Entriegelungsverhalten beim Übergang B → A**.
+
 
 ---
 
@@ -524,6 +537,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. Bedeutung der noch offenen **Coils 2 und 4–6**
+9. Bedeutung der noch offenen **Coils 2, 4 und 5**
 10. Coil 0 separat nachprüfen
 11. Bedeutung der noch offenen **Discrete Inputs 2–8**
