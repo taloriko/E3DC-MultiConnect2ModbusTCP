@@ -1,181 +1,50 @@
-# Direkte Modbus-TCP-Register der E3/DC Multi Connect II
+# Direkte Modbus-TCP-Register und Funktionen
 
-> Reverse-Engineering-Dokumentation für den direkten Zugriff auf die Wallbox **ohne E3/DC-Hauskraftwerk**.  
-> Testgerät: **E3/DC Multi Connect II – XEV1K22T2E3DC**, 22 kW / 32 A, Baujahr 22.10.2024.
+Diese Seite enthält ausschließlich die **technische Zuordnung der gefundenen Modbus-Adressen**, deren Bedeutung sowie die dazu durchgeführten Funktionstests.
 
-## Stand
+Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind in der [README](../README.md) beschrieben.
 
 **Messstand: 02.10.2026**
 
-Bisher verwendet:
-
-- Modbus TCP, Port **502**
-- Lesen: **FC03 – Read Holding Registers**
-- Schreiben: **FC06 – Write Single Register** und **FC16 – Write Multiple Registers**
-- Registerdarstellung hier: **40001-basiert**
-- IP-Symcon / Modbus-PDU sind 0-basiert:
-  - 40001 → Adresse 0
-  - 40081 → Adresse 80
-  - 40083 → Adresse 82
-  - 40102 → Adresse 101
-
-**40000 wird in dieser Doku nicht als eigenes Register geführt.** Der Modbus-PDU-Offset 0 entspricht hier 40001.
-
-Ein vollständiger **FC03-Adressscan mit Modbus Poll über die PDU-Adressen 0–1000** bestätigt den gültigen Holding-Register-Bereich exakt: **Adresse 0–101 antwortet mit `Response ok`, ab Adresse 102 bis einschließlich 1000 kommt durchgehend Modbus-Exception `02 Illegal Data Address`.** In der hier verwendeten 40001-Darstellung entspricht das **40001–40102 gültig** und **40103–41001 nicht vorhanden**.
-
 ---
 
+## Definitionen
 
-## Vollständiger FC03-Adressscan
+### Adressdarstellung
 
-Am 02.10.2026 wurde mit **Modbus Poll** ein Address Scan durchgeführt:
+Für Holding Register wird auf dieser Seite die klassische **40001-Darstellung** verwendet.
 
-- Slave ID: **1**
-- Funktion: **03 Read Holding Registers (4x)**
-- Start Address: **0**
-- End Address: **1000**
-- Modbus TCP: Port **502**
+Modbus-PDU und IP-Symcon arbeiten 0-basiert:
 
-Ergebnis:
+| PDU / IP-Symcon | Dokumentation |
+|---:|---:|
+| 0 | 40001 |
+| 80 | 40081 |
+| 82 | 40083 |
+| 101 | 40102 |
 
-| PDU-Adresse | 40001-Darstellung | Ergebnis |
-|---:|---:|---|
-| 0–101 | 40001–40102 | **Response ok** |
-| 102–1000 | 40103–41001 | **02 Illegal Data Address** |
+**40000 wird nicht als eigenes Register geführt.**  
+PDU-Adresse 0 entspricht hier **40001**.
 
-Damit ist für die getestete Wallbox/Firmware der direkt per **FC03 lesbare Holding-Register-Bereich auf 40001–40102 begrenzt**. Es wurden im Bereich 40103–41001 keine weiteren Holding Register gefunden.
+### Statuskennzeichnung
 
-Wichtig: Das schließt **andere Modbus-Funktionsbereiche** wie Coils, Discrete Inputs oder Input Registers nicht aus.
+- **Verifiziert** – am eigenen Gerät reproduzierbar getestet
+- **Hypothese** – plausibel, aber Gegenprobe fehlt
+- **Fremdquelle** – Bedeutung stammt aus einer externen Quelle
+- **RO** – lesbar, Schreiben wurde abgewiesen bzw. ist nicht vorgesehen
+- **RW** – Lesen und Schreiben wurden praktisch bestätigt
 
----
+### ASCII-Codierung
 
-
-## FC01 – Read Coils
-
-Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC01 Read Coils** über die PDU-Adressen **0–1000** durchgeführt.
-
-Beim Scan waren die Adressen 1–8 lesbar; ab Adresse 9 kam durchgehend **02 Illegal Data Address**.
-
-### Aktueller Stand der Coils
-
-| Coil | Zugriff | Bedeutung | Eigener Test / Verhalten | Status |
-|---:|---|---|---|---|
-| **1** | RW | **Steckerverriegelung / Verriegelungsfreigabe** | Coil 1 von 1 auf 0 gesetzt → der Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **verifiziert** |
-| **2** | RW | Unbekannt | Coil 2 auf 0 gesetzt → Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | getestet, Bedeutung offen |
-| **3** | RW | **Phasenwahl: 0 = 3-phasig, 1 = 1-phasig** | Coil 3 auf 1 gesetzt und Ladevorgang neu gestartet → nur ein Leistungsschütz zieht an und nur **L1** wird durchgeschaltet. Bei Coil 3 = 0 wurden im Vergleich beide Schütze angesteuert. | **verifiziert** |
-| 4 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
-| 5 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
-| 6 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
-| 7 | **RO** | Unbekannt | Lesen möglich; Schreibversuch per FC05 → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
-| 8 | **RO** | Unbekannt | Lesen möglich; Schreibversuch per FC05 → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
-
-### Verhalten der Phasenwahl über Coil 3
-
-Die Phasenwahl wird **nicht während eines laufenden Ladevorgangs übernommen**:
-
-- Laden läuft 3-phasig → Coil 3 auf 1 setzen → laufender Zustand bleibt unverändert.
-- Coil 3 muss vor dem nächsten Ladebeginn gesetzt werden.
-- Beim anschließenden Start mit Coil 3 = 1 zieht nur der 1-phasige Leistungspfad an; L1 liegt an, L2/L3 bleiben aus.
-
-Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
-
-Für eine Regelung sollte daher vor dem Umschalten der Ladevorgang beendet, Coil 3 gesetzt und anschließend neu gestartet werden.
-
-### Ursprünglicher FC01-Scan
-
-```text
-Adresse: 1 2 3 4 5 6 7 8
-Wert:    1 1 0 0 0 0 1 0
-```
-
-Ab Coil 9 bis 1000: **02 Illegal Data Address**.
-
-**Coil 0:** Im Modbus-Poll-Export erschien `Write error`; deshalb weiterhin separat zu behandeln.
-
----
-
-## FC02 – Read Discrete Inputs
-
-Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC02 Read Discrete Inputs** über die PDU-Adressen **0–1000** durchgeführt.
-
-Scan-Ergebnis:
-
-| Discrete Input | Wert beim Scan | Ergebnis | Stand |
-|---:|:---:|---|---|
-| 0 | 0 | `Write error` im Modbus-Poll-Export | nochmals manuell prüfen; kein belastbarer FC02-Befund |
-| 1 | **1** | Response ok | **Verriegelungsstatus/-freigabe; folgt Coil 1 im Test** |
-| 2 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
-| 3 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 4 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 5 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 6 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 7 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
-| 8 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 9–1000 | – | **02 Illegal Data Address** | keine weiteren Discrete Inputs gefunden |
-
-Der FC02-Scan ist damit im aktuellen Zustand **identisch zum zuvor gemessenen FC01-Scan**:
-
-```text
-Adresse: 1 2 3 4 5 6 7 8
-FC01:    1 1 0 0 0 0 1 0
-FC02:    1 1 0 0 0 0 1 0
-```
-
-Mindestens für **Adresse 1** ist inzwischen ein Zusammenhang bestätigt: Wird Coil 1 auf 0 gesetzt und damit die Steckerverriegelung deaktiviert, geht auch **Discrete Input 1 auf 0**. Für die übrigen Discrete Inputs ist die Bedeutung weiterhin offen.
-
-Gerade diese acht Bits sollten bei definierten Zustandswechseln weiter verglichen werden:
-
-- CP A / B / C / D / E
-- Kabel vorhanden / nicht vorhanden
-- RFID-Karte erkannt
-- Ladefreigabe
-- Leistungsschütze ein / aus
-- spätere 1P/3P-Umschaltung
-
-**Hinweis zu Adresse 0:** Wie bereits beim FC01-Scan meldet der Modbus-Poll-Export für Adresse 0 `Write error`. Deshalb wird Adresse 0 separat behandelt und nicht als gültig oder ungültig bewertet.
-
----
-
-
-## FC04 – Read Input Registers
-
-Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC04 Read Input Registers** über die PDU-Adressen **0–1000** durchgeführt.
-
-Ergebnis:
-
-| PDU-Adresse | Ergebnis |
-|---:|---|
-| 0–1000 | **02 Illegal Data Address** |
-
-Damit wurden bei dieser Wallbox/Firmware im geprüften Bereich **keine Input Register (FC04)** gefunden.
-
-Der gesamte Bereich 0–1000 wurde geprüft; es gab **keine einzige gültige FC04-Antwort**. Die bisher bekannten Mess- und Statuswerte liegen damit weiterhin im **Holding-Register-Bereich FC03** bzw. in den bereits gefundenen Bit-Bereichen FC01/FC02.
-
----
-
-## Statuskennzeichnung
-
-- **Verifiziert** – am eigenen Gerät reproduzierbar getestet.
-- **Hypothese** – plausibel, aber Gegenprobe fehlt.
-- **Fremdquelle** – Bedeutung stammt aus einer externen Quelle.
-- **RO** – Schreiben wurde mit FC06 und/oder FC16 abgewiesen.
-- **RW** – Schreiben wurde angenommen und zurückgelesen.
-
----
-
-## ASCII-Codierung der Register
-
-Mehrere Bereiche verwenden **zwei ASCII-Zeichen pro 16-Bit-Register**.
+Mehrere Registerbereiche verwenden **zwei ASCII-Zeichen pro 16-Bit-Register**.
 
 Beispiel:
 
-- Registerwert dezimal: **17202**
-- hexadezimal: **0x4332**
-- High-Byte: **0x43** → ASCII **C**
-- Low-Byte: **0x32** → ASCII **2**
+- Dezimalwert: **17202**
+- Hex: **0x4332**
+- High-Byte: **0x43** → `C`
+- Low-Byte: **0x32** → `2`
 - Ergebnis: **"C2"**
-
-Die Byte-Reihenfolge ist bei den bisher beobachteten Textfeldern damit:
 
 ```text
 Register 0x4142  ->  "AB"
@@ -184,7 +53,7 @@ Register 0x4142  ->  "AB"
          +------- High-Byte = erstes Zeichen
 ```
 
-Ein Nullbyte beendet bzw. füllt den String auf:
+Nullbytes dienen als Stringende bzw. Padding:
 
 ```text
 0x4600 -> "F\0"
@@ -192,7 +61,7 @@ Ein Nullbyte beendet bzw. füllt den String auf:
 0x0000 -> zwei NUL-Bytes / Padding
 ```
 
-Bei zusammenhängenden Textfeldern werden die Register einfach der Reihe nach zusammengesetzt.
+Zusammenhängende Textfelder werden registerweise zusammengesetzt.
 
 Beispiel Hersteller:
 
@@ -216,6 +85,105 @@ Ergebnis: "C08D62C4"
 ```
 
 ---
+
+# FC01 – Coils
+
+Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](../README.md#durchgeführte-adressscans) dokumentiert.
+
+## Übersicht
+
+| Coil | Zugriff | Bedeutung | Test / Verhalten | Status |
+|---:|---|---|---|---|
+| **1** | **RW** | **Steckerverriegelung / Verriegelungsfreigabe** | 1 → 0 gesetzt: Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **Verifiziert** |
+| **2** | **RW** | Unbekannt | Auf 0 gesetzt: Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | Bedeutung offen |
+| **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
+| **4** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
+| **5** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
+| **6** | R | Unbekannt | noch keine Funktion zugeordnet | offen |
+| **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
+| **8** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
+
+## Coil 1 – Steckerverriegelung
+
+Test:
+
+- Ausgangszustand Coil 1 = 1
+- Coil 1 auf 0 gesetzt
+- der Stecker wird anschließend **nicht mehr verriegelt**
+- gleichzeitig wechselt **Discrete Input 1 auf 0**
+
+Damit besteht ein reproduzierbarer Zusammenhang zwischen Coil 1 und der Verriegelungsfunktion.
+
+## Coil 2 – Bedeutung offen
+
+Test:
+
+- Coil 2 auf 0 gesetzt
+- Laden bleibt möglich
+- beide Leistungsschütze ziehen an
+
+Damit ist Coil 2 im getesteten Zustand **weder die allgemeine Ladefreigabe noch die 1P/3P-Auswahl**.
+
+## Coil 3 – 1P/3P-Phasenwahl
+
+Verifiziertes Verhalten:
+
+- **Coil 3 = 0** → 3-phasiger Betrieb
+- **Coil 3 = 1** → 1-phasiger Betrieb
+- bei 1-phasigem Start zieht nur der entsprechende Leistungspfad an
+- nur **L1** wird durchgeschaltet
+- L2/L3 bleiben aus
+
+### Umschalten während des Ladens
+
+Die Änderung wird während eines bereits laufenden Ladevorgangs **nicht unmittelbar übernommen**.
+
+Beobachtung:
+
+1. Ladevorgang läuft 3-phasig.
+2. Coil 3 wird auf 1 gesetzt.
+3. Der laufende Ladezustand bleibt unverändert.
+
+Für die praktische Regelung ergibt sich deshalb:
+
+```text
+Laden stoppen
+→ Coil 3 auf gewünschte Phasenart setzen
+→ Laden wieder starten
+```
+
+Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
+
+---
+
+# FC02 – Discrete Inputs
+
+Die Adressen **1–8** sind lesbar.
+
+| Discrete Input | beobachteter Wert beim ersten Scan | Bedeutung / Test | Status |
+|---:|:---:|---|---|
+| **1** | 1 | folgt im Verriegelungstest Coil 1; bei Coil 1 = 0 ebenfalls 0 | Zusammenhang zur Verriegelung **verifiziert** |
+| 2 | 1 | Bedeutung unbekannt | offen |
+| 3 | 0 | Bedeutung unbekannt | offen |
+| 4 | 0 | Bedeutung unbekannt | offen |
+| 5 | 0 | Bedeutung unbekannt | offen |
+| 6 | 0 | Bedeutung unbekannt | offen |
+| 7 | 1 | Bedeutung unbekannt | offen |
+| 8 | 0 | Bedeutung unbekannt | offen |
+
+Beim ersten Scan war das Bitmuster von FC01 und FC02 identisch:
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+FC01:    1 1 0 0 0 0 1 0
+FC02:    1 1 0 0 0 0 1 0
+```
+
+Mindestens für **Adresse 1** ist inzwischen ein funktionaler Zusammenhang nachgewiesen. Für die übrigen Bits ist noch offen, ob FC01 und FC02 tatsächlich dieselben internen Zustände spiegeln.
+
+---
+
+# FC03 – Holding Register
 
 ## Registerübersicht
 
@@ -241,11 +209,10 @@ Ergebnis: "C08D62C4"
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
 | **40102** | R | UINT16 | **Hypothese: aktive/verfügbare Phasenanzahl** | Wert aktuell 3. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS** | Eigene Messung / Hypothese |
-| **40103–41001** | nicht vorhanden via FC03 | – | kein Holding-Register-Bereich | vollständiger Modbus-Poll-Scan: PDU 102–1000 liefert durchgehend **02 Illegal Data Address** | Eigener FC03-Adressscan mit Modbus Poll |
 
 ---
 
-## Detailtests
+## Detailtests der Holding Register
 
 ### 40068 – I-Max-Drehkodierschalter
 
@@ -266,13 +233,9 @@ Ergebnis: "C08D62C4"
 
 Die Bedeutung der Schalterstellungen ist zusätzlich in der [Hager Installationsanleitung](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf) beschrieben.
 
-**Besonderheit:** Stellung 0 (Auto/EMC) und Stellung 32 A liefern beide den Registerwert 32.
-
----
+**Besonderheit:** Stellung 0 (Auto/EMC) und Stellung 32 A liefern beide den Registerwert 32. Der Registerwert allein kann diese beiden physischen Schalterstellungen daher nicht unterscheiden.
 
 ### 40069 – PP-Kabelerkennung
-
-Getestet mit dem [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/).
 
 | PP-Simulation | 40069 |
 |---|---:|
@@ -284,11 +247,7 @@ Getestet mit dem [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/pr
 
 Damit ist 40069 als erkannter Kabelnennstrom **verifiziert**.
 
----
-
 ### 40070 – interner Zustandsstring
-
-Die CP-Zustände wurden mit dem [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/) simuliert.
 
 | CP | PP | Dezimal | Hex | ASCII | Beobachtung |
 |---|---:|---:|---:|---|---|
@@ -300,8 +259,6 @@ Die CP-Zustände wurden mit dem [Gossen Metrawatt PRO-TYP II](https://www.gossen
 | E | 13 A | 17664 | 0x4500 | `E\0` | Schütze fallen ab, Kabel entriegelt |
 
 Wichtig: **CP=B ergibt weiterhin `A1`**. 40070 ist daher kein einfacher CP-Buchstabe, sondern ein interner Wallbox-Zustandscode.
-
----
 
 ### 40071 – CP-PWM Duty Cycle
 
@@ -321,8 +278,6 @@ Zusätzlich über 40081 bestätigt:
 
 Damit ist 40071 als PWM-Duty-Cycle **verifiziert**.
 
----
-
 ### 40072–40074 – mögliche Phasenströme
 
 40072 reagiert auf eine reale Last an L1:
@@ -335,9 +290,7 @@ Daher ist **40072 = Strom L1** sehr wahrscheinlich.
 
 Die Skalierung ist noch offen. **0,1 A pro Digit** ist plausibel, aber noch nicht ausreichend gegen eine Referenzmessung bestätigt.
 
-40073 und 40074 sind als **Strom L2 / Strom L3** vorgemerkt. Der Prüfadapter stellt die Steckdose jedoch nur auf L1 bereit; eine echte Gegenprobe mit L2/L3 steht noch aus.
-
----
+40073 und 40074 sind als **Strom L2 / Strom L3** vorgemerkt. Der Prüfadapter stellt die Steckdose nur auf L1 bereit; eine echte Gegenprobe mit L2/L3 steht noch aus.
 
 ### 40081 – Ladestrom-Sollwert
 
@@ -352,8 +305,6 @@ Bei CP=C / PP=32 A:
 
 Damit ist 40081 der direkte Ladestrom-Sollwert in Ampere.
 
----
-
 ### 40082 – unbekanntes RW-Register
 
 - Grundwert: 32
@@ -362,8 +313,6 @@ Damit ist 40081 der direkte Ladestrom-Sollwert in Ampere.
 - 40082=6 verändert bei 40081=32 den CP-PWM-Wert nicht
 
 Eine Funktion als Sicherungs-/Installationsgrenze wäre denkbar, ist aber **nicht belegt**.
-
----
 
 ### 40083 – extern als Sonnenmodus beschrieben
 
@@ -382,11 +331,9 @@ Dort wurde per Wireshark ein direkter Schreibzugriff auf **Modbus-Adresse 82** d
 - 1 = Sonnenmodus aus / Mischbetrieb
 - 2 = Sonnenmodus ein
 
-Da die Modbus-PDU-Adresse 82 in unserer 40001-Darstellung dem Register **40083** entspricht, passt das exakt zu unserem beschreibbaren Register.
+Da die Modbus-PDU-Adresse 82 in unserer 40001-Darstellung Register **40083** entspricht, passt das zu unserem beschreibbaren Register.
 
-Die **Bedeutung 1/2** bleibt trotzdem als Fremdquelle gekennzeichnet, solange wir die Funktion ohne EMC nicht selbst auslösen können.
-
----
+Die Bedeutung 1/2 bleibt trotzdem als **Fremdquelle** gekennzeichnet, solange die Funktion ohne EMC nicht selbst ausgelöst und bestätigt wurde.
 
 ### 40086–40089 – RFID-Karten-ID
 
@@ -409,23 +356,23 @@ Damit ist der Aufbau als 8-Byte-ASCII-ID über vier Register **verifiziert**.
 
 Noch offen ist, wie die Autorisierung bzw. Ladefreigabe über Modbus erfolgt.
 
----
-
 ### 40102 – Phasenanzahl, Hypothese
+
+Bisher:
 
 - gelesener Wert: 3
 - FC06-Schreibversuch auf 1 → **ILLEGAL_DATA_ADDRESS**
-- noch keine echte 1P/3P-Umschaltung erzeugt
+- vor dem Fund von Coil 3 noch keine echte 1P/3P-Gegenprobe durchgeführt
 
-Daher aktuell nur:
+Aktuell gilt daher weiterhin:
 
 > **Hypothese: aktive oder verfügbare Phasenanzahl**
 
-Bestätigt wäre das erst, wenn bei einer realen Phasenumschaltung der Wert zwischen 1 und 3 wechselt.
+Der nächste sinnvolle Test ist, nach einem 1-phasigen Start über **Coil 3 = 1** zu prüfen, ob 40102 von 3 auf 1 wechselt.
 
 ---
 
-## Schreibtests
+## Schreibtests Holding Register
 
 ### Sicher als RW bestätigt
 
@@ -449,13 +396,17 @@ Für 40002/40003 wurde FC06 abgewiesen; FC16 ist dort noch nicht separat dokumen
 
 ---
 
-## Testaufbau / Quellen
+# FC04 – Input Register
 
-### Eigene Messungen
+Im vollständigen Scan von Adresse 0–1000 wurde **kein gültiges FC04 Input Register** gefunden.
 
-Alle als **verifiziert** markierten Register wurden direkt an der Wallbox XEV1K22T2E3DC gemessen.
+Details zum Scan stehen in der [README](../README.md#durchgeführte-adressscans).
 
-### Wallbox / Hager-Dokumentation
+---
+
+## Externe Quellen zur Registerzuordnung
+
+### Hager-Dokumentation
 
 [Hager Installationsanleitung witty solar XEV1K22T2S / XEV1K07T2S](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf)
 
@@ -465,45 +416,34 @@ Verwendet für:
 - Auto/EMC-Stellung
 - Stromstufen 10/13/16/20/25/32 A
 
-### Prüfadapter
-
-[Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/)
-
-Verwendet für:
-
-- CP-Zustände A–E
-- PP-Kabelsimulation 13/20/32/63 A
-- reproduzierbare Fahrzeugsimulation
-
-### Externe Modbus-Erkenntnis
+### evcc
 
 [evcc Discussion #14122 – Support für E3/DC Multi Connect II](https://github.com/evcc-io/evcc/discussions/14122)
 
-Verwendet ausschließlich für:
+Verwendet ausschließlich für den Fremdfund:
 
-- Fremdfund Modbus-Adresse 82
+- Modbus-Adresse 82
 - 1 = Sonnenmodus aus / Mischbetrieb
 - 2 = Sonnenmodus ein
 
-### Früher Community-Dump
+### Photovoltaikforum
 
 [Photovoltaikforum – Modbus Register E3DC Wallbox Multi Connect](https://www.photovoltaikforum.com/thread/198110-modbus-register-e3dc-wallbox-multi-connect/)
 
-Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eigenen Messungen gehen darüber hinaus; insbesondere wurden von uns Register bis 40102 untersucht.
+Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigenen Messungen dieses Projekts gehen darüber hinaus und untersuchen den gültigen Holding-Register-Bereich bis 40102 sowie die Bitbereiche FC01/FC02.
 
 ---
 
 ## Offene Punkte
 
-1. **1P/3P-Umschaltung gefunden:** Coil 3; noch Zusammenhang zu 40102 und Discrete Inputs prüfen
-2. Bestätigung von **40102** als Phasenanzahl: nach Neustart mit Coil 3 = 1 prüfen, ob 40102 von 3 auf 1 wechselt
+1. Zusammenhang von **Coil 3** mit **40102** und den Discrete Inputs prüfen
+2. **40102** nach 1-phasigem Neustart prüfen: wechselt der Wert von 3 auf 1?
 3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
 5. L2/L3-Gegenprobe für **40073/40074**
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. Bedeutung der noch offenen **Coils 2 und 4–6** ermitteln; **Coils 7/8 sind lesbar, aber per FC05 nicht schreibbar**; Coil 0 separat nachprüfen
-10. Bedeutung der über FC02 gefundenen **Discrete Inputs 1–8** ermitteln; FC02 entspricht aktuell exakt FC01
-11. **FC04 Input Registers:** Bereich 0–1000 vollständig negativ gescannt (durchgehend 02 Illegal Data Address)
-12. Bedeutung der über FC01/FC02 gefundenen Bits weiter untersuchen
+9. Bedeutung der noch offenen **Coils 2 und 4–6**
+10. Coil 0 separat nachprüfen
+11. Bedeutung der noch offenen **Discrete Inputs 2–8**
