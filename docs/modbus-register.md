@@ -54,29 +54,45 @@ Wichtig: Das schließt **andere Modbus-Funktionsbereiche** wie Coils, Discrete I
 
 Am 02.10.2026 wurde mit **Modbus Poll** ein vollständiger Address Scan für **FC01 Read Coils** über die PDU-Adressen **0–1000** durchgeführt.
 
-Scan-Ergebnis:
+Beim Scan waren die Adressen 1–8 lesbar; ab Adresse 9 kam durchgehend **02 Illegal Data Address**.
 
-| Coil-Adresse | Wert beim Scan | Ergebnis | Stand |
-|---:|:---:|---|---|
-| 0 | 0 | `Write error` im Modbus-Poll-Export | nochmals manuell prüfen; kein belastbarer FC01-Befund |
-| 1 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
-| 2 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
-| 3 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 4 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 5 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 6 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 7 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
-| 8 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
-| 9–1000 | – | **02 Illegal Data Address** | keine weiteren Coils gefunden |
+### Aktueller Stand der Coils
 
-Damit sind aktuell **acht sicher lesbare Coils an den Adressen 1–8** nachgewiesen. Beim aufgenommenen Zustand waren **Coil 1, 2 und 7 = TRUE**, die übrigen lesbaren Coils = FALSE.
+| Coil | Zugriff | Bedeutung | Eigener Test / Verhalten | Status |
+|---:|---|---|---|---|
+| **1** | RW | **Steckerverriegelung / Verriegelungsfreigabe** | Coil 1 von 1 auf 0 gesetzt → der Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **verifiziert** |
+| **2** | RW | Unbekannt | Coil 2 auf 0 gesetzt → Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | getestet, Bedeutung offen |
+| **3** | RW | **Phasenwahl: 0 = 3-phasig, 1 = 1-phasig** | Coil 3 auf 1 gesetzt und Ladevorgang neu gestartet → nur ein Leistungsschütz zieht an und nur **L1** wird durchgeschaltet. Bei Coil 3 = 0 wurden im Vergleich beide Schütze angesteuert. | **verifiziert** |
+| 4 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
+| 5 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
+| 6 | RW getestet | Unbekannt | noch keine Funktion zugeordnet | offen |
+| 7 | RW getestet | Unbekannt | beim ersten Scan = 1 | offen |
+| 8 | RW getestet | Unbekannt | beim ersten Scan = 0 | offen |
 
-Die Bedeutung der einzelnen Coils ist noch vollständig offen. Gerade für **Ladefreigabe, Verriegelung, RFID-Autorisierung und 1P/3P-Umschaltung** sind diese Bits sehr interessant und sollen als Nächstes gegen definierte Zustände (CP A/B/C, RFID, Ladung aktiv, Phasenumschaltung) verglichen werden.
+### Verhalten der Phasenwahl über Coil 3
 
-**Hinweis zu Coil 0:** Der Export meldet dort `Write error`, obwohl ein FC01-Scan gewählt wurde. Deshalb wird Adresse 0 nicht als ungültig interpretiert, sondern separat manuell nachgetestet.
+Die Phasenwahl wird **nicht während eines laufenden Ladevorgangs übernommen**:
+
+- Laden läuft 3-phasig → Coil 3 auf 1 setzen → laufender Zustand bleibt unverändert.
+- Coil 3 muss vor dem nächsten Ladebeginn gesetzt werden.
+- Beim anschließenden Start mit Coil 3 = 1 zieht nur der 1-phasige Leistungspfad an; L1 liegt an, L2/L3 bleiben aus.
+
+Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
+
+Für eine Regelung sollte daher vor dem Umschalten der Ladevorgang beendet, Coil 3 gesetzt und anschließend neu gestartet werden.
+
+### Ursprünglicher FC01-Scan
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+Wert:    1 1 0 0 0 0 1 0
+```
+
+Ab Coil 9 bis 1000: **02 Illegal Data Address**.
+
+**Coil 0:** Im Modbus-Poll-Export erschien `Write error`; deshalb weiterhin separat zu behandeln.
 
 ---
-
 
 ## FC02 – Read Discrete Inputs
 
@@ -87,7 +103,7 @@ Scan-Ergebnis:
 | Discrete Input | Wert beim Scan | Ergebnis | Stand |
 |---:|:---:|---|---|
 | 0 | 0 | `Write error` im Modbus-Poll-Export | nochmals manuell prüfen; kein belastbarer FC02-Befund |
-| 1 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
+| 1 | **1** | Response ok | **Verriegelungsstatus/-freigabe; folgt Coil 1 im Test** |
 | 2 | **1** | Response ok | vorhanden, Bedeutung unbekannt |
 | 3 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
 | 4 | 0 | Response ok | vorhanden, Bedeutung unbekannt |
@@ -105,7 +121,7 @@ FC01:    1 1 0 0 0 0 1 0
 FC02:    1 1 0 0 0 0 1 0
 ```
 
-Das kann bedeuten, dass die Firmware dieselben internen Statusbits sowohl im Coil- als auch im Discrete-Input-Bereich abbildet. Das ist derzeit jedoch nur eine Beobachtung; die Bedeutung der Bits ist noch unbekannt.
+Mindestens für **Adresse 1** ist inzwischen ein Zusammenhang bestätigt: Wird Coil 1 auf 0 gesetzt und damit die Steckerverriegelung deaktiviert, geht auch **Discrete Input 1 auf 0**. Für die übrigen Discrete Inputs ist die Bedeutung weiterhin offen.
 
 Gerade diese acht Bits sollten bei definierten Zustandswechseln weiter verglichen werden:
 
@@ -479,15 +495,15 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Unsere eig
 
 ## Offene Punkte
 
-1. direkter Modbus-Befehl für **1P/3P-Umschaltung**
-2. Bestätigung von **40102** als Phasenanzahl
+1. **1P/3P-Umschaltung gefunden:** Coil 3; noch Zusammenhang zu 40102 und Discrete Inputs prüfen
+2. Bestätigung von **40102** als Phasenanzahl: nach Neustart mit Coil 3 = 1 prüfen, ob 40102 von 3 auf 1 wechselt
 3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
 5. L2/L3-Gegenprobe für **40073/40074**
 6. exakte Skalierung von **40072–40074**
 7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 8. Leistungs- und Energiezählerregister
-9. Bedeutung der über FC01 gefundenen **Coils 1–8** ermitteln; Coil 0 separat nachprüfen
+9. Bedeutung der noch offenen **Coils 2 und 4–8** ermitteln; Coil 0 separat nachprüfen
 10. Bedeutung der über FC02 gefundenen **Discrete Inputs 1–8** ermitteln; FC02 entspricht aktuell exakt FC01
 11. **FC04 Input Registers:** Bereich 0–1000 vollständig negativ gescannt (durchgehend 02 Illegal Data Address)
 12. Bedeutung der über FC01/FC02 gefundenen Bits weiter untersuchen
