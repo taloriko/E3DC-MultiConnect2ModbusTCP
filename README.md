@@ -94,6 +94,15 @@ Beide Taster wurden betätigt. Dabei wurde **keine beobachtbare Änderung** am V
 Die Funktion der beiden BP1-Taster ist damit weiterhin **unbekannt**.
 
 
+### Interne Anschlüsse J13 / J16
+
+Auf der Platine befinden sich zwei unbestückte Anschlüsse:
+
+- **J13 – 6-polig:** laut mitgelieferter Anleitung **Sensoranschluss 6 mA**
+- **J16 – 4-polig:** Funktion bisher unbekannt
+
+Die Hager-Dokumentation nennt für diese Geräteplattform ebenfalls einen **Sensoranschluss 6 mA**.
+
 ### Software
 
 Für die Untersuchung wurden verwendet:
