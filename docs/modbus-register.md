@@ -155,6 +155,17 @@ Laden stoppen
 Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
 
 
+## Coil 5 – Frontsensor
+
+Eigener Test:
+
+- Frontsensor ca. **1–4 Sekunden** betätigen → Coil 5 wird **TRUE**
+- erneutes Betätigen → Coil 5 bleibt **TRUE**
+- Coil 5 per Modbus auf **FALSE** setzen
+- Frontsensor erneut betätigen → Coil 5 wird wieder **TRUE**
+
+Damit ist das Verhalten des Frontsensors auf Coil 5 verifiziert. Die Rücksetzlogik ist noch offen. Laut Hager-Anleitung dient der Kontakt-Sensor bei Solaroptimierung zum Beschleunigen des Ladevorgangs.
+
 ## Coil 6 – Stecker nach Ladeende verriegelt lassen
 
 Coil 6 legt fest, ob der Stecker nach Ende der Verbindung bzw. beim Übergang von **CP B** auf **CP A** verriegelt bleibt.
