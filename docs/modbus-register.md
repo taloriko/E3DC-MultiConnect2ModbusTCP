@@ -171,20 +171,22 @@ Damit beschreibt Coil 6 am verständlichsten die Option **„Stecker nach Ladeen
 
 # FC02 – Discrete Inputs
 
-Die Adressen **1–8** sind lesbar.
+Die Adressen **1–8** sind lesbar. In den durchgeführten Tests spiegeln sie **immer exakt die entsprechenden FC01-Coils**.
 
-| Discrete Input | beobachteter Wert beim ersten Scan | Bedeutung / Test | Status |
-|---:|:---:|---|---|
-| **1** | 1 | folgt im Verriegelungstest Coil 1; bei Coil 1 = 0 ebenfalls 0 | Zusammenhang zur Verriegelung **verifiziert** |
-| 2 | 1 | Bedeutung unbekannt | offen |
-| 3 | 0 | Bedeutung unbekannt | offen |
-| 4 | 0 | Bedeutung unbekannt | offen |
-| 5 | 0 | Bedeutung unbekannt | offen |
-| 6 | 0 | Bedeutung unbekannt | offen |
-| 7 | 1 | Bedeutung unbekannt | offen |
-| 8 | 0 | Bedeutung unbekannt | offen |
+Verifizierte Zuordnung:
 
-Beim ersten Scan war das Bitmuster von FC01 und FC02 identisch:
+| FC02 Discrete Input | entspricht |
+|---:|---|
+| 1 | Coil 1 |
+| 2 | Coil 2 |
+| 3 | Coil 3 |
+| 4 | Coil 4 |
+| 5 | Coil 5 |
+| 6 | Coil 6 |
+| 7 | Coil 7 |
+| 8 | Coil 8 |
+
+Beim ersten Scan war das Bitmuster bereits identisch:
 
 ```text
 Adresse: 1 2 3 4 5 6 7 8
@@ -192,7 +194,12 @@ FC01:    1 1 0 0 0 0 1 0
 FC02:    1 1 0 0 0 0 1 0
 ```
 
-Mindestens für **Adresse 1** ist inzwischen ein funktionaler Zusammenhang nachgewiesen. Für die übrigen Bits ist noch offen, ob FC01 und FC02 tatsächlich dieselben internen Zustände spiegeln.
+Danach wurden die Bits während verschiedener Coil-Änderungen weiter beobachtet. **Jeder Discrete Input folgte dabei seinem gleich adressierten Coil.**
+
+Damit ist FC02 im getesteten Gerät ein **Read-Only-Spiegel des FC01-Bereichs 1–8** und liefert für die praktische Steuerung keine zusätzliche Information.
+
+Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelesen und geschaltet wird über FC01.
+
 
 ---
 
@@ -539,4 +546,4 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 8. Leistungs- und Energiezählerregister
 9. Bedeutung der noch offenen **Coils 2, 4 und 5**
 10. Coil 0 separat nachprüfen
-11. Bedeutung der noch offenen **Discrete Inputs 2–8**
+11. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
