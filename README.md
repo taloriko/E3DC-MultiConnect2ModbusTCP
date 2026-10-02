@@ -1,2 +1,226 @@
-# E3DC-MultiConnect2ModbusTCP
-Der Versuch die nicht Offiziel verfügbaren Modbus Register herraus zufinden um die Wallbox ohne Heimkraftwerk zu Steuern
+# E3DC Multi Connect II – direkte Modbus-TCP-Anbindung
+
+Ziel dieses Projekts ist es, die nicht offiziell dokumentierte direkte Modbus-TCP-Schnittstelle der **E3/DC Multi Connect II** zu untersuchen und die Wallbox **ohne E3/DC-Hauskraftwerk / EMC** ansteuern zu können.
+
+Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Vermutungen und Fremdfunde werden ausdrücklich als solche gekennzeichnet.
+
+## Dokumentation
+
+Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
+
+- [Direkte Modbus-TCP-Register und Funktionen](docs/modbus-register.md)
+
+Diese README beschreibt den **Testaufbau, die verwendete Hardware, die Modbus-Grundlagen des Tests und die durchgeführten Adressscans**.
+
+---
+
+## Getestete Wallbox
+
+**E3/DC Multi Connect II**
+
+- Referenz / Typ: **XEV1K22T2E3DC**
+- Mode 3
+- Anschluss: **3P + N + PE**
+- Nennstrom: **32 A**
+- Spannung: **230 V 1~ / 400 V 3~**
+- Leistungsklasse: **22 kW**
+- Herstellungsdatum: **22.10.2024**
+- Hersteller: **HagerEnergy GmbH**
+- über Modbus ausgelesener Versionsstring: **7.0.5.0/1.0.2.0**
+
+Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw. diesen Firmwarestand.
+
+---
+
+## Verwendete Hardware und Software
+
+### Prüfadapter
+
+Verwendet wird ein **Gossen Metrawatt PRO-TYP II**.
+
+Damit lassen sich die für die Tests benötigten Fahrzeugzustände reproduzierbar simulieren:
+
+**CP – Control Pilot**
+
+- A = kein Fahrzeug
+- B = Fahrzeug angeschlossen, nicht ladebereit
+- C = Fahrzeug angeschlossen und ladebereit
+- D = Fahrzeug angeschlossen und ladebereit, Belüftung erforderlich
+- E = Fehlerzustand
+
+**PP – Proximity Pilot / Kabelstrom**
+
+Am Prüfadapter wurden folgende Kabelströme simuliert:
+
+- kein Kabel
+- 13 A
+- 20 A
+- 32 A
+- 63 A
+
+Produktseite: [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/)
+
+### Lasttest
+
+Für einen reproduzierbaren einphasigen Lasttest wurde ein Wasserkocher mit ungefähr **2200 W** an der Prüfsteckdose des PRO-TYP II verwendet.
+
+Die Prüfsteckdose liegt auf **L1**. Dadurch konnte bisher nur der vermutete L1-Stromwert gezielt unter Last geprüft werden.
+
+### RFID
+
+Für den RFID-Test wurde eine Karte mit der aufgedruckten ID
+
+```text
+C08D62C4
+```
+
+verwendet.
+
+Diese ID konnte vollständig in den Modbus-Registern wiedergefunden werden.
+
+### Software
+
+Für die Untersuchung wurden verwendet:
+
+- **Modbus Poll** für Adressscans sowie gezielte Lese-/Schreibtests
+- **IP-Symcon** für die spätere praktische Einbindung und Schaltversuche
+- Modbus TCP direkt zur Wallbox
+
+---
+
+## Modbus-Verbindung
+
+Getestete Kommunikationsparameter:
+
+- Modbus TCP
+- TCP-Port: **502**
+- Unit / Slave ID: **1**
+
+### Adressierung
+
+Modbus-PDU und IP-Symcon arbeiten bei den Holding Registern 0-basiert.
+
+In der Registerdokumentation wird zur besseren Lesbarkeit die klassische **40001-Darstellung** verwendet.
+
+| PDU / IP-Symcon | Dokumentation |
+|---:|---:|
+| 0 | 40001 |
+| 80 | 40081 |
+| 82 | 40083 |
+| 101 | 40102 |
+
+**40000 wird nicht als eigenes Register geführt.**  
+PDU-Adresse 0 entspricht in dieser Dokumentation **40001**.
+
+---
+
+## Durchgeführte Adressscans
+
+Am **02.10.2026** wurden mit Modbus Poll die vier klassischen Modbus-Lesebereiche jeweils von Adresse **0 bis 1000** gescannt.
+
+### Zusammenfassung
+
+| Funktion | Bereich mit gültiger Rückmeldung | Bereich ohne gültige Datenadresse |
+|---|---|---|
+| **FC01 – Read Coils** | 1–8 | 9–1000 → **02 Illegal Data Address** |
+| **FC02 – Read Discrete Inputs** | 1–8 | 9–1000 → **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | 0–101 | 102–1000 → **02 Illegal Data Address** |
+| **FC04 – Read Input Registers** | keiner | 0–1000 → **02 Illegal Data Address** |
+
+Bei **Adresse 0** von FC01 und FC02 zeigte der Modbus-Poll-Export `Write error`. Diese Adresse wird deshalb separat behandelt und weder als gültig noch als eindeutig ungültig bewertet.
+
+### FC01 – Read Coils
+
+Beim ersten Scan wurden folgende Werte gelesen:
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+Wert:    1 1 0 0 0 0 1 0
+```
+
+Die Adressen **1–8** sind lesbar. Ab Adresse **9** bis **1000** wird durchgehend **02 Illegal Data Address** zurückgegeben.
+
+Die Funktionszuordnung der einzelnen Coils wird auf der [Modbus-Seite](docs/modbus-register.md) dokumentiert.
+
+### FC02 – Read Discrete Inputs
+
+Der erste Scan ergab im gleichen Zustand exakt dasselbe Bitmuster:
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+FC01:    1 1 0 0 0 0 1 0
+FC02:    1 1 0 0 0 0 1 0
+```
+
+Mindestens für Adresse 1 wurde inzwischen auch ein funktionaler Zusammenhang zwischen Coil und Discrete Input beobachtet. Details stehen in der Registerdokumentation.
+
+### FC03 – Read Holding Registers
+
+Der vollständige Scan ergab:
+
+| PDU-Adresse | 40001-Darstellung | Ergebnis |
+|---:|---:|---|
+| 0–101 | 40001–40102 | **Response ok** |
+| 102–1000 | 40103–41001 | **02 Illegal Data Address** |
+
+Damit ist der direkt per FC03 lesbare Holding-Register-Bereich des getesteten Geräts auf **40001 bis 40102** begrenzt.
+
+### FC04 – Read Input Registers
+
+Im gesamten Bereich **0–1000** wurde kein gültiges Input Register gefunden.
+
+Alle Adressen liefern:
+
+```text
+02 Illegal Data Address
+```
+
+---
+
+## Verwendete Modbus-Funktionen
+
+Im bisherigen Test wurden verwendet:
+
+- **FC01** – Read Coils
+- **FC02** – Read Discrete Inputs
+- **FC03** – Read Holding Registers
+- **FC04** – Read Input Registers
+- **FC05** – Write Single Coil
+- **FC06** – Write Single Register
+- **FC16** – Write Multiple Registers
+
+Welche Adressen tatsächlich schreibbar sind und welche Funktion dahinter steckt, wird ausschließlich in [docs/modbus-register.md](docs/modbus-register.md) geführt.
+
+---
+
+## Kennzeichnung der Ergebnisse
+
+In der Detaildokumentation werden die Ergebnisse so gekennzeichnet:
+
+- **Verifiziert** – am eigenen Gerät reproduzierbar getestet
+- **Hypothese** – technisch plausibel, aber noch nicht vollständig gegengeprüft
+- **Fremdquelle** – Bedeutung stammt aus einer externen Quelle und wurde noch nicht vollständig selbst bestätigt
+- **RO** – lesbar, Schreibzugriff wurde abgewiesen bzw. nicht vorgesehen
+- **RW** – Lesen und Schreiben wurden praktisch bestätigt
+
+---
+
+## Quellen zum Testaufbau
+
+### Hager / E3/DC
+
+[Hager Installationsanleitung witty solar XEV1K22T2S / XEV1K07T2S](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf)
+
+Verwendet unter anderem für die Einordnung des I-Max-Drehkodierschalters und der Stromstufen.
+
+### Prüfadapter
+
+[Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/)
+
+Verwendet für CP-Zustände, PP-Kabelsimulation und reproduzierbare Fahrzeugsimulation.
+
+---
+
+## Hinweis
+
+Es handelt sich um **Reverse Engineering einer nicht offiziell dokumentierten direkten Modbus-Schnittstelle**. Die beschriebenen Funktionen beziehen sich auf das oben genannte Testgerät und den getesteten Firmwarestand. Andere Firmwarestände oder Hardwarevarianten können sich anders verhalten.
