@@ -228,7 +228,7 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40084–40085** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
-| **40102** | R | UINT16 | **Hypothese: aktive/verfügbare Phasenanzahl** | Wert aktuell 3. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS** | Eigene Messung / Hypothese |
+| **40102** | **RO** | UINT16 | Unbekannt | Wert bleibt im Test konstant bei 3. Auch bei 1-phasigem Laden über Coil 3 = 1 keine Änderung. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS**. | Eigene Messung |
 
 ---
 
@@ -376,19 +376,19 @@ Damit ist der Aufbau als 8-Byte-ASCII-ID über vier Register **verifiziert**.
 
 Noch offen ist, wie die Autorisierung bzw. Ladefreigabe über Modbus erfolgt.
 
-### 40102 – Phasenanzahl, Hypothese
+### 40102 – unbekanntes RO-Register
 
-Bisher:
+Bisherige Tests:
 
-- gelesener Wert: 3
+- gelesener Wert: **3**
 - FC06-Schreibversuch auf 1 → **ILLEGAL_DATA_ADDRESS**
-- vor dem Fund von Coil 3 noch keine echte 1P/3P-Gegenprobe durchgeführt
+- 3-phasiges Laden → Wert bleibt **3**
+- 1-phasiges Laden über **Coil 3 = 1** → Wert bleibt ebenfalls **3**
 
-Aktuell gilt daher weiterhin:
+Damit ist die frühere Hypothese **„aktive/verfügbare Phasenanzahl“ widerlegt**.
 
-> **Hypothese: aktive oder verfügbare Phasenanzahl**
+40102 ist weiterhin ein lesbares, aber nicht beschreibbares Register mit aktuell unbekannter Bedeutung.
 
-Der nächste sinnvolle Test ist, nach einem 1-phasigen Start über **Coil 3 = 1** zu prüfen, ob 40102 von 3 auf 1 wechselt.
 
 ---
 
@@ -537,7 +537,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 ## Offene Punkte
 
 1. Phasenumschalt-Sequenz am realen Fahrzeug verifizieren: **40081=0 A → Schütze aus → Coil 3 ändern → 40081 wieder >0 A**
-2. **40102** nach 1-phasigem Neustart prüfen: wechselt der Wert von 3 auf 1?
 3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
 5. L2/L3-Gegenprobe für **40073/40074**
