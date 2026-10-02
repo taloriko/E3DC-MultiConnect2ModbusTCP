@@ -144,7 +144,7 @@ Die Funktionszuordnung der einzelnen Coils wird auf der [Modbus-Seite](docs/modb
 
 ### FC02 – Read Discrete Inputs
 
-Der erste Scan ergab im gleichen Zustand exakt dasselbe Bitmuster:
+Der erste Scan ergab im gleichen Zustand exakt dasselbe Bitmuster wie FC01:
 
 ```text
 Adresse: 1 2 3 4 5 6 7 8
@@ -152,7 +152,18 @@ FC01:    1 1 0 0 0 0 1 0
 FC02:    1 1 0 0 0 0 1 0
 ```
 
-Mindestens für Adresse 1 wurde inzwischen auch ein funktionaler Zusammenhang zwischen Coil und Discrete Input beobachtet. Details stehen in der Registerdokumentation.
+Anschließend wurden die Zustände **1–8 bei mehreren Änderungen der Coils geprüft**. Dabei spiegelten die Discrete Inputs **immer exakt die entsprechenden Coils 1–8**.
+
+Damit ist für das getestete Gerät verifiziert:
+
+```text
+Discrete Input 1 = Coil 1
+Discrete Input 2 = Coil 2
+...
+Discrete Input 8 = Coil 8
+```
+
+FC02 liefert damit im geprüften Bereich **keine zusätzlichen Zustandsinformationen gegenüber FC01**. Für die praktische IP-Symcon-Anbindung wird FC02 deshalb nicht benötigt; die Ergebnisse bleiben hier als dokumentierte Eigenschaft der Wallbox erhalten.
 
 ### FC03 – Read Holding Registers
 
