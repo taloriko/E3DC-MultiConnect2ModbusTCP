@@ -4,18 +4,91 @@ Diese Seite dokumentiert die direkt an der **E3/DC Multi Connect II Wallbox** ge
 
 Sie enthält ausschließlich die **technische Zuordnung der gefundenen Modbus-Adressen**, deren Bedeutung sowie die dazu durchgeführten Funktionstests.
 
-Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind in der [README](../README.md) beschrieben.
+Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.md) beschrieben.
 
 **Messstand: 03.10.2026**
 
-## Zusammenfassung der durchgeführten Adressscans
+## Durchgeführte Adressscans
 
-| Funktion | gescannter Bereich | Ergebnis |
+Am **02.10.2026** wurden mit Modbus Poll die vier klassischen Modbus-Lesebereiche jeweils von Adresse **0 bis 1000** gescannt.
+
+### Zusammenfassung
+
+| Funktion | Bereich mit gültiger Rückmeldung | Bereich ohne gültige Datenadresse |
 |---|---|---|
-| **FC01 – Read Coils** | Adresse **0–9999** | **0–8 gültig**, 9–9999 → **02 Illegal Data Address** |
-| **FC02 – Read Discrete Inputs** | Adresse **0–1000** | **1–8 gültig**; 1–8 spiegeln die entsprechenden FC01-Coils, 9–1000 → **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | PDU **0–50000** | erreichbar sind **Block 1: 0–101 → 40001–40102**, **Block 2: 9999–10031 → 50000–50032**, **Block 3: 14999–15125 → 55000–55126**; alle übrigen Adressen → **02 Illegal Data Address** |
-| **FC04 – Read Input Registers** | Adresse **0–1000** | kein gültiges Register; vollständig **02 Illegal Data Address** |
+| **FC01 – Read Coils** | **0–8** | 9–9999 → **02 Illegal Data Address** |
+| **FC02 – Read Discrete Inputs** | 1–8 | 9–1000 → **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | 0–101, **9999–10031**, **14999–15125** | 102–9998, 10032–14998 und **15126–50000** → **02 Illegal Data Address** |
+| **FC04 – Read Input Registers** | keiner | 0–1000 → **02 Illegal Data Address** |
+
+### FC01 – Read Coils
+
+Beim ersten Scan wurden folgende Werte gelesen:
+
+```text
+Adresse: 0 1 2 3 4 5 6 7 8
+Wert:    1 1 1 0 0 0 0 1 0
+```
+
+Die Adressen **0–8** sind lesbar. Ab Adresse **9** wurde im erweiterten Scan bis **9999** durchgehend **02 Illegal Data Address** zurückgegeben.
+
+Die Funktionszuordnung der einzelnen Coils wird weiter unten auf dieser Seite dokumentiert.
+
+### FC02 – Read Discrete Inputs
+
+Der erste Scan ergab im gleichen Zustand exakt dasselbe Bitmuster wie FC01:
+
+```text
+Adresse: 1 2 3 4 5 6 7 8
+FC01:    1 1 0 0 0 0 1 0
+FC02:    1 1 0 0 0 0 1 0
+```
+
+Anschließend wurden die Zustände **1–8 bei mehreren Änderungen der Coils geprüft**. Dabei spiegelten die Discrete Inputs **immer exakt die entsprechenden Coils 1–8**.
+
+Damit ist für das getestete Gerät verifiziert:
+
+```text
+Discrete Input 1 = Coil 1
+Discrete Input 2 = Coil 2
+...
+Discrete Input 8 = Coil 8
+```
+
+FC02 liefert damit im geprüften Bereich **keine zusätzlichen Zustandsinformationen gegenüber FC01**. Für die praktische IP-Symcon-Anbindung wird FC02 deshalb nicht benötigt; die Ergebnisse bleiben hier als dokumentierte Eigenschaft der Wallbox erhalten.
+
+### FC03 – Read Holding Registers
+
+Die erweiterten Scans ergaben drei getrennte gültige Bereiche:
+
+| PDU-Adresse | 40001-Darstellung | Ergebnis |
+|---:|---:|---|
+| 0–101 | 40001–40102 | **Response ok** |
+| 102–9998 | 40103–49999 | **02 Illegal Data Address** |
+| **9999–10031** | **50000–50032** | **Response ok** |
+| 10032–14998 | 50033–54999 | **02 Illegal Data Address** |
+| **14999–15125** | **55000–55126** | **Response ok** |
+| 15126–50000 | 55127–90001 | **02 Illegal Data Address** |
+
+Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
+
+- PDU **9998** → **02 Illegal Data Address**
+- PDU **9999** → **Response ok**
+
+Damit existieren zusätzlich zum Basisbereich zwei weitere FC03-Blöcke bei **50000–50032** und **55000–55126**. Im Block 55000–55126 war beim Scan nur Register **55001 = 8**, alle übrigen Werte waren 0.
+
+Der anschließende FC03-Scan von **PDU 20000 bis 30000** (Holding Register **60001–70001**) ergab vollständig **02 Illegal Data Address**. Auch die weiteren Scans von **PDU 30000 bis 40000** (Holding Register **70001–80001**) und **PDU 40000 bis 50000** (Holding Register **80001–90001**) waren vollständig ungültig. In diesem zusammenhängenden Bereich wurde kein weiterer Registerblock gefunden.
+
+### FC04 – Read Input Registers
+
+Im gesamten Bereich **0–1000** wurde kein gültiges Input Register gefunden.
+
+Alle Adressen liefern:
+
+```text
+02 Illegal Data Address
+```
+
 
 ---
 
