@@ -164,7 +164,7 @@ Am **02.10.2026** wurden mit Modbus Poll die vier klassischen Modbus-Lesebereich
 |---|---|---|
 | **FC01 – Read Coils** | 1–8 | 9–1000 → **02 Illegal Data Address** |
 | **FC02 – Read Discrete Inputs** | 1–8 | 9–1000 → **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | 0–101 | 102–1000 → **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | 0–101 sowie **9999–10031** | 102–9998 und ab 10032 → **02 Illegal Data Address** |
 | **FC04 – Read Input Registers** | keiner | 0–1000 → **02 Illegal Data Address** |
 
 Bei **Adresse 0** von FC01 und FC02 zeigte der Modbus-Poll-Export `Write error`. Diese Adresse wird deshalb separat behandelt und weder als gültig noch als eindeutig ungültig bewertet.
@@ -207,14 +207,21 @@ FC02 liefert damit im geprüften Bereich **keine zusätzlichen Zustandsinformati
 
 ### FC03 – Read Holding Registers
 
-Der vollständige Scan ergab:
+Die erweiterten Scans ergaben zwei getrennte gültige Bereiche:
 
 | PDU-Adresse | 40001-Darstellung | Ergebnis |
 |---:|---:|---|
 | 0–101 | 40001–40102 | **Response ok** |
-| 102–1000 | 40103–41001 | **02 Illegal Data Address** |
+| 102–9998 | 40103–49999 | **02 Illegal Data Address** |
+| **9999–10031** | **50000–50032** | **Response ok** |
+| ab 10032 | ab 50033 | **02 Illegal Data Address** |
 
-Damit ist der direkt per FC03 lesbare Holding-Register-Bereich des getesteten Geräts auf **40001 bis 40102** begrenzt.
+Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
+
+- PDU **9998** → **02 Illegal Data Address**
+- PDU **9999** → **Response ok**
+
+Damit existiert zusätzlich zum bisherigen Registerbereich ein zweiter FC03-Block bei **50000–50032**.
 
 ### FC04 – Read Input Registers
 
