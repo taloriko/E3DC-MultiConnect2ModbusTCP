@@ -14,15 +14,7 @@ Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind
 |---|---|---|
 | **FC01 – Read Coils** | Adresse **0–9999** | **0–8 gültig**, 9–9999 → **02 Illegal Data Address** |
 | **FC02 – Read Discrete Inputs** | Adresse **0–1000** | **1–8 gültig**; 1–8 spiegeln die entsprechenden FC01-Coils, 9–1000 → **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | PDU **0–101** | **Response ok** → Register **40001–40102** |
-| **FC03 – Read Holding Registers** | PDU **102–9998** | **02 Illegal Data Address** → Register **40103–49999** |
-| **FC03 – Read Holding Registers** | PDU **9999–10031** | **Response ok** → Register **50000–50032** |
-| **FC03 – Read Holding Registers** | PDU **10032–14998** | **02 Illegal Data Address** → Register **50033–54999** |
-| **FC03 – Read Holding Registers** | PDU **14999–15125** | **Response ok** → Register **55000–55126** |
-| **FC03 – Read Holding Registers** | PDU **15126–20000** | **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | PDU **20000–30000** | vollständig **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | PDU **30000–40000** | vollständig **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | PDU **40000–50000** | vollständig **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | PDU **0–50000** | gültig: **0–101**, **9999–10031**, **14999–15125** → Register **40001–40102**, **50000–50032**, **55000–55126**; alle übrigen Adressen → **02 Illegal Data Address** |
 | **FC04 – Read Input Registers** | Adresse **0–1000** | kein gültiges Register; vollständig **02 Illegal Data Address** |
 
 ---
