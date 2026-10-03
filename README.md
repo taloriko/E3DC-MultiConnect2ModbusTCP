@@ -9,6 +9,7 @@ Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Ve
 Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
 
 - [Direkte Modbus-TCP-Register und Funktionen](docs/modbus-register.md)
+- [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
 
 Diese README beschreibt den **Testaufbau, die verwendete Hardware, die Modbus-Grundlagen des Tests und die durchgeführten Adressscans**.
 
@@ -62,9 +63,13 @@ Produktseite: [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produ
 
 ### Lasttest
 
-Für einen reproduzierbaren einphasigen Lasttest wurde ein Wasserkocher mit ungefähr **2200 W** an der Prüfsteckdose des PRO-TYP II verwendet.
+Für einen reproduzierbaren Lasttest wurde ein Wasserkocher mit ungefähr **2200 W** an der Prüfsteckdose des PRO-TYP II verwendet.
 
-Die Prüfsteckdose liegt auf **L1**. Dadurch konnte bisher nur der vermutete L1-Stromwert gezielt unter Last geprüft werden.
+Zur Gegenmessung der von der Wallbox erfassten Phasenströme wird eine **BEHA AMPROBE AMP-310-EUR** Strommesszange verwendet.
+
+Bei L1 wurden **8,24 A** mit der Strommesszange gemessen; gleichzeitig zeigte das zugeordnete Modbus-Register den Wert **82**. L2 und L3 wurden ebenfalls mit der Strommesszange gegengeprüft.
+
+Die Detailzuordnung und Skalierung der Phasenstromregister wird in [docs/modbus-register.md](docs/modbus-register.md) geführt.
 
 ### RFID
 
@@ -94,14 +99,11 @@ Beide Taster wurden betätigt. Dabei wurde **keine beobachtbare Änderung** am V
 Die Funktion der beiden BP1-Taster ist damit weiterhin **unbekannt**.
 
 
-### Interne Anschlüsse J13 / J16
+### Interne Steckverbinder
 
-Auf der Platine befinden sich zwei unbestückte Anschlüsse:
+Die geprüfte interne Verkabelung, bekannte Pinbelegungen und noch offene Steckverbinder sind auf einer eigenen Seite dokumentiert:
 
-- **J13 – 6-polig:** laut mitgelieferter Anleitung **Sensoranschluss 6 mA**
-- **J16 – 4-polig:** Funktion bisher unbekannt
-
-Die Hager-Dokumentation nennt für diese Geräteplattform ebenfalls einen **Sensoranschluss 6 mA**.
+- [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
 
 ### Software
 
