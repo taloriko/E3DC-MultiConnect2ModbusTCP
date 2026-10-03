@@ -648,6 +648,20 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
+### Lesbare Netzwerkfelder in der IP-Symcon-Vorlage
+
+Für die Gegenprüfung enthält die Vorlage zusätzlich **virtuelle, nur lesbare String-Variablen**, welche die Rohregister direkt in MAC-/IPv4-Schreibweise umwandeln:
+
+- `mac_address_candidate` aus 50010–50012
+- `ip_address_candidate` aus 50013–50014
+- `gateway_candidate` aus 50015–50016
+- `subnet_mask_candidate` aus 50017–50018
+- `dns_or_network_parameter_candidate` aus 50019–50020
+- `fallback_ip_address_candidate` aus 50023–50024
+- `secondary_subnet_mask_candidate` aus 50027–50028
+
+Diese Variablen sind ausdrücklich als **vermutet / candidate** gekennzeichnet. Die Rohregister bleiben zusätzlich erhalten, damit beim Ändern der Netzwerkeinstellungen exakt nachvollzogen werden kann, welche Register tatsächlich mitlaufen.
+
 ### Vollständiger Rohbereich
 
 - 50000–50009 = 0
@@ -677,7 +691,7 @@ Verifizierte Bereichsgrenzen:
 
 Damit ist der dritte gültige Holding-Registerbereich exakt **55000–55126**.
 
-Ein anschließender Scan von **PDU 20000–30000** ergab ausschließlich **02 Illegal Data Address**. Damit ist für den Bereich **55127–70001** kein weiterer gültiger FC03-Block vorhanden.
+Ein anschließender Scan von **PDU 20000–30000** ergab ausschließlich **02 Illegal Data Address**. Auch der weitere Scan von **PDU 30000–40000** liefert an allen 10.001 Adressen ausschließlich **02 Illegal Data Address**. Damit ist für den zusammenhängenden Bereich **55127–80001** kein weiterer gültiger FC03-Block vorhanden.
 
 ### Beobachtete Werte
 
