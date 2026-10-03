@@ -240,6 +240,13 @@ $descriptions = [
     'secondary_subnet_mask_octet_2' => 'Holding Register 50027-50028 | Zweite Subnetzmaske Oktett 2 | direkt als UINT8 LSB gelesen | Dezimaldarstellung 0-255 | nur Lesen',
     'secondary_subnet_mask_octet_3' => 'Holding Register 50027-50028 | Zweite Subnetzmaske Oktett 3 | direkt als UINT8 MSB gelesen | Dezimaldarstellung 0-255 | nur Lesen',
     'secondary_subnet_mask_octet_4' => 'Holding Register 50027-50028 | Zweite Subnetzmaske Oktett 4 | direkt als UINT8 LSB gelesen | Dezimaldarstellung 0-255 | nur Lesen',
+    'ip_address' => 'Virtuelle Anzeige | IP-Adresse aus den vier direkt gelesenen Oktetten | Punktnotation, z. B. 192.168.178.243 | nur Lesen',
+    'gateway' => 'Virtuelle Anzeige | Gateway aus den vier direkt gelesenen Oktetten | Punktnotation | nur Lesen',
+    'subnet_mask' => 'Virtuelle Anzeige | Subnetzmaske aus den vier direkt gelesenen Oktetten | Punktnotation | nur Lesen',
+    'network_parameter_1' => 'Virtuelle Anzeige | Netzwerkparameter 1 aus den vier direkt gelesenen Oktetten | Punktnotation | genaue Funktion offen | nur Lesen',
+    'secondary_ip_address' => 'Virtuelle Anzeige | zweite IP-Adresse aus den vier direkt gelesenen Oktetten | Punktnotation | genaue Rolle offen | nur Lesen',
+    'secondary_subnet_mask' => 'Virtuelle Anzeige | zweite Subnetzmaske aus den vier direkt gelesenen Oktetten | Punktnotation | genaue Rolle offen | nur Lesen',
+    'mac_address_readable' => 'Virtuelle Anzeige | MAC-Adresse aus 50010-50012 | Darstellung mit Doppelpunkten | nur Lesen',
 ];
 
 $ok = 0;
