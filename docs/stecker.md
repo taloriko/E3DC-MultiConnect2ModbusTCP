@@ -13,7 +13,7 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | **J8** | 5-polig | Ansteuerung 2-poliger Schütz Benedikt R40-20 230 für L2/L3 | **Verdrahtung geprüft** |
 | **J9** | 6 | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
 | **J12** | 5 genutzt | PP, CP, PE und Motor Steckerverriegelung | **Verdrahtung geprüft** |
-| **J14** | 2-polig | Spannungsabgriff L1 zwischen Typ-2-Stecker und Ausgangsschütz | **Verdrahtung geprüft** |
+| **J14** | 2-polig | Spannungsrückmeldung L1 hinter dem Ausgangsschütz; sehr wahrscheinlich Schützklebeüberwachung | **Verdrahtung geprüft; Funktion durch Fehler-Simulation stark gestützt** |
 | **J15** | 2-polig | N / L vom 2-poligen C16-Automaten Hager NFT716 | **Verdrahtung geprüft** |
 | **J17** | 3-polig | Spulenanschluss des 3-poligen Ausgangsschützes | **Verdrahtung geprüft, Pin 3 offen** |
 | **J5** | 3-polig | nicht belegt, Funktion unbekannt | offen |
@@ -74,7 +74,7 @@ Die Verkabelung wurde geprüft.
 ---
 
 
-## J14 – Spannungsabgriff L1
+## J14 – Spannungsrückmeldung L1 / Schützklebeüberwachung
 
 Die Verkabelung wurde geprüft.
 
@@ -82,6 +82,22 @@ Die Verkabelung wurde geprüft.
 |---:|---|---|
 | **1** | WS | Braun → **L1**, Abgriff zwischen Typ-2-Stecker und 3-poligem Ausgangsschütz **Benedikt R40-40 230** |
 | **2** | keine Beschriftung | frei |
+
+### Test Schützklebeüberwachung
+
+Zur Simulation eines klebenden Ausgangsschützes wurde bei laufendem Mode-3-Lasttest **Eingang und Ausgang des 3-poligen Schützes überbrückt**. Anschließend wurde die Ladung über die CP-Zustände bis zum Ladeende zurückgenommen.
+
+Beobachtung nach dem Abschalten des Schützes:
+
+- am L1-Abgriff von J14 lag wegen der Brücke weiterhin Spannung an
+- die Front-LED der Wallbox leuchtete **rot**
+- **Register 40085 = 130**
+- **Coil 8 = TRUE**
+- **Register 40070 / Zustandscode = `F\0`**
+
+Damit ist sehr stark gestützt, dass J14 die **Spannungsrückmeldung für die Schützklebeüberwachung** bereitstellt: Die Steuerung schaltet den Schütz ab, erkennt hinter dem Schütz aber weiterhin Netzspannung.
+
+Die Betriebsanleitung nennt eine integrierte **Schützklebeüberwachung**, ordnet ihr jedoch keine interne Steckverbindung oder Modbus-Adresse zu. Die Zuordnung zu J14 ergibt sich daher aus diesem eigenen Funktionstest.
 
 ---
 
