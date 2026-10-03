@@ -216,7 +216,7 @@ Die erweiterten Scans ergaben drei getrennte gültige Bereiche:
 | **9999–10031** | **50000–50032** | **Response ok** |
 | 10032–14998 | 50033–54999 | **02 Illegal Data Address** |
 | **14999–15125** | **55000–55126** | **Response ok** |
-| ab 15126 | ab 55127 | **02 Illegal Data Address** |
+| 15126–30000 | 55127–70001 | **02 Illegal Data Address** |
 
 Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
 
@@ -224,6 +224,8 @@ Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
 - PDU **9999** → **Response ok**
 
 Damit existieren zusätzlich zum Basisbereich zwei weitere FC03-Blöcke bei **50000–50032** und **55000–55126**. Im Block 55000–55126 war beim Scan nur Register **55001 = 8**, alle übrigen Werte waren 0.
+
+Der anschließende FC03-Scan von **PDU 20000 bis 30000** (Holding Register **60001–70001**) ergab vollständig **02 Illegal Data Address**; in diesem Bereich wurde kein weiterer Registerblock gefunden.
 
 ### FC04 – Read Input Registers
 
