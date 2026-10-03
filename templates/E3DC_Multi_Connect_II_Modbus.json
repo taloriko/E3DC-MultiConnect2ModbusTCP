@@ -3363,5 +3363,76 @@
         "Interval": 1000,
         "Type": 0
     },
-    "VirtualAddresses": []
+    "VirtualAddresses": [
+        {
+            "Active": true,
+            "Name": "IP-Adresse",
+            "Ident": "ip_address",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['ip_address_octet_1'] ?? 0;\n$b = $VALUES['ip_address_octet_2'] ?? 0;\n$c = $VALUES['ip_address_octet_3'] ?? 0;\n$d = $VALUES['ip_address_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Gateway",
+            "Ident": "gateway",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['gateway_octet_1'] ?? 0;\n$b = $VALUES['gateway_octet_2'] ?? 0;\n$c = $VALUES['gateway_octet_3'] ?? 0;\n$d = $VALUES['gateway_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Subnetzmaske",
+            "Ident": "subnet_mask",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['subnet_mask_octet_1'] ?? 0;\n$b = $VALUES['subnet_mask_octet_2'] ?? 0;\n$c = $VALUES['subnet_mask_octet_3'] ?? 0;\n$d = $VALUES['subnet_mask_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Netzwerkparameter 1",
+            "Ident": "network_parameter_1",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['network_parameter_1_octet_1'] ?? 0;\n$b = $VALUES['network_parameter_1_octet_2'] ?? 0;\n$c = $VALUES['network_parameter_1_octet_3'] ?? 0;\n$d = $VALUES['network_parameter_1_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Zweite IP-Adresse",
+            "Ident": "secondary_ip_address",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['secondary_ip_address_octet_1'] ?? 0;\n$b = $VALUES['secondary_ip_address_octet_2'] ?? 0;\n$c = $VALUES['secondary_ip_address_octet_3'] ?? 0;\n$d = $VALUES['secondary_ip_address_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Zweite Subnetzmaske",
+            "Ident": "secondary_subnet_mask",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['secondary_subnet_mask_octet_1'] ?? 0;\n$b = $VALUES['secondary_subnet_mask_octet_2'] ?? 0;\n$c = $VALUES['secondary_subnet_mask_octet_3'] ?? 0;\n$d = $VALUES['secondary_subnet_mask_octet_4'] ?? 0;\nreturn $a . '.' . $b . '.' . $c . '.' . $d;",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "MAC-Adresse lesbar",
+            "Ident": "mac_address_readable",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$raw = strtoupper(preg_replace('/[^0-9A-Fa-f]/', '', (string)($VALUES['mac_address'] ?? '')));\nif (strlen($raw) < 12) return $raw;\nreturn implode(':', str_split(substr($raw, 0, 12), 2));",
+            "WriteAction": ""
+        }
+    ]
 }
