@@ -195,7 +195,11 @@ Gleichzeitig wurden beobachtet:
 - Zustandscode **40070 = `F\0`**
 - **Coil 8 = TRUE**
 
-Damit ist Coil 8 als **Fehlerindikator** stark gestützt. Ob Coil 8 speziell die Schützklebeüberwachung oder einen allgemeineren Fehlerstatus signalisiert, ist noch offen.
+Damit ist Coil 8 als **verriegelter Fehlerstatus** stark gestützt. Beim simulierten Schützklebefehler bleibt Coil 8 auch nach Entfernen der Fehlerursache und normalen Ladezustandswechseln TRUE.
+
+Ein Reset war erst durch **Steuersicherung AUS / EIN** möglich. Danach wechselte Coil 8 auf **FALSE**.
+
+Ob Coil 8 ausschließlich die Schützklebeüberwachung oder einen allgemeineren verriegelten Fehlerstatus signalisiert, ist noch offen.
 
 FC05-Schreiben auf Coil 8 wird mit **02 Illegal Data Address** abgewiesen; Coil 8 ist damit **RO**.
 
@@ -405,11 +409,16 @@ Bei der Simulation eines klebenden 3-poligen Ausgangsschützes sprang Register *
 
 Gleichzeitig:
 
-- Front-LED **rot**
+- Front-LED **rotes Dauerlicht**
 - Coil 8 **TRUE**
 - Zustandscode 40070 = `F\0`
+- Fehler bleibt bis zum Spannungsreset der Steuersicherung verriegelt
 
-Damit reagiert 40085 eindeutig auf diesen erzeugten Fehlerzustand. Noch offen ist, ob **130** direkt für „Schütz klebt“ steht oder ob 40085 ein allgemeiner Fehlercode mit mehreren möglichen Werten ist.
+Damit reagiert 40085 eindeutig auf diesen erzeugten Fehlerzustand.
+
+Das Register blieb trotz Entfernen der Fehlerursache und normaler Zustandswechsel auf **130** stehen. Ein Reset war erst durch **Steuersicherung AUS / EIN** möglich. Danach stand **40085 wieder auf 0**.
+
+Damit ist zusätzlich bestätigt, dass dieser Fehlerstatus **verriegelt** wird. Noch offen ist, ob **130** direkt für „Schütz klebt“ steht oder ob 40085 ein allgemeiner Fehlercode mit mehreren möglichen Werten ist.
 
 ### 40086–40089 – RFID-Karten-ID
 
@@ -601,5 +610,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Coil 0 separat nachprüfen
 10. Bedeutung von **Coil 8** weiter eingrenzen: allgemeiner Fehlerstatus oder speziell Schützklebeüberwachung
-11. Weitere Werte / Codierung von **40085** ermitteln und Rücksetzverhalten nach Fehlerende prüfen
+11. Weitere Werte / Codierung von **40085** ermitteln; Rücksetzverhalten ist bestätigt: Reset nur durch Steuersicherung AUS/EIN
 12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
