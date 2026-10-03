@@ -72,6 +72,18 @@ Bei L1 wurden **8,24 A** mit der Strommesszange gemessen; gleichzeitig zeigte da
 
 Die Detailzuordnung und Skalierung der Phasenstromregister wird in [docs/modbus-register.md](docs/modbus-register.md) geführt.
 
+### S0-Energiezähler
+
+Der Testaufbau wurde um einen **Eltako DSZ12D-3x65A** erweitert.
+
+- Drehstromzähler 3x65 A
+- S0-Ausgang
+- **1000 Imp./kWh**
+- S0-Ausgang potenzialfrei über Optokoppler
+- Impulslänge laut Hersteller: **30 ms**
+
+Der Zähler wird für die Untersuchung des internen S0-Anschlusses **J18** verwendet.
+
 ### RFID
 
 Für den RFID-Test wurde eine Karte mit der aufgedruckten ID
