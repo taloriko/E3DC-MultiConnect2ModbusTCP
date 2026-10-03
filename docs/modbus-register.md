@@ -22,6 +22,8 @@ Modbus-PDU und IP-Symcon arbeiten 0-basiert:
 | 80 | 40081 |
 | 82 | 40083 |
 | 101 | 40102 |
+| 9999 | 50000 |
+| 10031 | 50032 |
 
 **40000 wird nicht als eigenes Register geführt.**  
 PDU-Adresse 0 entspricht hier **40001**.
@@ -609,6 +611,51 @@ Für 40002/40003 wurde FC06 abgewiesen; FC16 ist dort noch nicht separat dokumen
 
 ---
 
+## Zweiter FC03-Block 50000–50032
+
+Ein erweiterter FC03-Scan hat einen zweiten zusammenhängenden gültigen Holding-Registerbereich ergeben.
+
+Verifizierte Bereichsgrenzen:
+
+- **49999 / PDU 9998** → 02 Illegal Data Address
+- **50000 / PDU 9999** → Response ok
+- **50032 / PDU 10031** → Response ok
+- **50033 / PDU 10032** → 02 Illegal Data Address
+
+Damit ist der gültige Bereich exakt **50000–50032**.
+
+### Auffällige Netzwerkdaten
+
+Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodieren:
+
+| Register | Rohwert(e) | dekodiert | Einordnung |
+|---:|---|---|---|
+| **50010–50012** | 0x0C86 0x2970 0x507A | **0C:86:29:70:50:7A** | sehr wahrscheinlich MAC-Adresse |
+| **50013–50014** | 0xC0A8 0xB2F3 | **192.168.178.243** | sehr wahrscheinlich aktuelle IPv4-Adresse |
+| **50015–50016** | 0xC0A8 0xB201 | **192.168.178.1** | wahrscheinlich Gateway |
+| **50017–50018** | 0xFFFF 0xFF00 | **255.255.255.0** | Subnetzmaske |
+| **50019–50020** | 0xC0A8 0xB201 | **192.168.178.1** | wahrscheinlich DNS / weiterer Netzparameter |
+| **50023–50024** | 0xC0A8 0x00FE | **192.168.0.254** | weiterer / möglicher Fallback-Netzparameter |
+| **50027–50028** | 0xFFFF 0xFF00 | **255.255.255.0** | zweite Subnetzmaske / Fallback-Konfiguration |
+
+Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
+
+### Vollständiger Rohbereich
+
+- 50000–50009 = 0
+- 50010–50012 = 0x0C86 / 0x2970 / 0x507A
+- 50013–50014 = 0xC0A8 / 0xB2F3
+- 50015–50016 = 0xC0A8 / 0xB201
+- 50017–50018 = 0xFFFF / 0xFF00
+- 50019–50020 = 0xC0A8 / 0xB201
+- 50021–50022 = 0
+- 50023–50024 = 0xC0A8 / 0x00FE
+- 50025–50026 = 0
+- 50027–50028 = 0xFFFF / 0xFF00
+- 50029–50032 = 0
+
+---
+
 # FC04 – Input Register
 
 Im vollständigen Scan von Adresse 0–1000 wurde **kein gültiges FC04 Input Register** gefunden.
@@ -643,7 +690,7 @@ Verwendet ausschließlich für den Fremdfund:
 
 [Photovoltaikforum – Modbus Register E3DC Wallbox Multi Connect](https://www.photovoltaikforum.com/thread/198110-modbus-register-e3dc-wallbox-multi-connect/)
 
-Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigenen Messungen dieses Projekts gehen darüber hinaus und untersuchen den gültigen Holding-Register-Bereich bis 40102 sowie die Bitbereiche FC01/FC02.
+Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigenen Messungen dieses Projekts gehen darüber hinaus und untersuchen die gültigen Holding-Register-Bereiche **40001–40102** und **50000–50032** sowie die Bitbereiche FC01/FC02.
 
 ---
 
