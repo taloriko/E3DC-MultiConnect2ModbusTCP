@@ -648,26 +648,29 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
-### Direkte lesbare Netzwerkfelder in der IP-Symcon-Vorlage
+### Lesbare Netzwerkfelder in der IP-Symcon-Vorlage
 
-Die Netzwerkwerte werden **ohne virtuelle Adressen** direkt aus den Modbus-Registern gelesen.
+Die einzelnen Oktette werden weiterhin direkt aus den echten Modbus-Registern gelesen. Zusätzlich setzt die Vorlage daraus je Netzwerkparameter einen **String in Punktnotation** zusammen, damit die Anzeige der Hager-Oberfläche entspricht.
 
-IP-Adresse, Gateway und Subnetzmaske werden nicht mehr als HEX-String angelegt. Stattdessen nutzt die Vorlage für jedes 16-Bit-Register beide nativen IP-Symcon-Datentypen **UINT8 (MSB)** und **UINT8 (LSB)**. Dadurch erscheinen die vier IPv4-Oktette direkt als Dezimalzahlen von 0 bis 255.
-
-Beispiel aktuelle IP-Adresse:
+Beispiel:
 
 ```text
-50013 High-Byte = 192
-50013 Low-Byte  = 168
-50014 High-Byte = 178
-50014 Low-Byte  = 243
-
-=> 192.168.178.243
+IP-Adresse:   192.168.178.243
+Gateway:      192.168.178.1
+Subnetzmaske: 255.255.255.0
 ```
 
-Entsprechend werden auch Gateway, Subnetzmaske und die weiteren IPv4-formatierten Felder als vier einzelne, direkt gelesene Oktette angelegt. Damit bleiben alle Werte **echte Modbus-Adressen** und `VirtualAddresses` bleibt leer.
+Virtuelle Anzeigevariablen:
 
-Die MAC-Adresse bleibt als `STRING (HEX)`, da MAC-Adressen üblicherweise hexadezimal dargestellt werden.
+- `ip_address`
+- `gateway`
+- `subnet_mask`
+- `network_parameter_1`
+- `secondary_ip_address`
+- `secondary_subnet_mask`
+- `mac_address_readable`
+
+Die virtuellen Variablen dienen nur der **Darstellung**. Gelesen wird weiterhin ausschließlich aus den echten FC03-Registern. Die MAC-Adresse wird zusätzlich als `0C:86:29:70:50:7A` formatiert.
 
 ### Vollständiger Rohbereich
 
