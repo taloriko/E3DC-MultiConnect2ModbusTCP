@@ -10,7 +10,7 @@ $descriptions = [
     'plug_locking' => 'Modbus Coil 1 | Lesen: FC01 | Schreiben: FC05, Coil 1',
     'coil_2_unknown' => 'Modbus Coil 2 | Lesen: FC01 | Schreiben: FC05, Coil 2',
     'phase_selection' => 'Modbus Coil 3 | Lesen: FC01 | Schreiben: FC05, Coil 3',
-    'coil_4_unknown' => 'Modbus Coil 4 | Lesen: FC01 | Schreiben: FC05, Coil 4',
+    'coil_4_unknown' => 'Modbus Coil 4 | Lesen: FC01 | Schreiben: FC05, Coil 4 | Bedeutung unbekannt | fällt selbstständig etwa alle 60 s auf FALSE zurück',
     'front_sensor_boost_request' => 'Modbus Coil 5 | Lesen: FC01 | Schreiben: FC05, Coil 5',
     'keep_plug_locked_after_charging' => 'Modbus Coil 6 | Lesen: FC01 | Schreiben: FC05, Coil 6',
     'coil_7_unknown' => 'Modbus Coil 7 | Lesen: FC01 | Nur Lesen | Schreibversuch FC05: 02 Illegal Data Address | Bei CP=E bleibt TRUE; keine Zustandsänderung, Bedeutung offen',
