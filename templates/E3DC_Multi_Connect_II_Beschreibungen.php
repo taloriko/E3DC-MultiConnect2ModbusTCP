@@ -215,6 +215,13 @@ $descriptions = [
     'register_55124_unknown' => 'Holding Register 55124 | PDU-Adresse 15123 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
     'register_55125_unknown' => 'Holding Register 55125 | PDU-Adresse 15124 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
     'register_55126_unknown' => 'Holding Register 55126 | PDU-Adresse 15125 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
+    'mac_address_candidate' => 'Virtuelle Adresse | aus Holding Register 50010-50012 | aktuell vermutete MAC-Adresse | nur Lesen',
+    'ip_address_candidate' => 'Virtuelle Adresse | aus Holding Register 50013-50014 | aktuell vermutete IPv4-Adresse | nur Lesen',
+    'gateway_candidate' => 'Virtuelle Adresse | aus Holding Register 50015-50016 | aktuell vermutetes Gateway | nur Lesen',
+    'subnet_mask_candidate' => 'Virtuelle Adresse | aus Holding Register 50017-50018 | aktuell vermutete Subnetzmaske | nur Lesen',
+    'dns_or_network_parameter_candidate' => 'Virtuelle Adresse | aus Holding Register 50019-50020 | DNS/Netzparameter noch zu verifizieren | nur Lesen',
+    'fallback_ip_address_candidate' => 'Virtuelle Adresse | aus Holding Register 50023-50024 | Fallback-/zweite IPv4-Adresse noch zu verifizieren | nur Lesen',
+    'secondary_subnet_mask_candidate' => 'Virtuelle Adresse | aus Holding Register 50027-50028 | zweite Subnetzmaske noch zu verifizieren | nur Lesen',
 ];
 
 $ok = 0;
