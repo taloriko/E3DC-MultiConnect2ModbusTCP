@@ -101,7 +101,7 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **5** | **RW** | **Boost-Anforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. | **Verifiziertes Verhalten; Rücksetzlogik offen** |
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
-| **8** | **RO** | **verriegelter Hardware-/Schützfehlerstatus** | CP=E: **FALSE**. Simulierter Schützklebefehler: **TRUE** und bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **stark gestützt; genaue Semantik offen** |
+| **8** | **RO** | **blockierender / verriegelter Fehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Simulierter Schützklebefehler mit rotem Dauerlicht: **TRUE** und bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **stark gestützt; genaue Fehlergruppe offen** |
 
 ## Coil 1 – Steckerverriegelung
 
@@ -209,9 +209,14 @@ Damit ist Coil 8 als **verriegelter Fehlerstatus** stark gestützt. Beim simulie
 
 Ein Reset war erst durch **Steuersicherung AUS / EIN** möglich. Danach wechselte Coil 8 auf **FALSE**.
 
-Bei **CP=E** bleibt Coil 8 dagegen **FALSE**, obwohl 40085 auf 2 wechselt. Damit zeigt Coil 8 nicht jeden Fehler-/Sonderzustand an. Die Zuordnung zu einem **verriegelten Hardwarefehler bzw. zur Schützklebeüberwachung** wird dadurch deutlich stärker.
+Bei den reproduzierten **roten Blinkfehlern** bleibt Coil 8 dagegen **FALSE**:
 
-Ob Coil 8 ausschließlich die Schützklebeüberwachung oder eine Gruppe schwerer/verriegelter Hardwarefehler signalisiert, ist noch offen.
+- CP=E → 40085=2, Coil 8=FALSE
+- CP=D und anschließend Kabel anstecken → 40085=4, Coil 8=FALSE
+
+Erst der simulierte Schützklebefehler mit **rotem Dauerlicht** setzt Coil 8 auf TRUE und verriegelt den Zustand bis zum Spannungsreset.
+
+Damit spricht Coil 8 sehr wahrscheinlich für einen **blockierenden / verriegelten Fehler**, der nicht durch normales Ab- und Anstecken des Ladekabels quittiert wird. Ob Coil 8 ausschließlich die Schützklebeüberwachung oder mehrere der im Handbuch genannten Dauerlicht-/Hardwarefehler abbildet, ist noch offen.
 
 FC05-Schreiben auf Coil 8 wird mit **02 Illegal Data Address** abgewiesen; Coil 8 ist damit **RO**.
 
@@ -275,7 +280,7 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40082** | **RW** | UINT16 | Unbekannt | Grundwert 32. 6 und 32 werden angenommen. 40082=6 verändert bei 40081=32 den PWM-Wert nicht. | Eigene Messung |
 | **40083** | **RW** | UINT16 / Enum | extern als Sonnenmodus beschrieben | 1 und 2 bleiben stehen; 3 springt auf 2 zurück. Im Standalone-Test keine direkte Änderung von 40070/40071. | Eigene Messung + [evcc Discussion #14122](https://github.com/evcc-io/evcc/discussions/14122) |
 | **40084** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
-| **40085** | RO | UINT16 / vermutlich Bitfeld | **Fehler-/Statusregister** | Normal **0**; CP=E → **2 (0x0002)** bei Coil7=TRUE/Coil8=FALSE; Schützklebefehler → **130 (0x0082)** bei Coil8=TRUE. | Eigene Messung; Bitcodierung noch Hypothese |
+| **40085** | RO | UINT16 | **LED-/Fehlercode** | Normal **0**; CP=E → **2**; CP=D + Kabel → **4**; Schützklebefehler / rotes Dauerlicht → **130**. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl. | Eigene Messung + Handbuch; Bedeutung 130 offen |
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
 | **40102** | **RO** | UINT16 | Unbekannt | Wert bleibt im Test konstant bei 3. Auch bei 1-phasigem Laden über Coil 3 = 1 keine Änderung. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS**. | Eigene Messung |
@@ -415,30 +420,48 @@ Da die Modbus-PDU-Adresse 82 in unserer 40001-Darstellung Register **40083** ent
 
 Die Bedeutung 1/2 bleibt trotzdem als **Fremdquelle** gekennzeichnet, solange die Funktion ohne EMC nicht selbst ausgelöst und bestätigt wurde.
 
-### 40085 – Fehler-/Statusregister
+### 40085 – LED-/Fehlercode
 
-Bisher wurden drei reproduzierbare Werte beobachtet:
+Die bisherigen Tests zeigen einen sehr deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
 
-| Zustand | 40085 dezimal | Hex | Coil 7 | Coil 8 | Verhalten |
-|---|---:|---:|---|---|---|
-| Normalzustand nach Neustart | **0** | **0x0000** | — | FALSE | kein Fehler |
-| CP-Zustand **E** | **2** | **0x0002** | bleibt TRUE | FALSE | nicht verriegelter Sonder-/Fehlerzustand |
-| simulierter Schützklebefehler | **130** | **0x0082** | nicht eindeutig ausgewertet | TRUE | rotes Dauerlicht; verriegelt bis Steuersicherung AUS/EIN |
+| Testzustand | LED-Verhalten | 40085 | Coil 7 | Coil 8 | Rücksetzen |
+|---|---|---:|---|---|---|
+| Normalzustand | kein Fehler | **0** | — | FALSE | — |
+| CP=E | rotes Blinken | **2** | bleibt TRUE | FALSE | Kabel aus-/einstecken |
+| CP=D, danach Kabel anstecken | rotes Blinken | **4** | unverändert | FALSE | Kabel aus-/einstecken |
+| simulierter Schützklebefehler | **rotes Dauerlicht** | **130** | nicht eindeutig | TRUE | nur Steuersicherung AUS/EIN |
 
-Auffällig ist:
+Besonders aussagekräftig ist der CP-D-Test: Die Betriebsanleitung beschreibt **4 rote Blinkimpulse** als Fehlerfall, bei dem das Fahrzeug eine Belüftung erfordert. Genau in diesem Testzustand liefert 40085 den Wert **4**.
+
+Damit ist stark gestützt, dass 40085 bei den normalen roten Blinkfehlern direkt den **Blink-/Fehlercode** enthält.
+
+Auch der Wert **2** bei CP=E passt in dieses Schema: Im Handbuch ist ein Fehler mit **2 Blinkimpulsen** aufgeführt. Die genaue interne Ursache von CP=E und die Handbuchbeschreibung müssen jedoch getrennt betrachtet werden; bisher ist nur der identische Zahlenwert beobachtet.
+
+#### Wert 130 bei rotem Dauerlicht
+
+Der simulierte Schützklebefehler unterscheidet sich deutlich von den Blinkfehlern:
+
+- 40085 = **130**
+- Front-LED = **rotes Dauerlicht**
+- Coil 8 = **TRUE**
+- Fehler bleibt nach Entfernen der Ursache bestehen
+- Kabel aus-/einstecken quittiert ihn **nicht**
+- Reset erst durch **Steuersicherung AUS / EIN**
+- danach 40085 = **0** und Coil 8 = **FALSE**
+
+Damit ist 130 sehr wahrscheinlich ein Code aus einer anderen bzw. erweiterten Fehlerklasse als die normalen Blinkcodes.
+
+Rechnerisch gilt zwar:
 
 ```text
-130 dez = 0x0082 = 0x0080 + 0x0002
+130 = 0x82 = 128 + 2
 ```
 
-Daraus ergibt sich die **Hypothese**, dass 40085 als **Bitfeld** aufgebaut ist:
+Eine Bitfeldinterpretation bleibt daher möglich, ist nach dem D-Test aber **nicht mehr die bevorzugte Erklärung**. Belastbarer ist derzeit:
 
-- `0x0002` tritt beim CP-Zustand E auf
-- beim Schützklebefehler kommt möglicherweise zusätzlich `0x0080` hinzu
-
-Noch nicht bewiesen ist, ob `0x0002` ein allgemeines Fehlerbit, ein CP-E-spezifisches Bit oder etwas anderes bedeutet. Ebenso ist `0x0080` erst durch einen einzigen gezielten Schützklebefehler mit dieser Funktion korreliert.
-
-Beim Schützklebefehler blieb **40085 = 130** nach Entfernen der Fehlerursache bestehen. Erst **Steuersicherung AUS / EIN** setzte das Register auf **0** zurück; gleichzeitig wechselte Coil 8 auf FALSE.
+- **0** = kein Fehler
+- **2 / 4 / ...** = normale, durch Blinkimpulse dargestellte Fehlercodes
+- **130** = blockierender / verriegelter Dauerlichtfehler im Schützklebefehler-Test
 
 ### 40086–40089 – RFID-Karten-ID
 
@@ -629,6 +652,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 7. Bedeutung der noch offenen **Coils 2 und 4**
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Coil 0 separat nachprüfen
-10. **Coil 8** weiter eingrenzen: speziell Schützklebeüberwachung oder Gruppe verriegelter Hardwarefehler
-11. Bitcodierung von **40085** weiter prüfen: aktuell 0=normal, 2=CP E, 130=Schützklebefehler; Hypothese 0x82 = 0x80 + 0x02
+10. **Coil 8** weiter eingrenzen: allgemeiner blockierender/verriegelter Fehler oder nur bestimmte Dauerlicht-Hardwarefehler
+11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
 12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
