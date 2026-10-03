@@ -27,6 +27,23 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 ---
 
 
+## J1 – USB-A
+
+- Steckertyp: **USB-A**
+- Funktion bisher unbekannt
+
+---
+
+
+## J5
+
+- **3-polig**
+- nicht belegt
+- Funktion bisher unbekannt
+
+---
+
+
 ## J8 – 2-poliger Schütz L2/L3
 
 Die Verkabelung wurde geprüft.
@@ -42,6 +59,7 @@ Der zugehörige Schütz ist ein **Benedikt R40-20 230**. Über diesen 2-poligen 
 | **5** | LST | Gelb → **A2** des 2-poligen Schützes |
 
 ---
+
 
 ## J9 – Stromwandler
 
@@ -59,6 +77,15 @@ Die drei Stromwandler passen zu den im Modbus gefundenen Phasenstromwerten 40072
 
 ---
 
+
+## J10
+
+- **6-polig**
+- Funktion bisher unbekannt
+
+---
+
+
 ## J12 – Fahrzeuganschluss / Steckerverriegelung
 
 Die Verkabelung wurde geprüft.
@@ -70,6 +97,16 @@ Die Verkabelung wurde geprüft.
 | **22** | PE – Schutzleiter | Grün/Gelb |
 | **23** | Motor Steckerverriegelung **+** | Rot |
 | **24** | Motor Steckerverriegelung **-** | Schwarz |
+
+---
+
+
+## J13
+
+- **6-polig**
+- laut der mitgelieferten Anleitung als **Sensoranschluss 6 mA** bezeichnet
+
+Die genaue interne Zuordnung wurde bisher nicht elektrisch nachverfolgt.
 
 ---
 
@@ -118,6 +155,7 @@ Damit verhält sich die Schützüberwachung wie eine sicherheitsgerichtete, bis 
 
 ---
 
+
 ## J15 – Versorgung vom Leitungsschutzschalter
 
 Die Verkabelung wurde geprüft.
@@ -131,6 +169,16 @@ J15 ist mit dem **2-poligen C16-Automaten Hager NFT716** verbunden.
 
 ---
 
+
+## J16
+
+- **4-polig**
+- nicht belegt
+- Funktion bisher unbekannt
+
+---
+
+
 ## J17 – Spule 3-poliger Ausgangsschütz
 
 Die Verkabelung wurde geprüft.
@@ -143,61 +191,6 @@ Die Verkabelung wurde geprüft.
 
 ---
 
-## J5
-
-- **3-polig**
-- nicht belegt
-- Funktion bisher unbekannt
-
----
-
-## J10
-
-- **6-polig**
-- Funktion bisher unbekannt
-
----
-
-## J13
-
-- **6-polig**
-- laut der mitgelieferten Anleitung als **Sensoranschluss 6 mA** bezeichnet
-
-Die genaue interne Zuordnung wurde bisher nicht elektrisch nachverfolgt.
-
----
-
-## J16
-
-- **4-polig**
-- nicht belegt
-- Funktion bisher unbekannt
-
----
-
-## J19 – Summenstromwandler
-
-J19 ist **4-polig** und führt zum Summenstromwandler.
-
-Durch den Wandler werden gemeinsam geführt:
-
-- L1
-- L2
-- L3
-- N
-
-Aufgrund des Aufbaus liegt die Vermutung nahe, dass dieser Wandler zur **6-mA-DC-Fehlerstromüberwachung** gehört.
-
-Diese Funktionszuordnung ist aktuell eine **Hypothese** und noch nicht elektrisch bzw. über einen gezielten Fehlerstromtest bestätigt.
-
----
-
-## J1 – USB-A
-
-- Steckertyp: **USB-A**
-- Funktion bisher unbekannt
-
----
 
 ## J18 – S0
 
@@ -227,6 +220,24 @@ Anschluss für den Test:
 Nach zwei Aufheizvorgängen mit dem Wasserkocher wurde trotz angeschlossenem S0-Ausgang **keine Änderung in den bisher bekannten Modbus-Registern 40001–40102 beobachtet**.
 
 Noch offen ist, ob J18 intern nur für eine andere Funktion verwendet wird, ob ein bislang unbekannter Zähler außerhalb des bekannten Registerbereichs existiert oder ob eine zusätzliche Konfiguration/Freigabe notwendig ist.
+
+---
+
+
+## J19 – Summenstromwandler
+
+J19 ist **4-polig** und führt zum Summenstromwandler.
+
+Durch den Wandler werden gemeinsam geführt:
+
+- L1
+- L2
+- L3
+- N
+
+Aufgrund des Aufbaus liegt die Vermutung nahe, dass dieser Wandler zur **6-mA-DC-Fehlerstromüberwachung** gehört.
+
+Diese Funktionszuordnung ist aktuell eine **Hypothese** und noch nicht elektrisch bzw. über einen gezielten Fehlerstromtest bestätigt.
 
 ---
 
