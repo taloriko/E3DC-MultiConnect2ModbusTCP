@@ -166,7 +166,7 @@ Am **02.10.2026** wurden mit Modbus Poll die vier klassischen Modbus-Lesebereich
 |---|---|---|
 | **FC01 – Read Coils** | **0–8** | 9–9999 → **02 Illegal Data Address** |
 | **FC02 – Read Discrete Inputs** | 1–8 | 9–1000 → **02 Illegal Data Address** |
-| **FC03 – Read Holding Registers** | 0–101, **9999–10031**, **14999–15125** | 102–9998, 10032–14998 und **15126–40000** → **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | 0–101, **9999–10031**, **14999–15125** | 102–9998, 10032–14998 und **15126–50000** → **02 Illegal Data Address** |
 | **FC04 – Read Input Registers** | keiner | 0–1000 → **02 Illegal Data Address** |
 
 ### FC01 – Read Coils
@@ -216,7 +216,7 @@ Die erweiterten Scans ergaben drei getrennte gültige Bereiche:
 | **9999–10031** | **50000–50032** | **Response ok** |
 | 10032–14998 | 50033–54999 | **02 Illegal Data Address** |
 | **14999–15125** | **55000–55126** | **Response ok** |
-| 15126–40000 | 55127–80001 | **02 Illegal Data Address** |
+| 15126–50000 | 55127–90001 | **02 Illegal Data Address** |
 
 Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
 
@@ -225,7 +225,7 @@ Die Untergrenze des zweiten Blocks wurde separat gegengeprüft:
 
 Damit existieren zusätzlich zum Basisbereich zwei weitere FC03-Blöcke bei **50000–50032** und **55000–55126**. Im Block 55000–55126 war beim Scan nur Register **55001 = 8**, alle übrigen Werte waren 0.
 
-Der anschließende FC03-Scan von **PDU 20000 bis 30000** (Holding Register **60001–70001**) ergab vollständig **02 Illegal Data Address**. Der weitere Scan von **PDU 30000 bis 40000** (Holding Register **70001–80001**) war ebenfalls vollständig ungültig. In diesem zusammenhängenden Bereich wurde kein weiterer Registerblock gefunden.
+Der anschließende FC03-Scan von **PDU 20000 bis 30000** (Holding Register **60001–70001**) ergab vollständig **02 Illegal Data Address**. Auch die weiteren Scans von **PDU 30000 bis 40000** (Holding Register **70001–80001**) und **PDU 40000 bis 50000** (Holding Register **80001–90001**) waren vollständig ungültig. In diesem zusammenhängenden Bereich wurde kein weiterer Registerblock gefunden.
 
 ### FC04 – Read Input Registers
 
