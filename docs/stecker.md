@@ -13,9 +13,9 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | **J1** | USB-A | Funktion unbekannt | offen |
 | **J5** | 3-polig | nicht belegt, Funktion unbekannt | offen |
 | **J8** | 5-polig | Ansteuerung 2-poliger Schütz Benedikt R40-20 230 für L2/L3 | **Verdrahtung geprüft** |
-| **J9** | 6 | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
+| **J9** | 6-polig | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
 | **J10** | 6-polig | Funktion unbekannt | offen |
-| **J12** | 5 genutzt | PP, CP, PE und Motor Steckerverriegelung | **Verdrahtung geprüft** |
+| **J12** | 5-polig | PP, CP, PE und Motor Steckerverriegelung | **Verdrahtung geprüft** |
 | **J13** | 6-polig | laut mitgelieferter Anleitung Sensoranschluss 6 mA | Dokumentationshinweis |
 | **J14** | 2-polig | Spannungsrückmeldung L1 hinter dem Ausgangsschütz; sehr wahrscheinlich Schützklebeüberwachung | **Verdrahtung geprüft; Funktion durch Fehler-Simulation stark gestützt** |
 | **J15** | 2-polig | N / L vom 2-poligen C16-Automaten Hager NFT716 | **Verdrahtung geprüft** |
