@@ -100,7 +100,7 @@ Die Adressen **0–8** sind lesbar. Der vollständige Scan ist in der [README](.
 
 | Coil | Zugriff | Bedeutung | Test / Verhalten | Status |
 |---:|---|---|---|---|
-| **0** | **RW-Test** | Unbekannt | Lesen über FC01; Schreiben in der Vorlage über FC05 Adresse 0 freigegeben. Funktionswirkung noch nicht geprüft. | Bedeutung offen |\n| **1** | **RW** | **Steckerverriegelung / Verriegelungsfreigabe** | 1 → 0 gesetzt: Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **Verifiziert** |
+| **0** | **RO** | Unbekannt | Lesen über FC01 möglich; FC05-Schreibversuch auf Adresse 0 → **02 Illegal Data Address**. | Schreibzugriff abgewiesen; Bedeutung offen |\n| **1** | **RW** | **Steckerverriegelung / Verriegelungsfreigabe** | 1 → 0 gesetzt: Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **Verifiziert** |
 | **2** | **RW** | Unbekannt | Auf 0 gesetzt: Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | Bedeutung offen |
 | **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
 | **4** | **RW-Test** | Unbekannt | Lesen und FC05-Schreiben möglich. Beobachtung: Coil 4 fällt selbstständig etwa alle **60 s auf FALSE** zurück. Funktion noch nicht zugeordnet. | Bedeutung offen; periodisches Rücksetzen beobachtet |
@@ -111,7 +111,7 @@ Die Adressen **0–8** sind lesbar. Der vollständige Scan ist in der [README](.
 
 ## Coil 0 – Bedeutung offen
 
-Im erweiterten FC01-Scan ist **Adresse 0 gültig**. Im aufgenommenen Zustand war Coil 0 **TRUE**. Für die IP-Symcon-Vorlage ist Coil 0 jetzt mit **FC05 / Adresse 0 schreibbar** angelegt. Die Funktion selbst ist weiterhin unbekannt.
+Im erweiterten FC01-Scan ist **Adresse 0 gültig**. Im aufgenommenen Zustand war Coil 0 **TRUE**. Ein Schreibversuch mit **FC05 auf Adresse 0** wird mit **02 Illegal Data Address** abgewiesen. Coil 0 ist damit im getesteten Gerät **nur lesbar**; die Funktion bleibt unbekannt.
 
 ## Coil 1 – Steckerverriegelung
 
@@ -648,29 +648,26 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
-### Direkte Netzwerkfelder in der IP-Symcon-Vorlage
+### Direkte lesbare Netzwerkfelder in der IP-Symcon-Vorlage
 
 Die Netzwerkwerte werden **ohne virtuelle Adressen** direkt aus den Modbus-Registern gelesen.
 
-Dafür werden zusammenhängende Register mit dem IP-Symcon-Datentyp **STRING (HEX)** zusammengefasst:
+IP-Adresse, Gateway und Subnetzmaske werden nicht mehr als HEX-String angelegt. Stattdessen nutzt die Vorlage für jedes 16-Bit-Register beide nativen IP-Symcon-Datentypen **UINT8 (MSB)** und **UINT8 (LSB)**. Dadurch erscheinen die vier IPv4-Oktette direkt als Dezimalzahlen von 0 bis 255.
 
-- `mac_address` → 50010–50012, 6 Byte
-- `ip_address` → 50013–50014, 4 Byte
-- `gateway` → 50015–50016, 4 Byte
-- `subnet_mask` → 50017–50018, 4 Byte
-- `network_parameter_1` → 50019–50020, 4 Byte; genaue Funktion noch offen
-- `secondary_ip_address` → 50023–50024, 4 Byte; genaue Rolle noch offen
-- `secondary_subnet_mask` → 50027–50028, 4 Byte; genaue Rolle noch offen
+Beispiel aktuelle IP-Adresse:
 
-Damit existiert pro zusammenhängendem Netzwerkfeld genau **eine echte Modbus-Adresse in der Vorlage** und `VirtualAddresses` bleibt leer.
+```text
+50013 High-Byte = 192
+50013 Low-Byte  = 168
+50014 High-Byte = 178
+50014 Low-Byte  = 243
 
-Beispielwerte werden als HEX-String angezeigt:
+=> 192.168.178.243
+```
 
-- IP 192.168.178.243 → `C0A8B2F3`
-- Gateway 192.168.178.1 → `C0A8B201`
-- Subnetzmaske 255.255.255.0 → `FFFFFF00`
+Entsprechend werden auch Gateway, Subnetzmaske und die weiteren IPv4-formatierten Felder als vier einzelne, direkt gelesene Oktette angelegt. Damit bleiben alle Werte **echte Modbus-Adressen** und `VirtualAddresses` bleibt leer.
 
-Eine Punktnotation wie `192.168.178.243` lässt sich ohne virtuelle Berechnung nicht als einzelner String erzeugen; für die Tests ist die HEX-Darstellung jedoch eindeutig und direkt an die Register gebunden.
+Die MAC-Adresse bleibt als `STRING (HEX)`, da MAC-Adressen üblicherweise hexadezimal dargestellt werden.
 
 ### Vollständiger Rohbereich
 
