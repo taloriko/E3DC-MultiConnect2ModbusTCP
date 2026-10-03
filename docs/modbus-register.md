@@ -647,15 +647,15 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 | Register | Rohwert(e) | dekodiert | Einordnung |
 |---:|---|---|---|
-| **50010–50012** | 0x0C86 0x2970 0x507A | **0C:86:29:70:50:7A** | sehr wahrscheinlich MAC-Adresse |
-| **50013–50014** | 0xC0A8 0xB2F3 | **192.168.178.243** | sehr wahrscheinlich aktuelle IPv4-Adresse |
-| **50015–50016** | 0xC0A8 0xB201 | **192.168.178.1** | wahrscheinlich Gateway |
-| **50017–50018** | 0xFFFF 0xFF00 | **255.255.255.0** | Subnetzmaske |
-| **50019–50020** | 0xC0A8 0xB201 | **192.168.178.1** | wahrscheinlich DNS / weiterer Netzparameter |
-| **50023–50024** | 0xC0A8 0x00FE | **192.168.0.254** | weiterer / möglicher Fallback-Netzparameter |
-| **50027–50028** | 0xFFFF 0xFF00 | **255.255.255.0** | zweite Subnetzmaske / Fallback-Konfiguration |
+| **50010–50012** | 0x0C86 0x2970 0x507A | **0C:86:29:70:50:7A** | **MAC-Adresse – durch FRITZ!Box 7690 bestätigt** |
+| **50013–50014** | 0xC0A8 0xB2F3 | **192.168.178.243** | **IPv4-Adresse – durch FRITZ!Box 7690 bestätigt** |
+| **50015–50016** | 0xC0A8 0xB201 | **192.168.178.1** | **Gateway – durch FRITZ!Box 7690 bestätigt** |
+| **50017–50018** | 0xFFFF 0xFF00 | **255.255.255.0** | **Subnetzmaske – durch FRITZ!Box 7690 bestätigt** |
+| **50019–50020** | 0xC0A8 0xB201 | **192.168.178.1** | Vermutung: DNS / weiterer Netzparameter |
+| **50023–50024** | 0xC0A8 0x00FE | **192.168.0.254** | Vermutung: weiterer / möglicher Fallback-Netzparameter |
+| **50027–50028** | 0xFFFF 0xFF00 | **255.255.255.0** | Vermutung: zweite Subnetzmaske / Fallback-Konfiguration |
 
-Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
+Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. **MAC-Adresse, IPv4-Adresse, Gateway und Subnetzmaske wurden durch Abgleich mit der FRITZ!Box 7690 bestätigt.** Die übrigen Netzwerkadressen sind weiterhin **Vermutungen** und noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
 ### Lesbare Netzwerkfelder in IP-Symcon
 
