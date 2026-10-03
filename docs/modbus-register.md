@@ -452,6 +452,17 @@ Die Bedeutung 1/2 bleibt trotzdem als **Fremdquelle** gekennzeichnet, solange di
 
 ### 40085 – LED-/Fehlercode
 
+
+### 40085 = 128 – Frontmodul / Flachbandkabel
+
+Neuer Funktionstest:
+
+- Flachbandkabel zur Front nicht gesteckt
+- betroffenes Frontmodul enthält LED, Reader und Näherungssensor
+- **40085 = 128**
+
+Damit ist Fehlercode **128** für diesen Zustand reproduzierbar belegt. Welche einzelne Frontkomponente intern überwacht wird, ist damit noch nicht getrennt bestimmt; sicher ist der Zusammenhang mit dem fehlenden Front-Flachbandkabel.
+
 Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
 
 | Code | Bedeutung | Nachweis |
@@ -464,6 +475,7 @@ Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 4008
 | **5** | Lastabwurf erfolgt zu häufig, da Hausanschlussleistung nicht ausreicht | **aus Betriebsanleitung abgeleitet** |
 | **6** | Keine korrekte Freigabe vom Fahrzeug zum Ladebeginn | **aus Betriebsanleitung abgeleitet** |
 | **8** | Gleichstromfehler über 6 mA in der Fahrzeugversorgung | **aus Betriebsanleitung abgeleitet** |
+| **128** | Frontmodul nicht verbunden: Flachbandkabel zur Front mit LED, Reader und Näherungssensor nicht gesteckt | **selbst getestet** |
 | **130** | Blockierender Fehler mit rotem Dauerlicht; im Test durch simulierte Schützklebeüberwachung ausgelöst | **selbst getestet** |
 
 Die Betriebsanleitung ordnet den normalen roten Blinkfehlern die Blinkimpulse **1, 2, 3, 4, 5, 6 und 8** zu. Die eigenen Tests bestätigen bisher, dass **40085 denselben Zahlenwert liefert**:
@@ -766,6 +778,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: allgemeiner blockierender/verriegelter Fehler oder nur bestimmte Dauerlicht-Hardwarefehler
-11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
+11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
 12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
