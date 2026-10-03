@@ -249,3 +249,30 @@ echo "Beschreibungen gesetzt: " . $ok . PHP_EOL;
 if (count($missing) > 0) {
     echo "Nicht gefunden: " . implode(', ', $missing) . PHP_EOL;
 }
+
+// Netzwerk-Rohwerte ausblenden.
+// Die Werte müssen aktiv bleiben, da die virtuellen lesbaren Strings daraus berechnet werden.
+// Im Objektbaum bleibt dadurch pro Netzwerkfeld nur die lesbare Variable sichtbar.
+$networkRawIdents = [
+    'mac_address_raw',
+    'ip_address_raw',
+    'gateway_raw',
+    'subnet_mask_raw',
+    'network_parameter_1_raw',
+    'secondary_ip_address_raw',
+    'secondary_subnet_mask_raw'
+];
+
+$hidden = 0;
+foreach ($networkRawIdents as $ident) {
+    $variableID = @IPS_GetObjectIDByIdent($ident, $modbusID);
+    if ($variableID === false) {
+        continue;
+    }
+
+    IPS_SetHidden($variableID, true);
+    $hidden++;
+}
+
+echo "Netzwerk-Rohwerte ausgeblendet: " . $hidden . PHP_EOL;
+
