@@ -3074,6 +3074,12 @@
                     "Color": -1
                 },
                 {
+                    "Value": 128,
+                    "Name": "128 - Frontmodul nicht verbunden (Flachbandkabel LED / Reader / Näherungssensor)",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
                     "Value": 130,
                     "Name": "130 - Blockierender Dauerlichtfehler (getestet: Schützklebeüberwachung)",
                     "Icon": "",
