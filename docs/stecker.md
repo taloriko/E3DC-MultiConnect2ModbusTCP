@@ -10,19 +10,19 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 
 | Stecker | Pins / Kontakte | Zuordnung | Status |
 |---|---:|---|---|
+| **J1** | USB-A | Funktion unbekannt | offen |
+| **J5** | 3-polig | nicht belegt, Funktion unbekannt | offen |
 | **J8** | 5-polig | Ansteuerung 2-poliger Schütz Benedikt R40-20 230 für L2/L3 | **Verdrahtung geprüft** |
 | **J9** | 6 | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
+| **J10** | 6-polig | Funktion unbekannt | offen |
 | **J12** | 5 genutzt | PP, CP, PE und Motor Steckerverriegelung | **Verdrahtung geprüft** |
+| **J13** | 6-polig | laut mitgelieferter Anleitung Sensoranschluss 6 mA | Dokumentationshinweis |
 | **J14** | 2-polig | Spannungsrückmeldung L1 hinter dem Ausgangsschütz; sehr wahrscheinlich Schützklebeüberwachung | **Verdrahtung geprüft; Funktion durch Fehler-Simulation stark gestützt** |
 | **J15** | 2-polig | N / L vom 2-poligen C16-Automaten Hager NFT716 | **Verdrahtung geprüft** |
-| **J17** | 3-polig | Spulenanschluss des 3-poligen Ausgangsschützes | **Verdrahtung geprüft, Pin 3 offen** |
-| **J5** | 3-polig | nicht belegt, Funktion unbekannt | offen |
-| **J10** | 6-polig | Funktion unbekannt | offen |
-| **J13** | 6-polig | laut mitgelieferter Anleitung Sensoranschluss 6 mA | Dokumentationshinweis |
 | **J16** | 4-polig | Funktion unbekannt | offen |
-| **J19** | 4-polig | Summenstromwandler; L1, L2, L3 und N werden gemeinsam durchgeführt | **Hardware beobachtet; 6-mA-DC-Überwachung vermutet** |
-| **J1** | USB-A | Funktion unbekannt | offen |
+| **J17** | 3-polig | Spulenanschluss des 3-poligen Ausgangsschützes | **Verdrahtung geprüft, Pin 3 offen** |
 | **J18** | 2-polig | S0+ / S0- | Beschriftung geprüft |
+| **J19** | 4-polig | Summenstromwandler; L1, L2, L3 und N werden gemeinsam durchgeführt | **Hardware beobachtet; 6-mA-DC-Überwachung vermutet** |
 
 ---
 
