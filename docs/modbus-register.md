@@ -657,23 +657,25 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. **MAC-Adresse, IPv4-Adresse, Gateway und Subnetzmaske wurden durch Abgleich mit der FRITZ!Box 7690 bestätigt.** Die übrigen Netzwerkadressen sind weiterhin **Vermutungen** und noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
-### Lesbare Netzwerkfelder in IP-Symcon
+### Aufbau der Netzwerkwerte
 
-Die Modbus-Vorlage enthält pro Netzwerkfeld nur eine interne Rohquelle, z. B. `ip_address_raw`. Die Rohquellen müssen aktiv bleiben, damit die Register gelesen werden können.
+Die Netzwerkwerte liegen direkt in den 16-Bit-Holding-Registern. Pro Register werden **zwei Oktette** gespeichert:
 
-Das mitgelieferte Skript `E3DC_Multi_Connect_II_Beschreibungen.php` erzeugt daraus normale sichtbare **String-Variablen direkt unter dem ModBus-Gerät**:
+```text
+High-Byte = erstes Oktett
+Low-Byte  = zweites Oktett
+```
 
-- `MAC-Adresse` → z. B. `0C:86:29:70:50:7A`
-- `IP-Adresse` → z. B. `192.168.178.243`
-- `Gateway` → z. B. `192.168.178.1`
-- `Subnetzmaske` → z. B. `255.255.255.0`
-- `Netzwerkparameter 1`
-- `Zweite IP-Adresse`
-- `Zweite Subnetzmaske`
+Beispiel IPv4-Adresse:
 
-Die internen `*_raw`-Variablen werden vom Skript im Objektbaum ausgeblendet. Die lesbaren String-Variablen werden anschließend über den Skript-Timer automatisch aktualisiert.
+```text
+50013 = 0xC0A8 -> 192.168
+50014 = 0xB2F3 -> 178.243
 
-Damit gibt es im sichtbaren Objektbaum **keine Oktett-Variablen und keine HEX-Netzwerkwerte mehr**, sondern nur die lesbare Darstellung.
+Ergebnis: 192.168.178.243
+```
+
+Eine IPv4-Adresse bzw. Subnetzmaske belegt damit **zwei Register**, eine MAC-Adresse **drei Register**.
 
 ### Vollständiger Rohbereich
 
