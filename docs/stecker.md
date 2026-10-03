@@ -208,7 +208,25 @@ J18 ist **2-polig** beschriftet mit:
 | **S0+** | S0 Plus |
 | **S0-** | S0 Minus |
 
-Die weitere interne bzw. externe Nutzung wurde bisher nicht untersucht.
+Zwischen **S0+ und S0-** wurden an der Wallbox im Leerlauf ungefähr **11,6 V DC** gemessen.
+
+Für den Test wurde ein **Eltako DSZ12D-3x65A** mit potenzialfreiem S0-Optokopplerausgang angeschlossen:
+
+- **1000 Imp./kWh**
+- Impulslänge laut Hersteller **30 ms**
+- zulässige externe S0-Spannung laut Hersteller **5…30 V DC**
+- max. **20 mA**
+
+Damit liegt die von J18 bereitgestellte Spannung von ca. 11,6 V innerhalb des zulässigen Bereichs des Eltako-S0-Ausgangs.
+
+Anschluss für den Test:
+
+- **J18 S0+ → Eltako S0+**
+- **J18 S0- → Eltako S0-**
+
+Nach zwei Aufheizvorgängen mit dem Wasserkocher wurde trotz angeschlossenem S0-Ausgang **keine Änderung in den bisher bekannten Modbus-Registern 40001–40102 beobachtet**.
+
+Noch offen ist, ob J18 intern nur für eine andere Funktion verwendet wird, ob ein bislang unbekannter Zähler außerhalb des bekannten Registerbereichs existiert oder ob eine zusätzliche Konfiguration/Freigabe notwendig ist.
 
 ---
 
