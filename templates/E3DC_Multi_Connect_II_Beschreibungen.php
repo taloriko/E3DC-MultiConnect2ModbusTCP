@@ -39,7 +39,7 @@ $descriptions = [
     'steuerregister_40082' => 'Holding Register 40082 | PDU-Adresse 81 | Lesen: FC03 | Schreiben: FC06, PDU-Adresse 81',
     'steuerregister_40083' => 'Holding Register 40083 | PDU-Adresse 82 | Lesen: FC03 | Schreiben: FC06, PDU-Adresse 82',
     'reg_40084' => 'Holding Register 40084 | PDU-Adresse 83 | Lesen: FC03 | Nur Lesen',
-    'reg_40085' => 'Holding Register 40085 | PDU-Adresse 84 | Lesen: FC03 | Nur Lesen | LED-/Fehlercode | 0=normal | 2=bei CP E | 4=bei CP D / 4 Blinkimpulse | 130=verriegelter Schützklebefehler / rotes Dauerlicht',
+    'reg_40085' => 'Holding Register 40085 | PDU-Adresse 84 | Lesen: FC03 | Nur Lesen | Profil E3DC.Wallbox.Fehlercode wird direkt aus der Modbus-Vorlage angelegt',
     'rfid_karten_id' => 'Holding Register 40086-40089 | PDU-Adressen 85-88 | Lesen: FC03 | Nur Lesen',
     'reg_40090' => 'Holding Register 40090 | PDU-Adresse 89 | Lesen: FC03 | Nur Lesen',
     'reg_40091' => 'Holding Register 40091 | PDU-Adresse 90 | Lesen: FC03 | Nur Lesen',
