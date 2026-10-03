@@ -90,7 +90,7 @@ Ergebnis: "C08D62C4"
 
 # FC01 – Coils
 
-Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](../README.md#durchgeführte-adressscans) dokumentiert.
+Die Adressen **0–8** sind lesbar. Der vollständige Scan ist in der [README](../README.md#durchgeführte-adressscans) dokumentiert.
 
 ## Übersicht
 
@@ -104,6 +104,10 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender / verriegelter Fehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Simulierter Schützklebefehler mit rotem Dauerlicht: **TRUE** und bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **stark gestützt; genaue Fehlergruppe offen** |
+
+## Coil 0 – Bedeutung offen
+
+Im erweiterten FC01-Scan ist **Adresse 0 gültig**. Im aufgenommenen Zustand war Coil 0 **TRUE**. Die Schreibbarkeit wurde noch nicht getestet; die Funktion ist unbekannt.
 
 ## Coil 1 – Steckerverriegelung
 
@@ -703,7 +707,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 6. Leistungs- und Energiezählerregister
 7. Bedeutung der noch offenen **Coils 2 und 4**
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
-9. Coil 0 separat nachprüfen
+9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: allgemeiner blockierender/verriegelter Fehler oder nur bestimmte Dauerlicht-Hardwarefehler
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
 12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
