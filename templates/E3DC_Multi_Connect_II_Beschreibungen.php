@@ -7,7 +7,7 @@
 $modbusID = IPS_GetParent($_IPS['SELF']);
 
 $descriptions = [
-    'coil_0_unknown' => 'Modbus Coil 0 | Lesen: FC01 | Bedeutung unbekannt | Schreibbarkeit nicht getestet',
+    'coil_0_unknown' => 'Modbus Coil 0 | Lesen: FC01 | Schreiben: FC05, Coil 0 | Bedeutung unbekannt',
     'plug_locking' => 'Modbus Coil 1 | Lesen: FC01 | Schreiben: FC05, Coil 1',
     'coil_2_unknown' => 'Modbus Coil 2 | Lesen: FC01 | Schreiben: FC05, Coil 2',
     'phase_selection' => 'Modbus Coil 3 | Lesen: FC01 | Schreiben: FC05, Coil 3',
@@ -215,13 +215,13 @@ $descriptions = [
     'register_55124_unknown' => 'Holding Register 55124 | PDU-Adresse 15123 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
     'register_55125_unknown' => 'Holding Register 55125 | PDU-Adresse 15124 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
     'register_55126_unknown' => 'Holding Register 55126 | PDU-Adresse 15125 | Lesen: FC03 | Schreibbarkeit nicht getestet | Bedeutung unbekannt',
-    'mac_address' => 'Virtuelle Adresse | aus Holding Register 50010-50012 | MAC-Adresse | nur Lesen',
-    'ip_address' => 'Virtuelle Adresse | aus Holding Register 50013-50014 | IP-Adresse | nur Lesen',
-    'gateway' => 'Virtuelle Adresse | aus Holding Register 50015-50016 | Gateway | nur Lesen',
-    'subnet_mask' => 'Virtuelle Adresse | aus Holding Register 50017-50018 | Subnetzmaske | nur Lesen',
-    'network_parameter_1' => 'Virtuelle Adresse | aus Holding Register 50019-50020 | IPv4-formatierter Netzwerkparameter, genaue Zuordnung offen | nur Lesen',
-    'secondary_ip_address' => 'Virtuelle Adresse | aus Holding Register 50023-50024 | zweite gespeicherte IPv4-Adresse | nur Lesen',
-    'secondary_subnet_mask' => 'Virtuelle Adresse | aus Holding Register 50027-50028 | zweite gespeicherte Subnetzmaske | nur Lesen',
+    'mac_address' => 'Holding Register 50010-50012 | PDU-Adressen 10009-10011 | STRING (HEX), 6 Byte | MAC-Adresse | Nur Lesen',
+    'ip_address' => 'Holding Register 50013-50014 | PDU-Adressen 10012-10013 | STRING (HEX), 4 Byte | aktuelle IP-Adresse | Nur Lesen',
+    'gateway' => 'Holding Register 50015-50016 | PDU-Adressen 10014-10015 | STRING (HEX), 4 Byte | Gateway | Nur Lesen',
+    'subnet_mask' => 'Holding Register 50017-50018 | PDU-Adressen 10016-10017 | STRING (HEX), 4 Byte | Subnetzmaske | Nur Lesen',
+    'network_parameter_1' => 'Holding Register 50019-50020 | PDU-Adressen 10018-10019 | STRING (HEX), 4 Byte | IPv4-formatierter Netzwerkparameter, genaue Funktion offen | Nur Lesen',
+    'secondary_ip_address' => 'Holding Register 50023-50024 | PDU-Adressen 10022-10023 | STRING (HEX), 4 Byte | zweite gespeicherte IP-Adresse, genaue Rolle offen | Nur Lesen',
+    'secondary_subnet_mask' => 'Holding Register 50027-50028 | PDU-Adressen 10026-10027 | STRING (HEX), 4 Byte | zweite gespeicherte Subnetzmaske, genaue Rolle offen | Nur Lesen',
 ];
 
 $ok = 0;
