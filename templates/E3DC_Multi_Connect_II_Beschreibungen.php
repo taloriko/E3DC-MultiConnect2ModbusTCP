@@ -65,25 +65,10 @@ $descriptions = [
     'register_50007_unknown' => 'Holding Register 50007 | PDU-Adresse 10006 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50008_unknown' => 'Holding Register 50008 | PDU-Adresse 10007 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50009_unknown' => 'Holding Register 50009 | PDU-Adresse 10008 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'mac_address_word_1' => 'Holding Register 50010 | PDU-Adresse 10009 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'mac_address_word_2' => 'Holding Register 50011 | PDU-Adresse 10010 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'mac_address_word_3' => 'Holding Register 50012 | PDU-Adresse 10011 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'ip_address_word_1' => 'Holding Register 50013 | PDU-Adresse 10012 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'ip_address_word_2' => 'Holding Register 50014 | PDU-Adresse 10013 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'gateway_word_1' => 'Holding Register 50015 | PDU-Adresse 10014 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'gateway_word_2' => 'Holding Register 50016 | PDU-Adresse 10015 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'subnet_mask_word_1' => 'Holding Register 50017 | PDU-Adresse 10016 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'subnet_mask_word_2' => 'Holding Register 50018 | PDU-Adresse 10017 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'network_parameter_1_word_1' => 'Holding Register 50019 | PDU-Adresse 10018 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'network_parameter_1_word_2' => 'Holding Register 50020 | PDU-Adresse 10019 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50021_unknown' => 'Holding Register 50021 | PDU-Adresse 10020 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50022_unknown' => 'Holding Register 50022 | PDU-Adresse 10021 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'secondary_ip_address_word_1' => 'Holding Register 50023 | PDU-Adresse 10022 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'secondary_ip_address_word_2' => 'Holding Register 50024 | PDU-Adresse 10023 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50025_unknown' => 'Holding Register 50025 | PDU-Adresse 10024 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50026_unknown' => 'Holding Register 50026 | PDU-Adresse 10025 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'secondary_subnet_mask_word_1' => 'Holding Register 50027 | PDU-Adresse 10026 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
-    'secondary_subnet_mask_word_2' => 'Holding Register 50028 | PDU-Adresse 10027 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50029_unknown' => 'Holding Register 50029 | PDU-Adresse 10028 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50030_unknown' => 'Holding Register 50030 | PDU-Adresse 10029 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
     'register_50031_unknown' => 'Holding Register 50031 | PDU-Adresse 10030 | Lesen: FC03 | Nur Lesen in der Vorlage | Bedeutung noch nicht verifiziert',
@@ -222,14 +207,145 @@ $descriptions = [
     'network_parameter_1_raw' => 'Holding Register 50019-50020 | 4 Byte STRING (HEX) | Rohquelle Netzwerkparameter 1 | genaue Funktion offen | nur Lesen',
     'secondary_ip_address_raw' => 'Holding Register 50023-50024 | 4 Byte STRING (HEX) | Rohquelle zweite IP-Adresse | genaue Rolle offen | nur Lesen',
     'secondary_subnet_mask_raw' => 'Holding Register 50027-50028 | 4 Byte STRING (HEX) | Rohquelle zweite Subnetzmaske | genaue Rolle offen | nur Lesen',
-    'mac_address' => 'Virtuelle Anzeige aus mac_address_raw | lesbar als 0C:86:29:70:50:7A | nur Lesen',
-    'ip_address' => 'Virtuelle Anzeige aus ip_address_raw | lesbar als 192.168.178.243 | nur Lesen',
-    'gateway' => 'Virtuelle Anzeige aus gateway_raw | Punktnotation | nur Lesen',
-    'subnet_mask' => 'Virtuelle Anzeige aus subnet_mask_raw | Punktnotation | nur Lesen',
-    'network_parameter_1' => 'Virtuelle Anzeige aus network_parameter_1_raw | Punktnotation | genaue Funktion offen | nur Lesen',
-    'secondary_ip_address' => 'Virtuelle Anzeige aus secondary_ip_address_raw | Punktnotation | genaue Rolle offen | nur Lesen',
-    'secondary_subnet_mask' => 'Virtuelle Anzeige aus secondary_subnet_mask_raw | Punktnotation | genaue Rolle offen | nur Lesen',
 ];
+
+
+// -----------------------------------------------------------------------------
+// Lesbare Netzwerkvariablen
+// -----------------------------------------------------------------------------
+
+function E3DC_RawHex($variableID)
+{
+    if ($variableID === false) {
+        return '';
+    }
+
+    $raw = strtoupper((string) GetValue($variableID));
+    return preg_replace('/[^0-9A-F]/', '', $raw);
+}
+
+function E3DC_FormatIPv4($raw)
+{
+    if (strlen($raw) < 8) {
+        return $raw;
+    }
+
+    $raw = substr($raw, 0, 8);
+
+    return
+        hexdec(substr($raw, 0, 2)) . '.' .
+        hexdec(substr($raw, 2, 2)) . '.' .
+        hexdec(substr($raw, 4, 2)) . '.' .
+        hexdec(substr($raw, 6, 2));
+}
+
+function E3DC_FormatMAC($raw)
+{
+    if (strlen($raw) < 12) {
+        return $raw;
+    }
+
+    $raw = substr($raw, 0, 12);
+
+    return
+        substr($raw, 0, 2) . ':' .
+        substr($raw, 2, 2) . ':' .
+        substr($raw, 4, 2) . ':' .
+        substr($raw, 6, 2) . ':' .
+        substr($raw, 8, 2) . ':' .
+        substr($raw, 10, 2);
+}
+
+function E3DC_GetOrCreateStringVariable($parentID, $ident, $name)
+{
+    $id = @IPS_GetObjectIDByIdent($ident, $parentID);
+
+    if ($id === false) {
+        $id = IPS_CreateVariable(3);
+        IPS_SetParent($id, $parentID);
+        IPS_SetIdent($id, $ident);
+    }
+
+    IPS_SetName($id, $name);
+    IPS_SetHidden($id, false);
+
+    return $id;
+}
+
+function E3DC_UpdateNetworkStrings($modbusID)
+{
+    $map = [
+        'mac_address_raw' => [
+            'Ident' => 'mac_address',
+            'Name' => 'MAC-Adresse',
+            'Type' => 'MAC'
+        ],
+        'ip_address_raw' => [
+            'Ident' => 'ip_address',
+            'Name' => 'IP-Adresse',
+            'Type' => 'IPv4'
+        ],
+        'gateway_raw' => [
+            'Ident' => 'gateway',
+            'Name' => 'Gateway',
+            'Type' => 'IPv4'
+        ],
+        'subnet_mask_raw' => [
+            'Ident' => 'subnet_mask',
+            'Name' => 'Subnetzmaske',
+            'Type' => 'IPv4'
+        ],
+        'network_parameter_1_raw' => [
+            'Ident' => 'network_parameter_1',
+            'Name' => 'Netzwerkparameter 1',
+            'Type' => 'IPv4'
+        ],
+        'secondary_ip_address_raw' => [
+            'Ident' => 'secondary_ip_address',
+            'Name' => 'Zweite IP-Adresse',
+            'Type' => 'IPv4'
+        ],
+        'secondary_subnet_mask_raw' => [
+            'Ident' => 'secondary_subnet_mask',
+            'Name' => 'Zweite Subnetzmaske',
+            'Type' => 'IPv4'
+        ]
+    ];
+
+    foreach ($map as $rawIdent => $config) {
+        $rawID = @IPS_GetObjectIDByIdent($rawIdent, $modbusID);
+        if ($rawID === false) {
+            continue;
+        }
+
+        $raw = E3DC_RawHex($rawID);
+
+        if ($config['Type'] === 'MAC') {
+            $value = E3DC_FormatMAC($raw);
+        } else {
+            $value = E3DC_FormatIPv4($raw);
+        }
+
+        $targetID = E3DC_GetOrCreateStringVariable(
+            $modbusID,
+            $config['Ident'],
+            $config['Name']
+        );
+
+        SetValueString($targetID, $value);
+
+        // Die Modbus-Rohquelle bleibt aktiv, wird aber im Objektbaum ausgeblendet.
+        IPS_SetHidden($rawID, true);
+    }
+}
+
+// Bei jedem Aufruf die lesbaren Netzwerkstrings aktualisieren.
+E3DC_UpdateNetworkStrings($modbusID);
+
+// Beim Timerlauf sind keine weiteren Arbeiten erforderlich.
+if ($_IPS['SENDER'] === 'TimerEvent') {
+    return;
+}
 
 $ok = 0;
 $missing = [];
@@ -250,29 +366,7 @@ if (count($missing) > 0) {
     echo "Nicht gefunden: " . implode(', ', $missing) . PHP_EOL;
 }
 
-// Netzwerk-Rohwerte ausblenden.
-// Die Werte müssen aktiv bleiben, da die virtuellen lesbaren Strings daraus berechnet werden.
-// Im Objektbaum bleibt dadurch pro Netzwerkfeld nur die lesbare Variable sichtbar.
-$networkRawIdents = [
-    'mac_address_raw',
-    'ip_address_raw',
-    'gateway_raw',
-    'subnet_mask_raw',
-    'network_parameter_1_raw',
-    'secondary_ip_address_raw',
-    'secondary_subnet_mask_raw'
-];
-
-$hidden = 0;
-foreach ($networkRawIdents as $ident) {
-    $variableID = @IPS_GetObjectIDByIdent($ident, $modbusID);
-    if ($variableID === false) {
-        continue;
-    }
-
-    IPS_SetHidden($variableID, true);
-    $hidden++;
-}
-
-echo "Netzwerk-Rohwerte ausgeblendet: " . $hidden . PHP_EOL;
-
+// Netzwerkdarstellung automatisch aktuell halten.
+IPS_SetScriptTimer($_IPS['SELF'], 1);
+echo "Lesbare Netzwerkvariablen erstellt/aktualisiert." . PHP_EOL;
+echo "Netzwerk-Rohwerte ausgeblendet." . PHP_EOL;
