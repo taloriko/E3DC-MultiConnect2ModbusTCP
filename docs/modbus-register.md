@@ -652,15 +652,15 @@ Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die gena
 
 Für die Gegenprüfung enthält die Vorlage zusätzlich **virtuelle, nur lesbare String-Variablen**, welche die Rohregister direkt in MAC-/IPv4-Schreibweise umwandeln:
 
-- `mac_address_candidate` aus 50010–50012
-- `ip_address_candidate` aus 50013–50014
-- `gateway_candidate` aus 50015–50016
-- `subnet_mask_candidate` aus 50017–50018
-- `dns_or_network_parameter_candidate` aus 50019–50020
-- `fallback_ip_address_candidate` aus 50023–50024
-- `secondary_subnet_mask_candidate` aus 50027–50028
+- `mac_address` aus 50010–50012
+- `ip_address` aus 50013–50014
+- `gateway` aus 50015–50016
+- `subnet_mask` aus 50017–50018
+- `network_parameter_1` aus 50019–50020 – IPv4-Format, genaue Funktion noch offen
+- `secondary_ip_address` aus 50023–50024
+- `secondary_subnet_mask` aus 50027–50028
 
-Diese Variablen sind ausdrücklich als **vermutet / candidate** gekennzeichnet. Die Rohregister bleiben zusätzlich erhalten, damit beim Ändern der Netzwerkeinstellungen exakt nachvollzogen werden kann, welche Register tatsächlich mitlaufen.
+MAC-Adresse, IP-Adresse, Gateway und Subnetzmaske werden in der Vorlage direkt als lesbare String-Werte zusammengesetzt. Die weiteren IPv4-formatierten Felder bleiben getrennt gekennzeichnet, solange ihre genaue Rolle noch nicht durch Einstellungsänderungen verifiziert ist. Die Rohregister bleiben zusätzlich erhalten.
 
 ### Vollständiger Rohbereich
 
