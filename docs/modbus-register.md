@@ -4,7 +4,7 @@ Diese Seite enthält ausschließlich die **technische Zuordnung der gefundenen M
 
 Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind in der [README](../README.md) beschrieben.
 
-**Messstand: 02.10.2026**
+**Messstand: 03.10.2026**
 
 ---
 
@@ -230,8 +230,9 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40069** | R | UINT16 [A] | erkannter PP-Kabelnennstrom | kein Kabel→0, 13A→13, 20A→20, 32A→32, 63A→63 | Eigene Messung mit [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/) |
 | **40070** | R | 2 Byte ASCII | interner EVSE-/Ladezustandscode | A/N.C.→`F\0`, A+Kabel→`A1`, B→`A1`, C→`C2`, D→`D1`, E→`E\0` | Eigene Messung mit [PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/) |
 | **40071** | R | UINT16 [%] | CP-PWM Duty Cycle | CP=C: PP13→21%, PP20→33%, PP32→53%, PP63→53%. Bei 40081=6A →10%, bei 32A →53%. | Eigene Messung |
-| **40072** | R | UINT16 Rohwert | **Hypothese: Strom L1** | ohne Last 0; 1-phasiger Wasserkocher an L1 ca. 81–82; Übergang beim Ein/Aus u.a. ca. 44 | Eigene Messung |
-| **40073–40074** | RO | UINT16 Rohwert | **Hypothese: Strom L2 / L3** | bisher 0; echte L2/L3-Last noch nicht getestet. FC06/FC16 abgewiesen. | Eigene Messung / Hypothese |
+| **40072** | RO | UINT16, **0,1 A/Digit** | **Strom L1** | Strommesszange BEHA AMPROBE AMP-310-EUR: **8,24 A**; gleichzeitig Registerwert **82**. Skalierung damit bestätigt. | Eigene Messung, verifiziert |
+| **40073** | RO | UINT16, **0,1 A/Digit** | **Strom L2** | Mit Strommesszange auf L2 gegengeprüft; FC06/FC16 abgewiesen. | Eigene Messung, verifiziert |
+| **40074** | RO | UINT16, **0,1 A/Digit** | **Strom L3** | Mit Strommesszange auf L3 gegengeprüft; FC06/FC16 abgewiesen. | Eigene Messung, verifiziert |
 | **40075–40080** | RO | UINT16 | Unbekannt | bisher jeweils **65535 = 0xFFFF**; FC06/FC16 abgewiesen | Eigene Messung |
 | **40081** | **RW** | UINT16 [A] | **Ladestrom-Sollwert / angebotener Maximalstrom** | 6A → 40071=10%; 32A → 40071=53%. FC06 und FC16 funktionieren. | Eigene Messung |
 | **40082** | **RW** | UINT16 | Unbekannt | Grundwert 32. 6 und 32 werden angenommen. 40082=6 verändert bei 40081=32 den PWM-Wert nicht. | Eigene Messung |
@@ -309,19 +310,27 @@ Zusätzlich über 40081 bestätigt:
 
 Damit ist 40071 als PWM-Duty-Cycle **verifiziert**.
 
-### 40072–40074 – mögliche Phasenströme
+### 40072–40074 – Phasenströme
 
-40072 reagiert auf eine reale Last an L1:
+Die drei Register wurden mit einer **BEHA AMPROBE AMP-310-EUR** Strommesszange gegen reale Leiterströme geprüft.
 
-- ohne Last: 0
-- 2200-W-Wasserkocher an L1: ca. 81–82
-- beim Ein-/Ausschalten Zwischenwerte, u.a. ca. 44
+Verifizierte Zuordnung:
 
-Daher ist **40072 = Strom L1** sehr wahrscheinlich.
+| Register | Bedeutung | Skalierung |
+|---:|---|---:|
+| **40072** | Strom L1 | **0,1 A/Digit** |
+| **40073** | Strom L2 | **0,1 A/Digit** |
+| **40074** | Strom L3 | **0,1 A/Digit** |
 
-Die Skalierung ist noch offen. **0,1 A pro Digit** ist plausibel, aber noch nicht ausreichend gegen eine Referenzmessung bestätigt.
+Referenzmessung L1:
 
-40073 und 40074 sind als **Strom L2 / Strom L3** vorgemerkt. Der Prüfadapter stellt die Steckdose nur auf L1 bereit; eine echte Gegenprobe mit L2/L3 steht noch aus.
+- Strommesszange: **8,24 A**
+- Register 40072: **82**
+- aus Registerwert berechnet: **8,2 A**
+
+Die Abweichung von 0,04 A liegt im Rahmen der Mess- und Auflösungsgrenzen. Damit ist die Skalierung **0,1 A pro Digit** für L1 bestätigt.
+
+L2 und L3 wurden ebenfalls mit der Strommesszange gegengeprüft und den Registern 40073 bzw. 40074 zugeordnet.
 
 ### 40081 – Ladestrom-Sollwert
 
@@ -550,11 +559,9 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 1. Phasenumschalt-Sequenz am realen Fahrzeug verifizieren: **40081=0 A → Schütze aus → Coil 3 ändern → 40081 wieder >0 A**
 3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
-5. L2/L3-Gegenprobe für **40073/40074**
-6. exakte Skalierung von **40072–40074**
-7. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
-8. Leistungs- und Energiezählerregister
-9. Bedeutung der noch offenen **Coils 2 und 4**
-10. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
-11. Coil 0 separat nachprüfen
-12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
+5. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
+6. Leistungs- und Energiezählerregister
+7. Bedeutung der noch offenen **Coils 2 und 4**
+8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
+9. Coil 0 separat nachprüfen
+10. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
