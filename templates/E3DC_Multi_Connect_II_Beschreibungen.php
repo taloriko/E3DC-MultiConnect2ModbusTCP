@@ -15,7 +15,7 @@ $descriptions = [
     'front_sensor_boost_request' => 'Modbus Coil 5 | Lesen: FC01 | Schreiben: FC05, Coil 5',
     'keep_plug_locked_after_charging' => 'Modbus Coil 6 | Lesen: FC01 | Schreiben: FC05, Coil 6',
     'coil_7_unknown' => 'Modbus Coil 7 | Lesen: FC01 | Nur Lesen | Schreibversuch FC05: 02 Illegal Data Address | Bei CP=E bleibt TRUE; keine Zustandsänderung, Bedeutung offen',
-    'blocking_fault_status' => 'Modbus Coil 8 | Lesen: FC01 | Nur Lesen | FC05: 02 Illegal Data Address | Blinkfehler CP D/E: FALSE | Schützklebefehler mit rotem Dauerlicht: TRUE, verriegelt bis Steuersicherung AUS/EIN',
+    'blocking_fault_status' => 'Modbus Coil 8 | Lesen: FC01 | Nur Lesen | FC05: 02 Illegal Data Address | Blinkfehler CP D/E: FALSE | Fehlercode 128 bei abgezogenem Front-Flachbandkabel: TRUE | Fehlercode 130 Schützklebefehler: TRUE, dort verriegelt bis Steuersicherung AUS/EIN',
     'protocol_signature' => 'Holding Register 40001 | PDU-Adresse 0 | Lesen: FC03 | Nur Lesen',
     'register_40002_unknown' => 'Holding Register 40002 | PDU-Adresse 1 | Lesen: FC03 | Nur Lesen',
     'register_40003_unknown' => 'Holding Register 40003 | PDU-Adresse 2 | Lesen: FC03 | Nur Lesen',
