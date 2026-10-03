@@ -97,7 +97,7 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **1** | **RW** | **Steckerverriegelung / Verriegelungsfreigabe** | 1 → 0 gesetzt: Stecker wird nicht mehr verriegelt. Gleichzeitig geht Discrete Input 1 auf 0. | **Verifiziert** |
 | **2** | **RW** | Unbekannt | Auf 0 gesetzt: Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | Bedeutung offen |
 | **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
-| **4** | **RW-Test** | Unbekannt | Lesen und FC05-Schreiben möglich; Funktion noch nicht zugeordnet. | Bedeutung offen |
+| **4** | **RW-Test** | Unbekannt | Lesen und FC05-Schreiben möglich. Beobachtung: Coil 4 fällt selbstständig etwa alle **60 s auf FALSE** zurück. Funktion noch nicht zugeordnet. | Bedeutung offen; periodisches Rücksetzen beobachtet |
 | **5** | **RW** | **Boost-Anforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. | **Verifiziertes Verhalten; Rücksetzlogik offen** |
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
@@ -154,6 +154,17 @@ Laden stoppen
 
 Damit ist Coil 3 der bisher gefundene direkte Modbus-Befehl für die **1P/3P-Umschaltung**.
 
+
+## Coil 4 – periodisches Rücksetzen
+
+Coil 4 ist les- und per FC05 beschreibbar, die Funktion ist weiterhin unbekannt.
+
+Neue Beobachtung:
+
+- nach dem Setzen bzw. während der Beobachtung fällt Coil 4 regelmäßig ungefähr alle **60 Sekunden auf FALSE**
+- dieses Verhalten tritt ohne bekannte direkte Benutzeraktion auf
+
+Das spricht eher für einen **Trigger-/Anforderungswert oder einen zyklisch zurückgesetzten internen Zustand** als für einen dauerhaft gespeicherten Modus. Eine Funktionszuordnung ist daraus noch nicht möglich.
 
 ## Coil 5 – Frontsensor
 
