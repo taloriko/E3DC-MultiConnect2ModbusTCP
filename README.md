@@ -162,23 +162,21 @@ Am **02.10.2026** wurden mit Modbus Poll die vier klassischen Modbus-Lesebereich
 
 | Funktion | Bereich mit gültiger Rückmeldung | Bereich ohne gültige Datenadresse |
 |---|---|---|
-| **FC01 – Read Coils** | 1–8 | 9–1000 → **02 Illegal Data Address** |
+| **FC01 – Read Coils** | **0–8** | 9–9999 → **02 Illegal Data Address** |
 | **FC02 – Read Discrete Inputs** | 1–8 | 9–1000 → **02 Illegal Data Address** |
 | **FC03 – Read Holding Registers** | 0–101 sowie **9999–10031** | 102–9998 und ab 10032 → **02 Illegal Data Address** |
 | **FC04 – Read Input Registers** | keiner | 0–1000 → **02 Illegal Data Address** |
-
-Bei **Adresse 0** von FC01 und FC02 zeigte der Modbus-Poll-Export `Write error`. Diese Adresse wird deshalb separat behandelt und weder als gültig noch als eindeutig ungültig bewertet.
 
 ### FC01 – Read Coils
 
 Beim ersten Scan wurden folgende Werte gelesen:
 
 ```text
-Adresse: 1 2 3 4 5 6 7 8
-Wert:    1 1 0 0 0 0 1 0
+Adresse: 0 1 2 3 4 5 6 7 8
+Wert:    1 1 1 0 0 0 0 1 0
 ```
 
-Die Adressen **1–8** sind lesbar. Ab Adresse **9** bis **1000** wird durchgehend **02 Illegal Data Address** zurückgegeben.
+Die Adressen **0–8** sind lesbar. Ab Adresse **9** wurde im erweiterten Scan bis **9999** durchgehend **02 Illegal Data Address** zurückgegeben.
 
 Die Funktionszuordnung der einzelnen Coils wird auf der [Modbus-Seite](docs/modbus-register.md) dokumentiert.
 
