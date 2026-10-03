@@ -1,6 +1,8 @@
-# Direkte Modbus-TCP-Register und Funktionen
+# E3/DC Multi Connect II – Modbus-TCP-Register und Funktionen
 
-Diese Seite enthält ausschließlich die **technische Zuordnung der gefundenen Modbus-Adressen**, deren Bedeutung sowie die dazu durchgeführten Funktionstests.
+Diese Seite dokumentiert die direkt an der **E3/DC Multi Connect II Wallbox** gefundenen und getesteten **Modbus-TCP-Register, Coils und Funktionen**.
+
+Sie enthält ausschließlich die **technische Zuordnung der gefundenen Modbus-Adressen**, deren Bedeutung sowie die dazu durchgeführten Funktionstests.
 
 Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind in der [README](../README.md) beschrieben.
 
