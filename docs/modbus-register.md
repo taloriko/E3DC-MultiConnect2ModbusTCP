@@ -650,27 +650,28 @@ Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die gena
 
 ### Lesbare Netzwerkfelder in der IP-Symcon-Vorlage
 
-Die einzelnen Oktette werden weiterhin direkt aus den echten Modbus-Registern gelesen. Zusätzlich setzt die Vorlage daraus je Netzwerkparameter einen **String in Punktnotation** zusammen, damit die Anzeige der Hager-Oberfläche entspricht.
+Die vier einzelnen Oktette werden **nicht als eigene Variablen angelegt**.
+
+Stattdessen besitzt jedes Netzwerkfeld nur:
+
+1. eine direkte Rohquelle aus den echten FC03-Registern, z. B. `ip_address_raw`,
+2. eine lesbare String-Anzeige, z. B. `ip_address = 192.168.178.243`.
 
 Beispiel:
 
 ```text
-IP-Adresse:   192.168.178.243
-Gateway:      192.168.178.1
-Subnetzmaske: 255.255.255.0
+ip_address_raw = C0A8B2F3
+ip_address     = 192.168.178.243
 ```
 
-Virtuelle Anzeigevariablen:
+Entsprechend:
 
-- `ip_address`
-- `gateway`
-- `subnet_mask`
-- `network_parameter_1`
-- `secondary_ip_address`
-- `secondary_subnet_mask`
-- `mac_address_readable`
+- `mac_address` → `0C:86:29:70:50:7A`
+- `ip_address` → `192.168.178.243`
+- `gateway` → `192.168.178.1`
+- `subnet_mask` → `255.255.255.0`
 
-Die virtuellen Variablen dienen nur der **Darstellung**. Gelesen wird weiterhin ausschließlich aus den echten FC03-Registern. Die MAC-Adresse wird zusätzlich als `0C:86:29:70:50:7A` formatiert.
+Damit gibt es **keine zusätzlichen Oktett-Variablen**. Die Rohvariable ist nur die Modbus-Quelle für den formatierten String.
 
 ### Vollständiger Rohbereich
 
