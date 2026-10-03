@@ -10,6 +10,7 @@ Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
 
 - [Direkte Modbus-TCP-Register und Funktionen](docs/modbus-register.md)
 - [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
+- [IP-Symcon Modbus-Vorlage](templates/E3DC_Multi_Connect_II_Modbus.json)
 
 Diese README beschreibt den **Testaufbau, die verwendete Hardware, die Modbus-Grundlagen des Tests und die durchgeführten Adressscans**.
 
