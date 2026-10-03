@@ -1,6 +1,8 @@
-# E3DC Multi Connect II – direkte Modbus-TCP-Anbindung
+# E3/DC Multi Connect II Wallbox – Modbus TCP Register & direkte Steuerung
 
-Ziel dieses Projekts ist es, die nicht offiziell dokumentierte direkte Modbus-TCP-Schnittstelle der **E3/DC Multi Connect II** zu untersuchen und die Wallbox **ohne E3/DC-Hauskraftwerk / EMC** ansteuern zu können.
+Dieses Projekt dokumentiert die nicht offiziell veröffentlichte **Modbus-TCP-Schnittstelle und die Modbus-Register der E3/DC Multi Connect II Wallbox (Multi Connect 2)**.
+
+Ziel ist die **direkte Steuerung der Wallbox per Modbus TCP ohne E3/DC-Hauskraftwerk / EMC**. Dokumentiert werden unter anderem Register, Coils, Ladestatus, Ladestrom, Phasenumschaltung, RFID, interne Schnittstellen und getestete Schreibbefehle.
 
 Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Vermutungen und Fremdfunde werden ausdrücklich als solche gekennzeichnet.
 
@@ -280,3 +282,16 @@ Verwendet für CP-Zustände, PP-Kabelsimulation und reproduzierbare Fahrzeugsimu
 ## Hinweis
 
 Es handelt sich um **Reverse Engineering einer nicht offiziell dokumentierten direkten Modbus-Schnittstelle**. Die beschriebenen Funktionen beziehen sich auf das oben genannte Testgerät und den getesteten Firmwarestand. Andere Firmwarestände oder Hardwarevarianten können sich anders verhalten.
+
+
+---
+
+## Lizenz
+
+Dieses Projekt ist ausdrücklich zum **Nachbauen, Weiterentwickeln, Forken und Verbessern** gedacht.
+
+Die Nutzung, Änderung und Weitergabe ist für **nicht-kommerzielle Zwecke** erlaubt. Kommerzielle Nutzung, Verkauf, entgeltliche Dienstleistungen oder die Integration in kommerzielle Produkte und Angebote sind ohne separate schriftliche Erlaubnis nicht gestattet.
+
+Weiterentwicklungen und Forks sind ausdrücklich erwünscht. Bei einer Weitergabe oder Veröffentlichung von Änderungen müssen der ursprüngliche Urheberhinweis und diese Lizenz erhalten bleiben.
+
+Die vollständigen Bedingungen stehen in der Datei [LICENSE](LICENSE).
