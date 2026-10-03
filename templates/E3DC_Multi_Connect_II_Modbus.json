@@ -112,7 +112,7 @@
             "Factor": 0,
             "Ident": "coil_8_ro_unbekannt",
             "Length": 0,
-            "Name": "Fehlerstatus (RO) - Schützklebekontrolle beobachtet",
+            "Name": "Verriegelter Fehlerstatus (RO) - bei Schützklebefehler TRUE",
             "Profile": "~Switch",
             "ReadAddress": 8,
             "ReadFunctionCode": 1,
