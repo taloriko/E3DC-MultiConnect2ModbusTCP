@@ -116,7 +116,7 @@ Die Adressen **0–8** sind lesbar.
 | **5** | **RW** | **Boost-Anforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. | **Verifiziertes Verhalten; Rücksetzlogik offen** |
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
-| **8** | **RO** | **blockierender / verriegelter Fehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Simulierter Schützklebefehler mit rotem Dauerlicht: **TRUE** und bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **stark gestützt; genaue Fehlergruppe offen** |
+| **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
 
 ## Coil 0 – Bedeutung offen
 
@@ -238,6 +238,14 @@ Gleichzeitig wurden beobachtet:
 Damit ist Coil 8 als **verriegelter Fehlerstatus** stark gestützt. Beim simulierten Schützklebefehler bleibt Coil 8 auch nach Entfernen der Fehlerursache und normalen Ladezustandswechseln TRUE.
 
 Ein Reset war erst durch **Steuersicherung AUS / EIN** möglich. Danach wechselte Coil 8 auf **FALSE**.
+
+Zusätzlich wurde bei einem **nicht gesteckten Flachbandkabel zur Front** beobachtet:
+
+- **40085 = 128**
+- **Coil 8 = TRUE**
+- das Flachbandkabel verbindet die Front mit LED, Reader und Näherungssensor
+
+Damit reagiert Coil 8 nicht nur auf den Schützklebefehler, sondern auch auf mindestens einen weiteren Hardware-/Systemfehler. Eine allgemeine Zuordnung zu **blockierenden Hardwarefehlern** ist damit deutlich besser gestützt.
 
 Bei den reproduzierten **roten Blinkfehlern** bleibt Coil 8 dagegen **FALSE**:
 
@@ -461,7 +469,7 @@ Neuer Funktionstest:
 - betroffenes Frontmodul enthält LED, Reader und Näherungssensor
 - **40085 = 128**
 
-Damit ist Fehlercode **128** für diesen Zustand reproduzierbar belegt. Welche einzelne Frontkomponente intern überwacht wird, ist damit noch nicht getrennt bestimmt; sicher ist der Zusammenhang mit dem fehlenden Front-Flachbandkabel.
+Damit ist Fehlercode **128** für diesen Zustand reproduzierbar belegt. Gleichzeitig wird **Coil 8 = TRUE**. Welche einzelne Frontkomponente intern überwacht wird, ist damit noch nicht getrennt bestimmt; sicher ist der Zusammenhang mit dem fehlenden Front-Flachbandkabel.
 
 Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
 
@@ -777,7 +785,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 7. Bedeutung der noch offenen **Coils 2 und 4**
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
-10. **Coil 8** weiter eingrenzen: allgemeiner blockierender/verriegelter Fehler oder nur bestimmte Dauerlicht-Hardwarefehler
+10. **Coil 8** weiter eingrenzen: aktuell TRUE bei Fehlercode 128 (Front-Flachbandkabel/Frontmodul nicht verbunden) und 130 (Schützklebefehler), FALSE bei den getesteten Blinkfehlern 2/4
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
 12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
