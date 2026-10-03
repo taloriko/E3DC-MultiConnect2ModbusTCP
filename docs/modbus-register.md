@@ -422,46 +422,40 @@ Die Bedeutung 1/2 bleibt trotzdem als **Fremdquelle** gekennzeichnet, solange di
 
 ### 40085 – LED-/Fehlercode
 
-Die bisherigen Tests zeigen einen sehr deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
+Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
 
-| Testzustand | LED-Verhalten | 40085 | Coil 7 | Coil 8 | Rücksetzen |
-|---|---|---:|---|---|---|
-| Normalzustand | kein Fehler | **0** | — | FALSE | — |
-| CP=E | rotes Blinken | **2** | bleibt TRUE | FALSE | Kabel aus-/einstecken |
-| CP=D, danach Kabel anstecken | rotes Blinken | **4** | unverändert | FALSE | Kabel aus-/einstecken |
-| simulierter Schützklebefehler | **rotes Dauerlicht** | **130** | nicht eindeutig | TRUE | nur Steuersicherung AUS/EIN |
+| Code | Bedeutung | Nachweis |
+|---:|---|---|
+| **0** | Kein Fehler | **selbst beobachtet** |
+| **1** | Ladekabel defekt oder nicht unterstützt | **aus Betriebsanleitung abgeleitet** |
+| **2** | Fahrzeugerkennungsfunktion funktioniert nicht | **Code selbst getestet; Bedeutung aus Betriebsanleitung** |
+| **3** | Fahrzeug hält die vorgegebene Leistungsbeschränkung nicht ein | **aus Betriebsanleitung abgeleitet** |
+| **4** | Fahrzeug/Wallbox nicht kompatibel; Fahrzeug erfordert Belüftung | **selbst getestet und Betriebsanleitung bestätigt** |
+| **5** | Lastabwurf erfolgt zu häufig, da Hausanschlussleistung nicht ausreicht | **aus Betriebsanleitung abgeleitet** |
+| **6** | Keine korrekte Freigabe vom Fahrzeug zum Ladebeginn | **aus Betriebsanleitung abgeleitet** |
+| **8** | Gleichstromfehler über 6 mA in der Fahrzeugversorgung | **aus Betriebsanleitung abgeleitet** |
+| **130** | Blockierender Fehler mit rotem Dauerlicht; im Test durch simulierte Schützklebeüberwachung ausgelöst | **selbst getestet** |
 
-Besonders aussagekräftig ist der CP-D-Test: Die Betriebsanleitung beschreibt **4 rote Blinkimpulse** als Fehlerfall, bei dem das Fahrzeug eine Belüftung erfordert. Genau in diesem Testzustand liefert 40085 den Wert **4**.
+Die Betriebsanleitung ordnet den normalen roten Blinkfehlern die Blinkimpulse **1, 2, 3, 4, 5, 6 und 8** zu. Die eigenen Tests bestätigen bisher, dass **40085 denselben Zahlenwert liefert**:
 
-Damit ist stark gestützt, dass 40085 bei den normalen roten Blinkfehlern direkt den **Blink-/Fehlercode** enthält.
+- CP=E → 40085 = **2**
+- CP=D und Kabel anstecken → 40085 = **4**
 
-Auch der Wert **2** bei CP=E passt in dieses Schema: Im Handbuch ist ein Fehler mit **2 Blinkimpulsen** aufgeführt. Die genaue interne Ursache von CP=E und die Handbuchbeschreibung müssen jedoch getrennt betrachtet werden; bisher ist nur der identische Zahlenwert beobachtet.
-
-#### Wert 130 bei rotem Dauerlicht
-
-Der simulierte Schützklebefehler unterscheidet sich deutlich von den Blinkfehlern:
+Der simulierte Schützklebefehler unterscheidet sich davon:
 
 - 40085 = **130**
 - Front-LED = **rotes Dauerlicht**
-- Coil 8 = **TRUE**
-- Fehler bleibt nach Entfernen der Ursache bestehen
-- Kabel aus-/einstecken quittiert ihn **nicht**
-- Reset erst durch **Steuersicherung AUS / EIN**
-- danach 40085 = **0** und Coil 8 = **FALSE**
+- Coil 8 = TRUE
+- Fehler wird nicht durch Kabel aus-/einstecken quittiert
+- Reset erst durch Steuersicherung AUS/EIN
 
-Damit ist 130 sehr wahrscheinlich ein Code aus einer anderen bzw. erweiterten Fehlerklasse als die normalen Blinkcodes.
+Die Betriebsanleitung nennt für rotes Dauerlicht als mögliche Ursachen einen nicht arbeitenden 40-A-Schütz oder einen defekten/nicht angeschlossenen DC-Sensor. **130 ist bisher nur für den selbst simulierten Schützfehler bestätigt.**
 
-Rechnerisch gilt zwar:
+#### Darstellung in IP-Symcon
 
-```text
-130 = 0x82 = 128 + 2
-```
+Die Modbus-Vorlage enthält für 40085 das eigene Integer-Profil `E3DC.Wallbox.Fehlercode`.
 
-Eine Bitfeldinterpretation bleibt daher möglich, ist nach dem D-Test aber **nicht mehr die bevorzugte Erklärung**. Belastbarer ist derzeit:
-
-- **0** = kein Fehler
-- **2 / 4 / ...** = normale, durch Blinkimpulse dargestellte Fehlercodes
-- **130** = blockierender / verriegelter Dauerlichtfehler im Schützklebefehler-Test
+Bekannte Fehlercodes werden dadurch direkt als Klartext dargestellt. Nicht bekannte Werte bleiben über die Assoziation **„Unbekannter Fehlercode %d“** mit ihrem tatsächlichen Zahlenwert sichtbar.
 
 ### 40086–40089 – RFID-Karten-ID
 
