@@ -488,7 +488,7 @@
             "Ident": "reg_40085",
             "Length": 0,
             "Name": "LED-/Fehlercode (RO)",
-            "Profile": "",
+            "Profile": "E3DC.Wallbox.Fehlercode",
             "ReadAddress": 84,
             "ReadFunctionCode": 3,
             "Translation": [],
@@ -707,7 +707,92 @@
         }
     ],
     "ByteOrder": 0,
-    "Profiles": {},
+    "Profiles": {
+        "E3DC.Wallbox.Fehlercode": {
+            "Type": 1,
+            "Prefix": "",
+            "Suffix": "",
+            "MinValue": 0,
+            "MaxValue": 65535,
+            "StepSize": 0,
+            "Digits": 0,
+            "Icon": "",
+            "Associations": [
+                {
+                    "Value": 0,
+                    "Name": "Kein Fehler",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 1,
+                    "Name": "1 - Ladekabel defekt / nicht unterstützt",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 2,
+                    "Name": "2 - Fahrzeugerkennung fehlerhaft",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 3,
+                    "Name": "3 - Leistungsbeschränkung nicht eingehalten",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 4,
+                    "Name": "4 - Belüftung erforderlich / Fahrzeug nicht kompatibel",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 5,
+                    "Name": "5 - Lastabwurf zu häufig / Hausanschlussleistung unzureichend",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 6,
+                    "Name": "6 - Keine korrekte Ladefreigabe vom Fahrzeug",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 7,
+                    "Name": "Unbekannter Fehlercode %d",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 8,
+                    "Name": "8 - DC-Fehler > 6 mA in Fahrzeugversorgung",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 9,
+                    "Name": "Unbekannter Fehlercode %d",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 130,
+                    "Name": "130 - Blockierender Dauerlichtfehler (getestet: Schützklebeüberwachung)",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 131,
+                    "Name": "Unbekannter Fehlercode %d",
+                    "Icon": "",
+                    "Color": -1
+                }
+            ]
+        }
+    },
     "Requests": {
         "DataBlocks": [],
         "Interval": 1000,
