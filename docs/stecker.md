@@ -97,7 +97,24 @@ Beobachtung nach dem Abschalten des Schützes:
 
 Damit ist sehr stark gestützt, dass J14 die **Spannungsrückmeldung für die Schützklebeüberwachung** bereitstellt: Die Steuerung schaltet den Schütz ab, erkennt hinter dem Schütz aber weiterhin Netzspannung.
 
-Die Betriebsanleitung nennt eine integrierte **Schützklebeüberwachung**, ordnet ihr jedoch keine interne Steckverbindung oder Modbus-Adresse zu. Die Zuordnung zu J14 ergibt sich daher aus diesem eigenen Funktionstest.
+Die Betriebsanleitung nennt eine integrierte **Schützklebeüberwachung**. In Abschnitt 9.6.2 wird **rotes Dauerlicht** unter anderem mit „Der 40 A-Schütz arbeitet nicht“ beschrieben. Die Zuordnung zu J14 ergibt sich zusätzlich aus diesem eigenen Funktionstest.
+
+### Rücksetzverhalten
+
+Der erzeugte Fehler blieb **verriegelt**:
+
+- Rückkehr durch normale CP-/Ladezustände: **nicht möglich**
+- Rücksetzen über beobachtete Modbus-Werte/Coils: **nicht möglich**
+- Entfernen der Brücke allein: **kein Reset**
+- erst **Steuersicherung AUS / EIN** setzte den Fehler zurück
+
+Nach dem Neustart:
+
+- **40085: 130 → 0**
+- **Coil 8: TRUE → FALSE**
+- rote Daueranzeige erloschen
+
+Damit verhält sich die Schützüberwachung wie eine sicherheitsgerichtete, bis zum Spannungsreset verriegelte Störung.
 
 ---
 
