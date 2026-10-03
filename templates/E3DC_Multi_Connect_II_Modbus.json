@@ -127,7 +127,7 @@
             "Factor": 0,
             "Ident": "blocking_fault_status",
             "Length": 0,
-            "Name": "Blockierender Fehlerstatus (RO)",
+            "Name": "Blockierender Hardware-/Systemfehlerstatus (RO)",
             "Profile": "~Switch",
             "ReadAddress": 8,
             "ReadFunctionCode": 1,
