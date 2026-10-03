@@ -691,7 +691,7 @@ Verifizierte Bereichsgrenzen:
 
 Damit ist der dritte gültige Holding-Registerbereich exakt **55000–55126**.
 
-Ein anschließender Scan von **PDU 20000–30000** ergab ausschließlich **02 Illegal Data Address**. Auch der weitere Scan von **PDU 30000–40000** liefert an allen 10.001 Adressen ausschließlich **02 Illegal Data Address**. Damit ist für den zusammenhängenden Bereich **55127–80001** kein weiterer gültiger FC03-Block vorhanden.
+Ein anschließender Scan von **PDU 20000–30000** ergab ausschließlich **02 Illegal Data Address**. Auch die weiteren Scans von **PDU 30000–40000** und **PDU 40000–50000** liefern jeweils an allen 10.001 Adressen ausschließlich **02 Illegal Data Address**. Damit ist für den zusammenhängenden Bereich **55127–90001** kein weiterer gültiger FC03-Block vorhanden.
 
 ### Beobachtete Werte
 
