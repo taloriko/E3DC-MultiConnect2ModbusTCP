@@ -8,6 +8,23 @@ Testaufbau, Hardware, Kommunikationsparameter und vollständige Adressscans sind
 
 **Messstand: 03.10.2026**
 
+## Zusammenfassung der durchgeführten Adressscans
+
+| Funktion | gescannter Bereich | Ergebnis |
+|---|---|---|
+| **FC01 – Read Coils** | Adresse **0–9999** | **0–8 gültig**, 9–9999 → **02 Illegal Data Address** |
+| **FC02 – Read Discrete Inputs** | Adresse **0–1000** | **1–8 gültig**; 1–8 spiegeln die entsprechenden FC01-Coils, 9–1000 → **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | PDU **0–101** | **Response ok** → Register **40001–40102** |
+| **FC03 – Read Holding Registers** | PDU **102–9998** | **02 Illegal Data Address** → Register **40103–49999** |
+| **FC03 – Read Holding Registers** | PDU **9999–10031** | **Response ok** → Register **50000–50032** |
+| **FC03 – Read Holding Registers** | PDU **10032–14998** | **02 Illegal Data Address** → Register **50033–54999** |
+| **FC03 – Read Holding Registers** | PDU **14999–15125** | **Response ok** → Register **55000–55126** |
+| **FC03 – Read Holding Registers** | PDU **15126–20000** | **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | PDU **20000–30000** | vollständig **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | PDU **30000–40000** | vollständig **02 Illegal Data Address** |
+| **FC03 – Read Holding Registers** | PDU **40000–50000** | vollständig **02 Illegal Data Address** |
+| **FC04 – Read Input Registers** | Adresse **0–1000** | kein gültiges Register; vollständig **02 Illegal Data Address** |
+
 ---
 
 ## Definitionen
@@ -94,7 +111,7 @@ Ergebnis: "C08D62C4"
 
 # FC01 – Coils
 
-Die Adressen **0–8** sind lesbar. Der vollständige Scan ist in der [README](../README.md#durchgeführte-adressscans) dokumentiert.
+Die Adressen **0–8** sind lesbar.
 
 ## Übersicht
 
@@ -111,7 +128,7 @@ Die Adressen **0–8** sind lesbar. Der vollständige Scan ist in der [README](.
 
 ## Coil 0 – Bedeutung offen
 
-Im erweiterten FC01-Scan ist **Adresse 0 gültig**. Im aufgenommenen Zustand war Coil 0 **TRUE**. Ein Schreibversuch mit **FC05 auf Adresse 0** wird mit **02 Illegal Data Address** abgewiesen. Coil 0 ist damit im getesteten Gerät **nur lesbar**; die Funktion bleibt unbekannt.
+**Adresse 0 ist gültig**. Im aufgenommenen Zustand war Coil 0 **TRUE**. Ein Schreibversuch mit **FC05 auf Adresse 0** wird mit **02 Illegal Data Address** abgewiesen. Coil 0 ist damit im getesteten Gerät **nur lesbar**; die Funktion bleibt unbekannt.
 
 ## Coil 1 – Steckerverriegelung
 
@@ -260,7 +277,7 @@ Verifizierte Zuordnung:
 | 7 | Coil 7 |
 | 8 | Coil 8 |
 
-Beim ersten Scan war das Bitmuster bereits identisch:
+Das Bitmuster war im gleichen Zustand identisch:
 
 ```text
 Adresse: 1 2 3 4 5 6 7 8
@@ -621,7 +638,7 @@ Für 40002/40003 wurde FC06 abgewiesen; FC16 ist dort noch nicht separat dokumen
 
 ## Zweiter FC03-Block 50000–50032
 
-Ein erweiterter FC03-Scan hat einen zweiten zusammenhängenden gültigen Holding-Registerbereich ergeben.
+Es existiert ein zweiter zusammenhängender gültiger Holding-Registerbereich.
 
 Verifizierte Bereichsgrenzen:
 
@@ -684,7 +701,7 @@ Damit gibt es im sichtbaren Objektbaum **keine Oktett-Variablen und keine HEX-Ne
 
 ## Dritter FC03-Block 55000–55126
 
-Der Scan von PDU-Adresse **10000 bis 20000** zeigt einen weiteren zusammenhängenden gültigen FC03-Bereich.
+Es existiert ein weiterer zusammenhängender gültiger FC03-Bereich.
 
 Verifizierte Bereichsgrenzen:
 
@@ -695,7 +712,6 @@ Verifizierte Bereichsgrenzen:
 
 Damit ist der dritte gültige Holding-Registerbereich exakt **55000–55126**.
 
-Ein anschließender Scan von **PDU 20000–30000** ergab ausschließlich **02 Illegal Data Address**. Auch die weiteren Scans von **PDU 30000–40000** und **PDU 40000–50000** liefern jeweils an allen 10.001 Adressen ausschließlich **02 Illegal Data Address**. Damit ist für den zusammenhängenden Bereich **55127–90001** kein weiterer gültiger FC03-Block vorhanden.
 
 ### Beobachtete Werte
 
@@ -710,9 +726,8 @@ Eine Funktionszuordnung ist daraus noch nicht möglich. Die Schreibbarkeit wurde
 
 # FC04 – Input Register
 
-Im vollständigen Scan von Adresse 0–1000 wurde **kein gültiges FC04 Input Register** gefunden.
+Im Bereich **0–1000** wurde **kein gültiges FC04 Input Register** gefunden.
 
-Details zum Scan stehen in der [README](../README.md#durchgeführte-adressscans).
 
 ---
 
