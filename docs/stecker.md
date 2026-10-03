@@ -19,7 +19,7 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | **J13** | 6-polig | laut mitgelieferter Anleitung Sensoranschluss 6 mA | Dokumentationshinweis |
 | **J14** | 2-polig | Spannungsrückmeldung L1 hinter dem Ausgangsschütz; sehr wahrscheinlich Schützklebeüberwachung | **Verdrahtung geprüft; Funktion durch Fehler-Simulation stark gestützt** |
 | **J15** | 2-polig | N / L vom 2-poligen C16-Automaten Hager NFT716 | **Verdrahtung geprüft** |
-| **J16** | 4-polig | Funktion unbekannt | offen |
+| **J16** | 4-polig | Pins 30–33, Funktion unbekannt; elektrische Testreihe dokumentiert | **Zuordnung offen / weitere Tests gestoppt** |
 | **J17** | 3-polig | Spulenanschluss des 3-poligen Ausgangsschützes | **Verdrahtung geprüft, Pin 3 offen** |
 | **J18** | 2-polig | S0+ / S0- | Beschriftung geprüft |
 | **J19** | 4-polig | Summenstromwandler; L1, L2, L3 und N werden gemeinsam durchgeführt | **Hardware beobachtet; 6-mA-DC-Überwachung vermutet** |
@@ -170,11 +170,72 @@ J15 ist mit dem **2-poligen C16-Automaten Hager NFT716** verbunden.
 ---
 
 
-## J16
+## J16 – unbelegter 4-poliger Anschluss
 
-- **4-polig**
-- nicht belegt
-- Funktion bisher unbekannt
+J16 ist **4-polig** und bei der untersuchten Multi Connect II **nicht belegt**.  
+Die Kontakte sind auf der Platine mit **30–33** bezeichnet.
+
+Ein passender Gegenstecker steht nicht zur Verfügung. Die Kontaktierung bei den Versuchen erfolgte daher provisorisch. Insbesondere die Versuche mit Widerständen sind deshalb **mit Vorsicht zu bewerten**.
+
+### Widerstandsmessungen – Wallbox spannungsfrei
+
+| Messung | Ergebnis |
+|---|---:|
+| **30 → PE** | ca. **30 kΩ**, langsam steigend; Messung bei ca. **37,4 kΩ** beendet |
+| **31 → PE** | ca. **4,79 kΩ** |
+| **32 → PE** | gleiches Verhalten wie Pin 30 |
+| **33 → PE** | ca. **4,79 kΩ** |
+| **30 ↔ 32** | **0 Ω** |
+| **31 ↔ 33** | ca. **9,59 kΩ** |
+| **30 ↔ 31** | kein Durchgang |
+| **32 ↔ 33** | kein Durchgang |
+
+Damit sind **Pin 30 und Pin 32 elektrisch direkt miteinander verbunden**. Pin 31 und Pin 33 zeigen dagegen ein weitgehend identisches Verhalten.
+
+### Diodentest – Wallbox spannungsfrei
+
+| Messrichtung | Ergebnis |
+|---|---:|
+| **30 → 31** | **OL** |
+| **31 → 30** | ca. **1,28 V** |
+| **32 → 33** | **OL** |
+| **33 → 32** | ca. **1,28 V** |
+| **31 → PE** | Anzeige ca. **0,0 V** |
+| **PE → 31** | ca. **0,8 V** |
+| **33 ↔ PE** | gleiches Verhalten wie Pin 31 |
+
+Das identische Verhalten der beiden Paare 30/31 und 32/33 spricht für zwei ähnlich aufgebaute Schaltungskanäle. Eine konkrete Funktion lässt sich daraus nicht sicher ableiten.
+
+### Spannungsmessung – Wallbox eingeschaltet
+
+Zwischen den jeweiligen Pinpaaren wurden ungefähr **11,6 V DC** gemessen:
+
+- **30 / 31:** ca. **11,6 V DC**
+- **32 / 33:** ca. **11,6 V DC**
+- bei der Messung 30/31 war **Pin 30 gegenüber Pin 31 positiv**
+
+Zusammen mit der direkten Verbindung zwischen Pin 30 und Pin 32 deutet dies auf einen gemeinsamen Anschluss und zwei ähnlich beschaltete Gegenkontakte hin. Diese Interpretation ist jedoch **nicht verifiziert**.
+
+### Versuche mit Serienwiderstand
+
+Zur vorsichtigen Prüfung einer möglichen Schalt-/Eingangsfunktion wurden die jeweiligen Kontakte provisorisch über Serienwiderstände verbunden. Der Widerstand wurde schrittweise bis auf **680 Ω** reduziert.
+
+Dabei wurde:
+
+- keine eindeutige Änderung an den bisher beobachteten Modbus-Registern festgestellt
+- keine eindeutige sichtbare Funktionsänderung der Wallbox festgestellt
+
+Auf einen direkten Kurzschluss bzw. weitere Versuche mit niedrigeren Widerständen wurde bewusst verzichtet.
+
+Da **kein passender Stecker vorhanden** ist und die Kontaktierung nur provisorisch erfolgen konnte, sind diese Ergebnisse **nicht als sicherer Funktionstest** zu bewerten.
+
+### Bewertung
+
+Die ursprüngliche Vermutung eines Anschlusses für **L1 / L2 / L3 / N** passt nicht zu den Messungen, da Pin 30 und Pin 32 direkt miteinander verbunden sind und zwischen den Pinpaaren nur etwa 11,6 V DC anliegen.
+
+Aufgrund der zwei ähnlich aufgebauten Kanäle wäre grundsätzlich eine optionale externe Schaltfunktion denkbar. Als mögliche Erklärung wurde ein Anschluss für den **Schlüsselschalter einer anderen Wallboxvariante, z. B. Multi Connect 1**, betrachtet. Dafür liegt jedoch **kein Nachweis** vor.
+
+**Status:** Funktion unbekannt. Weitere elektrische Tests wurden beendet, um eine Beschädigung der Wallbox zu vermeiden. Die Klärung bleibt ein **Nice-to-have**.
 
 ---
 
