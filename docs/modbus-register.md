@@ -648,30 +648,23 @@ Mehrere Registerwerte lassen sich sehr plausibel als Netzwerkparameter dekodiere
 
 Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die genaue Zuordnung einzelner Felder – insbesondere 50019–50024 – ist noch nicht durch gezielte Änderung der Netzwerkeinstellungen verifiziert.
 
-### Lesbare Netzwerkfelder in der IP-Symcon-Vorlage
+### Lesbare Netzwerkfelder in IP-Symcon
 
-Die vier einzelnen Oktette werden **nicht als eigene Variablen angelegt**.
+Die Modbus-Vorlage enthält pro Netzwerkfeld nur eine interne Rohquelle, z. B. `ip_address_raw`. Die Rohquellen müssen aktiv bleiben, damit die Register gelesen werden können.
 
-Stattdessen besitzt jedes Netzwerkfeld nur:
+Das mitgelieferte Skript `E3DC_Multi_Connect_II_Beschreibungen.php` erzeugt daraus normale sichtbare **String-Variablen direkt unter dem ModBus-Gerät**:
 
-1. eine direkte Rohquelle aus den echten FC03-Registern, z. B. `ip_address_raw`,
-2. eine lesbare String-Anzeige, z. B. `ip_address = 192.168.178.243`.
+- `MAC-Adresse` → z. B. `0C:86:29:70:50:7A`
+- `IP-Adresse` → z. B. `192.168.178.243`
+- `Gateway` → z. B. `192.168.178.1`
+- `Subnetzmaske` → z. B. `255.255.255.0`
+- `Netzwerkparameter 1`
+- `Zweite IP-Adresse`
+- `Zweite Subnetzmaske`
 
-Beispiel:
+Die internen `*_raw`-Variablen werden vom Skript im Objektbaum ausgeblendet. Die lesbaren String-Variablen werden anschließend über den Skript-Timer automatisch aktualisiert.
 
-```text
-ip_address_raw = C0A8B2F3
-ip_address     = 192.168.178.243
-```
-
-Entsprechend:
-
-- `mac_address` → `0C:86:29:70:50:7A`
-- `ip_address` → `192.168.178.243`
-- `gateway` → `192.168.178.1`
-- `subnet_mask` → `255.255.255.0`
-
-Damit gibt es **keine zusätzlichen Oktett-Variablen**. Die Rohvariable ist nur die Modbus-Quelle für den formatierten String.
+Damit gibt es im sichtbaren Objektbaum **keine Oktett-Variablen und keine HEX-Netzwerkwerte mehr**, sondern nur die lesbare Darstellung.
 
 ### Vollständiger Rohbereich
 
