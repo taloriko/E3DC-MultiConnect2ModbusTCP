@@ -3213,5 +3213,76 @@
         "Interval": 1000,
         "Type": 0
     },
-    "VirtualAddresses": []
+    "VirtualAddresses": [
+        {
+            "Active": true,
+            "Name": "MAC-Adresse (vermutet)",
+            "Ident": "mac_address_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50010_unknown'] ?? 0;\n$b = $VALUES['register_50011_unknown'] ?? 0;\n$c = $VALUES['register_50012_unknown'] ?? 0;\nreturn sprintf('%02X:%02X:%02X:%02X:%02X:%02X', ($a >> 8) & 0xFF, $a & 0xFF, ($b >> 8) & 0xFF, $b & 0xFF, ($c >> 8) & 0xFF, $c & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "IPv4-Adresse (vermutet)",
+            "Ident": "ip_address_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50013_unknown'] ?? 0;\n$b = $VALUES['register_50014_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Gateway (vermutet)",
+            "Ident": "gateway_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50015_unknown'] ?? 0;\n$b = $VALUES['register_50016_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Subnetzmaske (vermutet)",
+            "Ident": "subnet_mask_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50017_unknown'] ?? 0;\n$b = $VALUES['register_50018_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "DNS / Netzparameter (vermutet)",
+            "Ident": "dns_or_network_parameter_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50019_unknown'] ?? 0;\n$b = $VALUES['register_50020_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Fallback IPv4-Adresse (vermutet)",
+            "Ident": "fallback_ip_address_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50023_unknown'] ?? 0;\n$b = $VALUES['register_50024_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        },
+        {
+            "Active": true,
+            "Name": "Zweite Subnetzmaske (vermutet)",
+            "Ident": "secondary_subnet_mask_candidate",
+            "Translation": [],
+            "VariableType": 3,
+            "Profile": "",
+            "ReadAction": "$a = $VALUES['register_50027_unknown'] ?? 0;\n$b = $VALUES['register_50028_unknown'] ?? 0;\nreturn (($a >> 8) & 0xFF) . '.' . ($a & 0xFF) . '.' . (($b >> 8) & 0xFF) . '.' . ($b & 0xFF);",
+            "WriteAction": ""
+        }
+    ]
 }
