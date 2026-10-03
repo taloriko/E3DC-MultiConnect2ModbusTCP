@@ -26,6 +26,8 @@ Modbus-PDU und IP-Symcon arbeiten 0-basiert:
 | 101 | 40102 |
 | 9999 | 50000 |
 | 10031 | 50032 |
+| 14999 | 55000 |
+| 15125 | 55126 |
 
 **40000 wird nicht als eigenes Register geführt.**  
 PDU-Adresse 0 entspricht hier **40001**.
@@ -662,6 +664,30 @@ Die Struktur spricht stark für einen **Netzwerk-Konfigurationsblock**. Die gena
 
 ---
 
+## Dritter FC03-Block 55000–55126
+
+Der Scan von PDU-Adresse **10000 bis 20000** zeigt einen weiteren zusammenhängenden gültigen FC03-Bereich.
+
+Verifizierte Bereichsgrenzen:
+
+- **54999 / PDU 14998** → 02 Illegal Data Address
+- **55000 / PDU 14999** → Response ok
+- **55126 / PDU 15125** → Response ok
+- **55127 / PDU 15126** → 02 Illegal Data Address
+
+Damit ist der dritte gültige Holding-Registerbereich exakt **55000–55126**.
+
+### Beobachtete Werte
+
+Im aufgenommenen Grundzustand gilt:
+
+- **55001 = 8**
+- **55000 sowie 55002–55126 = 0**
+
+Eine Funktionszuordnung ist daraus noch nicht möglich. Die Schreibbarkeit wurde nicht getestet. In der IP-Symcon-Vorlage wird der gesamte Block daher vorsorglich **nur lesend** angelegt und mit englischen Unknown-Idents geführt.
+
+---
+
 # FC04 – Input Register
 
 Im vollständigen Scan von Adresse 0–1000 wurde **kein gültiges FC04 Input Register** gefunden.
@@ -696,7 +722,7 @@ Verwendet ausschließlich für den Fremdfund:
 
 [Photovoltaikforum – Modbus Register E3DC Wallbox Multi Connect](https://www.photovoltaikforum.com/thread/198110-modbus-register-e3dc-wallbox-multi-connect/)
 
-Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigenen Messungen dieses Projekts gehen darüber hinaus und untersuchen die gültigen Holding-Register-Bereiche **40001–40102** und **50000–50032** sowie die Bitbereiche FC01/FC02.
+Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigenen Messungen dieses Projekts gehen darüber hinaus und untersuchen die gültigen Holding-Register-Bereiche **40001–40102**, **50000–50032** und **55000–55126** sowie die Bitbereiche FC01/FC02.
 
 ---
 
@@ -712,4 +738,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: allgemeiner blockierender/verriegelter Fehler oder nur bestimmte Dauerlicht-Hardwarefehler
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
-12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
+12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
+13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
