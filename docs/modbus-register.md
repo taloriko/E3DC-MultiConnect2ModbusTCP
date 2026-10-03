@@ -101,7 +101,7 @@ Die Adressen **1–8** sind lesbar. Der vollständige Scan ist in der [README](.
 | **5** | **RW** | **Boost-Anforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. | **Verifiziertes Verhalten; Rücksetzlogik offen** |
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
-| **8** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address** | Schreibzugriff abgewiesen |
+| **8** | **RO** | **Fehlerstatus; Zusammenhang mit Schützklebeüberwachung** | Im simulierten Schützklebefehler wird Coil 8 **TRUE**. FC05-Schreibversuch → **02 Illegal Data Address**. | **Beobachtet; genaue Semantik offen** |
 
 ## Coil 1 – Steckerverriegelung
 
@@ -177,6 +177,27 @@ Verifiziertes Verhalten:
 
 Damit beschreibt Coil 6 am verständlichsten die Option **„Stecker nach Ladeende verriegelt lassen“**.
 
+## Coil 8 – Fehlerstatus / Schützklebeüberwachung
+
+Bei einer Simulation eines klebenden 3-poligen Ausgangsschützes wurde Coil 8 **TRUE**.
+
+Testzustand:
+
+- Mode-3-Laden mit Last
+- Eingang und Ausgang des 3-poligen Ausgangsschützes überbrückt
+- Ladeende eingeleitet
+- Schütz wird angesteuert auszuschalten, am Ausgang bleibt durch die Brücke jedoch Spannung bestehen
+
+Gleichzeitig wurden beobachtet:
+
+- Front-LED **rot**
+- **40085 = 130**
+- Zustandscode **40070 = `F\0`**
+- **Coil 8 = TRUE**
+
+Damit ist Coil 8 als **Fehlerindikator** stark gestützt. Ob Coil 8 speziell die Schützklebeüberwachung oder einen allgemeineren Fehlerstatus signalisiert, ist noch offen.
+
+FC05-Schreiben auf Coil 8 wird mit **02 Illegal Data Address** abgewiesen; Coil 8 ist damit **RO**.
 
 ---
 
@@ -237,7 +258,8 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40081** | **RW** | UINT16 [A] | **Ladestrom-Sollwert / angebotener Maximalstrom** | 6A → 40071=10%; 32A → 40071=53%. FC06 und FC16 funktionieren. | Eigene Messung |
 | **40082** | **RW** | UINT16 | Unbekannt | Grundwert 32. 6 und 32 werden angenommen. 40082=6 verändert bei 40081=32 den PWM-Wert nicht. | Eigene Messung |
 | **40083** | **RW** | UINT16 / Enum | extern als Sonnenmodus beschrieben | 1 und 2 bleiben stehen; 3 springt auf 2 zurück. Im Standalone-Test keine direkte Änderung von 40070/40071. | Eigene Messung + [evcc Discussion #14122](https://github.com/evcc-io/evcc/discussions/14122) |
-| **40084–40085** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
+| **40084** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
+| **40085** | RO | UINT16 | **Fehlercode / Status; Zusammenhang mit Schützklebeüberwachung** | Im simulierten Schützklebefehler auf **130** gesprungen; gleichzeitig rote LED und Coil 8=TRUE. | Eigene Messung; genaue Codierung offen |
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
 | **40102** | **RO** | UINT16 | Unbekannt | Wert bleibt im Test konstant bei 3. Auch bei 1-phasigem Laden über Coil 3 = 1 keine Änderung. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS**. | Eigene Messung |
@@ -291,6 +313,8 @@ Damit ist 40069 als erkannter Kabelnennstrom **verifiziert**.
 | E | 13 A | 17664 | 0x4500 | `E\0` | Schütze fallen ab, Kabel entriegelt |
 
 Wichtig: **CP=B ergibt weiterhin `A1`**. 40070 ist daher kein einfacher CP-Buchstabe, sondern ein interner Wallbox-Zustandscode.
+
+Zusätzlich wurde beim simulierten Schützklebefehler nach Ladeende ebenfalls **`F\0`** gelesen, während die Front-LED rot leuchtete, 40085=130 und Coil 8=TRUE waren. `F\0` ist damit **kein eindeutiger Fehlercode** und kann allein den Schützklebefehler nicht kennzeichnen.
 
 ### 40071 – CP-PWM Duty Cycle
 
@@ -374,6 +398,18 @@ Dort wurde per Wireshark ein direkter Schreibzugriff auf **Modbus-Adresse 82** d
 Da die Modbus-PDU-Adresse 82 in unserer 40001-Darstellung Register **40083** entspricht, passt das zu unserem beschreibbaren Register.
 
 Die Bedeutung 1/2 bleibt trotzdem als **Fremdquelle** gekennzeichnet, solange die Funktion ohne EMC nicht selbst ausgelöst und bestätigt wurde.
+
+### 40085 – Fehlercode / Schützklebeüberwachung
+
+Bei der Simulation eines klebenden 3-poligen Ausgangsschützes sprang Register **40085 auf 130**.
+
+Gleichzeitig:
+
+- Front-LED **rot**
+- Coil 8 **TRUE**
+- Zustandscode 40070 = `F\0`
+
+Damit reagiert 40085 eindeutig auf diesen erzeugten Fehlerzustand. Noch offen ist, ob **130** direkt für „Schütz klebt“ steht oder ob 40085 ein allgemeiner Fehlercode mit mehreren möglichen Werten ist.
 
 ### 40086–40089 – RFID-Karten-ID
 
@@ -564,4 +600,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 7. Bedeutung der noch offenen **Coils 2 und 4**
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Coil 0 separat nachprüfen
-10. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
+10. Bedeutung von **Coil 8** weiter eingrenzen: allgemeiner Fehlerstatus oder speziell Schützklebeüberwachung
+11. Weitere Werte / Codierung von **40085** ermitteln und Rücksetzverhalten nach Fehlerende prüfen
+12. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
