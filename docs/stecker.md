@@ -110,6 +110,17 @@ Der zugehörige Schütz ist ein **Benedikt R40-20 230**. Über diesen 2-poligen 
 | **4** | keine Beschriftung | frei |
 | **5** | LST | Gelb → **A2** des 2-poligen Schützes |
 
+### Test bei abgezogenem J8
+
+J8 wurde abgezogen und anschließend ein Ladevorgang gestartet.
+
+Beobachtung:
+
+- der Ladevorgang lässt sich weiterhin starten
+- es wurde **kein Fehler / Fehlercode** ausgelöst
+
+Damit ist bisher keine Überwachung des fehlenden J8-Anschlusses nachgewiesen.
+
 ---
 
 
@@ -315,6 +326,17 @@ Die Verkabelung wurde geprüft.
 | **1** | KM3 | Gelb → **A2** des 3-poligen Schützes |
 | **2** | N | Blau → **A1** des 3-poligen Schützes |
 | **3** | — | noch nicht zugeordnet |
+
+### Test bei abgezogenem J17
+
+J17 wurde abgezogen und anschließend ein Ladevorgang gestartet.
+
+Beobachtung:
+
+- der Ladevorgang lässt sich weiterhin starten
+- es wurde **kein Fehler / Fehlercode** ausgelöst
+
+Damit ist bisher keine Überwachung des fehlenden J17-Anschlusses nachgewiesen.
 
 ---
 
