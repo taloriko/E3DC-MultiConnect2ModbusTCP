@@ -119,13 +119,17 @@ Die Adressen **0–8**, **9999–10000** und **14999** sind lesbar.
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
-| **9999** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **FALSE / 0**. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
-| **10000** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **TRUE / 1**. Die Adresse wurde an der Bereichsgrenze in zwei Scans jeweils mit gültiger Antwort erfasst. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
-| **14999** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **FALSE / 0**. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
+| **9999** | **RW-Test** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **FALSE / 0**. FC05-Schreiben wird akzeptiert. Funktion und Auswirkung sind noch unbekannt. | Schreiben bestätigt; Bedeutung offen |
+| **10000** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **TRUE / 1**. Schreibversuch per FC05 mit **TRUE** führte in IP-Symcon zum Verlust der Modbus-TCP-Socket-Verbindung, obwohl TRUE bereits anlag. Deshalb kein Schreibzugriff in der Vorlage. | **Auffälliger Schreibzugriff; Bedeutung offen** |
+| **14999** | **RW-Test** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **FALSE / 0**. FC05-Schreiben wird akzeptiert. Funktion und Auswirkung sind noch unbekannt. | Schreiben bestätigt; Bedeutung offen |
 
 ## Weitere gültige, noch unbekannte Coils
 
-Die vollständigen FC01-Scans zeigen zusätzlich die gültigen Adressen **9999**, **10000** und **14999**. Für alle drei Adressen ist die Bedeutung noch unbekannt; ein FC05-Schreibtest wurde bisher nicht durchgeführt. Sie werden deshalb nur lesend in die IP-Symcon-Vorlage aufgenommen.
+Die vollständigen FC01-Scans zeigen zusätzlich die gültigen Adressen **9999**, **10000** und **14999**. Die Bedeutung aller drei Coils ist weiterhin unbekannt.
+
+- **9999**: FC05-Schreiben wird akzeptiert; Ausgangswert im Test war **FALSE**. Wird in der IP-Symcon-Vorlage als schreibbar geführt.
+- **10000**: Ausgangswert im Test war **TRUE**. Ein FC05-Schreibversuch mit **TRUE** führte zum Verlust der Modbus-TCP-Socket-Verbindung in IP-Symcon. Deshalb wird dieser Coil in der Vorlage bewusst **nur lesend** geführt.
+- **14999**: FC05-Schreiben wird akzeptiert; Ausgangswert im Test war **FALSE**. Wird in der IP-Symcon-Vorlage als schreibbar geführt.
 
 ## Coil 0 – Bedeutung offen
 
