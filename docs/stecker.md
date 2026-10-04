@@ -44,6 +44,26 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 ---
 
 
+## J2 – Flachbandkabel zur Nebenplatine
+
+- **10-polig**
+- Flachbandkabel zur Nebenplatine
+- dort ebenfalls auf **J2** angeschlossen
+- Verdrahtung geprüft
+
+---
+
+
+## J3 – Flachbandkabel zur Nebenplatine
+
+- **10-polig**
+- Flachbandkabel zur Nebenplatine
+- dort ebenfalls auf **J3** angeschlossen
+- Verdrahtung geprüft
+
+---
+
+
 ## J5
 
 - **3-polig**
@@ -308,6 +328,15 @@ Durch den Wandler werden gemeinsam geführt:
 Aufgrund des Aufbaus liegt die Vermutung nahe, dass dieser Wandler zur **6-mA-DC-Fehlerstromüberwachung** gehört.
 
 Diese Funktionszuordnung ist aktuell eine **Hypothese** und noch nicht elektrisch bzw. über einen gezielten Fehlerstromtest bestätigt.
+
+---
+
+
+## 8-poliger Stecker ohne J-Beschriftung
+
+- **8-polig**
+- keine J-Beschriftung vorhanden
+- Funktion bisher unbekannt
 
 ---
 
