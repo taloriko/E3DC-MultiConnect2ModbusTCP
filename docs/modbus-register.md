@@ -12,7 +12,7 @@ Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.
 
 | Funktion | Bisher gescannter Bereich | Gefundene gültige Bereiche |
 |---|---|---|
-| **FC01 – Read Coils** | 0–9999 | **0–8** |
+| **FC01 – Read Coils** | 0–60000 | **0–8**, **9999–10000**, **14999** |
 | **FC02 – Read Discrete Inputs** | 0–1000 | **1–8** |
 | **FC03 – Read Holding Registers** | 0–60000 | **40001–40102**, **50000–50032**, **55000–55126** |
 | **FC04 – Read Input Registers** | 0–1000 | **keine gültigen Adressen gefunden** |
@@ -47,6 +47,7 @@ PDU-Adresse 0 entspricht hier **40001**.
 - **Verifiziert** – am eigenen Gerät reproduzierbar getestet
 - **Hypothese** – plausibel, aber Gegenprobe fehlt
 - **Fremdquelle** – Bedeutung stammt aus einer externen Quelle
+- **R** – lesbar, Schreiben wurde nicht geprüft
 - **RO** – lesbar, Schreiben wurde abgewiesen bzw. ist nicht vorgesehen
 - **RW** – Lesen und Schreiben wurden praktisch bestätigt
 
@@ -104,7 +105,7 @@ Ergebnis: "C08D62C4"
 
 # FC01 – Coils
 
-Die Adressen **0–8** sind lesbar.
+Die Adressen **0–8**, **9999–10000** und **14999** sind lesbar.
 
 ## Übersicht
 
@@ -118,6 +119,13 @@ Die Adressen **0–8** sind lesbar.
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
+| **9999** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **FALSE / 0**. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
+| **10000** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **TRUE / 1**. Die Adresse wurde an der Bereichsgrenze in zwei Scans jeweils mit gültiger Antwort erfasst. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
+| **14999** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; aufgenommener Wert **FALSE / 0**. Schreibzugriff wurde nicht geprüft. | Bedeutung offen |
+
+## Weitere gültige, noch unbekannte Coils
+
+Die vollständigen FC01-Scans zeigen zusätzlich die gültigen Adressen **9999**, **10000** und **14999**. Für alle drei Adressen ist die Bedeutung noch unbekannt; ein FC05-Schreibtest wurde bisher nicht durchgeführt. Sie werden deshalb nur lesend in die IP-Symcon-Vorlage aufgenommen.
 
 ## Coil 0 – Bedeutung offen
 
