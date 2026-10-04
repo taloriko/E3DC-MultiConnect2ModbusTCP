@@ -17,6 +17,8 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | Stecker | Pins / Kontakte | Zuordnung | Status |
 |---|---:|---|---|
 | **J1** | USB-A | Funktion unbekannt | offen |
+| **J2** | 10-polig | Flachbandkabel zur Nebenplatine, dort ebenfalls **J2** | **Verdrahtung geprüft** |
+| **J3** | 10-polig | Flachbandkabel zur Nebenplatine, dort ebenfalls **J3** | **Verdrahtung geprüft** |
 | **J5** | 3-polig | nicht belegt, Funktion unbekannt | offen |
 | **J8** | 5-polig | Ansteuerung 2-poliger Schütz Benedikt R40-20 230 für L2/L3 | **Verdrahtung geprüft** |
 | **J9** | 6-polig | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
