@@ -38,14 +38,34 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 
 ## J1 – USB-A
 
+- **Nicht belegt**
 - Steckertyp: **USB-A**
 - Funktion bisher unbekannt
+
+### USB-Stick-Test
+
+Für einen Funktionstest wurde ein **FAT32-formatierter USB-Stick mit Aktivitäts-LED** an J1 angeschlossen.
+
+Beobachtungen:
+
+- die LED des USB-Sticks leuchtet dauerhaft, der Anschluss stellt also Versorgungsspannung bereit
+- während des Tests wurde **kein Blinken der Aktivitäts-LED** beobachtet, das auf einen längeren Lese- oder Schreibzugriff hindeuten würde
+- Betätigung von **BP1** einzeln und von **beiden BP1-Tastern** führte zu keiner erkennbaren USB-Aktivität
+- auch nach einem **Neustart der Wallbox** wurde keine USB-Aktivität beobachtet
+- der Test wurde zusätzlich mit bereits eingestecktem USB-Stick während des Bootvorgangs durchgeführt
+- auf dem USB-Stick wurden **keine Dateien oder Verzeichnisse angelegt**
+- zusätzlich wurden die bisher bekannten schaltbaren Modbus-Werte testweise aktiviert, um gegebenenfalls eine Log-, Export- oder Servicefunktion auszulösen; auch dabei wurde keine USB-Aktivität festgestellt
+
+Ein sehr kurzer Zugriff, der von der Aktivitäts-LED des verwendeten Sticks nicht sichtbar angezeigt wird, kann mit diesem Test nicht vollständig ausgeschlossen werden.
+
+**Ergebnis:** J1 liefert USB-Versorgung, eine Daten-, Log- oder Exportfunktion konnte bisher jedoch nicht nachgewiesen werden.
 
 ---
 
 
 ## J2 – Flachbandkabel zur Nebenplatine
 
+- **Belegt**
 - **10-polig**
 - Flachbandkabel zur Nebenplatine
 - dort ebenfalls auf **J2** angeschlossen
@@ -56,6 +76,7 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 
 ## J3 – Flachbandkabel zur Nebenplatine
 
+- **Belegt**
 - **10-polig**
 - Flachbandkabel zur Nebenplatine
 - dort ebenfalls auf **J3** angeschlossen
@@ -66,14 +87,16 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 
 ## J5
 
+- **Nicht belegt**
 - **3-polig**
-- nicht belegt
 - Funktion bisher unbekannt
 
 ---
 
 
 ## J8 – 2-poliger Schütz L2/L3
+
+- **Belegt**
 
 Die Verkabelung wurde geprüft.
 
@@ -92,6 +115,8 @@ Der zugehörige Schütz ist ein **Benedikt R40-20 230**. Über diesen 2-poligen 
 
 ## J9 – Stromwandler
 
+- **Belegt**
+
 Die Verkabelung wurde geprüft.
 
 Alle sechs Leitungen am Stecker sind **grau**.
@@ -109,6 +134,7 @@ Die drei Stromwandler passen zu den im Modbus gefundenen Phasenstromwerten 40072
 
 ## J10
 
+- **Nicht belegt**
 - **6-polig**
 - Funktion bisher unbekannt
 
@@ -116,6 +142,8 @@ Die drei Stromwandler passen zu den im Modbus gefundenen Phasenstromwerten 40072
 
 
 ## J12 – Fahrzeuganschluss / Steckerverriegelung
+
+- **Belegt**
 
 Die Verkabelung wurde geprüft.
 
@@ -132,6 +160,7 @@ Die Verkabelung wurde geprüft.
 
 ## J13
 
+- **Nicht belegt**
 - **6-polig**
 - laut der mitgelieferten Anleitung als **Sensoranschluss 6 mA** bezeichnet
 
@@ -141,6 +170,8 @@ Die genaue interne Zuordnung wurde bisher nicht elektrisch nachverfolgt.
 
 
 ## J14 – Spannungsrückmeldung L1 / Schützklebeüberwachung
+
+- **Belegt**
 
 Die Verkabelung wurde geprüft.
 
@@ -187,6 +218,8 @@ Damit verhält sich die Schützüberwachung wie eine sicherheitsgerichtete, bis 
 
 ## J15 – Versorgung vom Leitungsschutzschalter
 
+- **Belegt**
+
 Die Verkabelung wurde geprüft.
 
 J15 ist mit dem **2-poligen C16-Automaten Hager NFT716** verbunden.
@@ -200,6 +233,8 @@ J15 ist mit dem **2-poligen C16-Automaten Hager NFT716** verbunden.
 
 
 ## J16 – unbelegter 4-poliger Anschluss
+
+- **Nicht belegt**
 
 J16 ist **4-polig** und bei der untersuchten Multi Connect II **nicht belegt**.  
 Die Kontakte sind auf der Platine mit **30–33** bezeichnet.
@@ -271,6 +306,8 @@ Aufgrund der zwei ähnlich aufgebauten Kanäle wäre grundsätzlich eine optiona
 
 ## J17 – Spule 3-poliger Ausgangsschütz
 
+- **Belegt**
+
 Die Verkabelung wurde geprüft.
 
 | Kontakt | Beschriftung | Leitung / Zuordnung |
@@ -283,6 +320,8 @@ Die Verkabelung wurde geprüft.
 
 
 ## J18 – S0
+
+- **Belegt**
 
 J18 ist **2-polig** beschriftet mit:
 
@@ -316,6 +355,8 @@ Noch offen ist, ob J18 intern nur für eine andere Funktion verwendet wird, ob e
 
 ## J19 – Summenstromwandler
 
+- **Belegt**
+
 J19 ist **4-polig** und führt zum Summenstromwandler.
 
 Durch den Wandler werden gemeinsam geführt:
@@ -334,6 +375,7 @@ Diese Funktionszuordnung ist aktuell eine **Hypothese** und noch nicht elektrisc
 
 ## 8-poliger Stecker ohne J-Beschriftung
 
+- **Nicht belegt**
 - **8-polig**
 - keine J-Beschriftung vorhanden
 - Funktion bisher unbekannt
