@@ -23,7 +23,7 @@ Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
 - [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
 - [IP-Symcon Modbus-Vorlage](templates/E3DC_Multi_Connect_II_Modbus.json)
 - [Bilder der Wallbox und des Testaufbaus](pictures/)
-- [Technisches Datenblatt E3/DC Multi Connect II](https://www.e3dc.com/wp-data/uploads/2026/01/TDB-Wallbox-multi-connect-II-2025-08-25.pdf)
+- [Technisches Datenblatt E3/DC Multi Connect](docs/E3DC-Wallbox-multi-connect-Datenblatt.pdf)
 
 Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus-Grundlagen des Tests**.
 
@@ -261,6 +261,9 @@ Verwendet für CP-Zustände, PP-Kabelsimulation und reproduzierbare Fahrzeugsimu
 ## Hinweis
 
 Es handelt sich um **Reverse Engineering einer nicht offiziell dokumentierten direkten Modbus-Schnittstelle**. Die beschriebenen Funktionen beziehen sich auf das oben genannte Testgerät und den getesteten Firmwarestand. Andere Firmwarestände oder Hardwarevarianten können sich anders verhalten.
+
+> [!WARNING]
+> **Achtung:** Nutzung und Nachbau erfolgen auf eigene Gefahr. Für Schäden wird **keine Haftung** übernommen. Ebenso wird **keine Garantie** für die Richtigkeit, Vollständigkeit oder Funktion der hier dokumentierten Angaben und Steuerbefehle übernommen.
 
 
 ---
