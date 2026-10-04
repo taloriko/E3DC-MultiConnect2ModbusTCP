@@ -27,21 +27,25 @@ Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus
 
 ## Getestete Wallbox
 
-<p align="center">
-  <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Vorne.jpeg" alt="E3/DC Multi Connect II – Frontansicht" width="50%">
-</p>
-
-**E3/DC Multi Connect II**
-
-- Referenz / Typ: **XEV1K22T2E3DC**
-- Mode 3
-- Anschluss: **3P + N + PE**
-- Nennstrom: **32 A**
-- Spannung: **230 V 1~ / 400 V 3~**
-- Leistungsklasse: **22 kW**
-- Herstellungsdatum: **22.10.2024**
-- Hersteller: **HagerEnergy GmbH**
-- über Modbus ausgelesener Versionsstring: **7.0.5.0/1.0.2.0**
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Vorne.jpeg" alt="E3/DC Multi Connect II – Frontansicht" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <strong>E3/DC Multi Connect II</strong><br><br>
+      <strong>Referenz / Typ:</strong> XEV1K22T2E3DC<br>
+      <strong>Mode:</strong> 3<br>
+      <strong>Anschluss:</strong> 3P + N + PE<br>
+      <strong>Nennstrom:</strong> 32 A<br>
+      <strong>Spannung:</strong> 230 V 1~ / 400 V 3~<br>
+      <strong>Leistungsklasse:</strong> 22 kW<br>
+      <strong>Herstellungsdatum:</strong> 22.10.2024<br>
+      <strong>Hersteller:</strong> HagerEnergy GmbH<br>
+      <strong>Modbus-Versionsstring:</strong> 7.0.5.0/1.0.2.0
+    </td>
+  </tr>
+</table>
 
 Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw. diesen Firmwarestand.
 
