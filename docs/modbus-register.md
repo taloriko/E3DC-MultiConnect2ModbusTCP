@@ -494,7 +494,7 @@ Neuer Funktionstest:
 
 Damit ist Fehlercode **128** für diesen Zustand reproduzierbar belegt. Gleichzeitig wird **Coil 8 = TRUE**. Welche einzelne Frontkomponente intern überwacht wird, ist damit noch nicht getrennt bestimmt; sicher ist der Zusammenhang mit dem fehlenden Front-Flachbandkabel.
 
-### 40085 = 129 – Codierschalter während des Betriebs verstellt
+### 40085 = 129 – I-Max-Codierschalter im Betrieb verstellt
 
 Fehlercode **129** wurde reproduzierbar ausgelöst, wenn der **I-Max-Drehcodierschalter bei eingeschalteter Wallbox auf Stellung A oder C gedreht** wurde.
 
@@ -519,7 +519,7 @@ Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 4008
 | **6** | Keine korrekte Freigabe vom Fahrzeug zum Ladebeginn | **aus Betriebsanleitung abgeleitet** |
 | **8** | Gleichstromfehler über 6 mA in der Fahrzeugversorgung | **aus Betriebsanleitung abgeleitet** |
 | **128** | Frontmodul nicht verbunden: Flachbandkabel zur Front mit LED, Reader und Näherungssensor nicht gesteckt | **selbst getestet** |
-| **129** | Verriegelnder Fehler beim Verstellen des I-Max-Codierschalters im laufenden Betrieb auf Stellung A oder C | **selbst getestet** |
+| **129** | **I-Max-Codierschalter im Betrieb verstellt** | **selbst getestet** |
 | **130** | Blockierender Fehler mit rotem Dauerlicht; im Test durch simulierte Schützklebeüberwachung ausgelöst | **selbst getestet** |
 
 Die Betriebsanleitung ordnet den normalen roten Blinkfehlern die Blinkimpulse **1, 2, 3, 4, 5, 6 und 8** zu. Die eigenen Tests bestätigen bisher, dass **40085 denselben Zahlenwert liefert**:
