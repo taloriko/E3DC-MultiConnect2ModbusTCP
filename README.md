@@ -8,7 +8,7 @@ Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Ve
 
 ### Hinweis zur E3/DC Multi Connect 1
 
-Die **E3/DC Multi Connect der 1. Generation (Multi Connect 1)** ist nach bisherigem Kenntnisstand technisch weitgehend baugleich zur hier untersuchten Multi Connect II. Daher ist es **wahrscheinlich, dass ein großer Teil der dokumentierten Modbus-Kommunikation und Register auch bei der Multi Connect 1 funktioniert**.
+Die **E3/DC Multi Connect Typ 1 (Multi Connect 1)** ist nach bisherigem Kenntnisstand technisch weitgehend baugleich zur hier untersuchten Multi Connect II. Daher ist es **wahrscheinlich, dass ein großer Teil der dokumentierten Modbus-Kommunikation und Register auch bei der Multi Connect 1 funktioniert**.
 
 Dies wurde bisher jedoch **nicht praktisch verifiziert**. Abweichungen sind insbesondere bei den zusätzlichen Funktionen der Multi Connect 1 zu erwarten, zum Beispiel beim **Schlüsselschalter** und der **Schuko-Steckdose**. Für diese Funktionen können weitere oder anders belegte Register vorhanden sein.
 
