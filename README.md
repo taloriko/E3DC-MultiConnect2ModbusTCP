@@ -30,9 +30,6 @@ Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Vorne.jpeg" alt="E3/DC Multi Connect II – Frontansicht" width="100%">
-    </td>
-    <td width="50%" valign="top">
       <strong>E3/DC Multi Connect II</strong><br><br>
       <strong>Referenz / Typ:</strong> XEV1K22T2E3DC<br>
       <strong>Mode:</strong> 3<br>
@@ -43,6 +40,9 @@ Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus
       <strong>Herstellungsdatum:</strong> 22.10.2024<br>
       <strong>Hersteller:</strong> HagerEnergy GmbH<br>
       <strong>Modbus-Versionsstring:</strong> 7.0.5.0/1.0.2.0
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Vorne.jpeg" alt="E3/DC Multi Connect II – Frontansicht" width="50%">
     </td>
   </tr>
 </table>
