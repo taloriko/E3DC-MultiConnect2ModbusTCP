@@ -247,8 +247,8 @@
             "Factor": 0,
             "Ident": "max_current_selector",
             "Length": 0,
-            "Name": "Codierschalter (RO)",
-            "Profile": "",
+            "Name": "Codierschalter / I-Max (RO)",
+            "Profile": "E3DC.Wallbox.CurrentSelector",
             "ReadAddress": 67,
             "ReadFunctionCode": 3,
             "Translation": [],
@@ -3003,6 +3003,72 @@
     ],
     "ByteOrder": 0,
     "Profiles": {
+        "E3DC.Wallbox.CurrentSelector": {
+            "Type": 1,
+            "Prefix": "",
+            "Suffix": "",
+            "MinValue": 0,
+            "MaxValue": 65535,
+            "StepSize": 0,
+            "Digits": 0,
+            "Icon": "",
+            "Associations": [
+                {
+                    "Value": 10,
+                    "Name": "10 A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 13,
+                    "Name": "13 A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 16,
+                    "Name": "16 A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 20,
+                    "Name": "20 A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 25,
+                    "Name": "25 A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 32,
+                    "Name": "32 A / Auto",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 65,
+                    "Name": "A",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 66,
+                    "Name": "B",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 67,
+                    "Name": "C",
+                    "Icon": "",
+                    "Color": -1
+                }
+            ]
+        },
         "E3DC.Wallbox.ErrorCode": {
             "Type": 1,
             "Prefix": "",
@@ -3076,6 +3142,12 @@
                 {
                     "Value": 128,
                     "Name": "128 - Frontmodul nicht verbunden (Flachbandkabel LED / Reader / Näherungssensor)",
+                    "Icon": "",
+                    "Color": -1
+                },
+                {
+                    "Value": 129,
+                    "Name": "129 - Codierschalter unter Spannung auf A/C verstellt (verriegelnd)",
                     "Icon": "",
                     "Color": -1
                 },
