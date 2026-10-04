@@ -14,7 +14,7 @@ Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.
 |---|---|---|
 | **FC01 – Read Coils** | 0–9999 | **0–8** |
 | **FC02 – Read Discrete Inputs** | 0–1000 | **1–8** |
-| **FC03 – Read Holding Registers** | PDU 0–50000 | **40001–40102**, **50000–50032**, **55000–55126** |
+| **FC03 – Read Holding Registers** | 0–60000 | **40001–40102**, **50000–50032**, **55000–55126** |
 | **FC04 – Read Input Registers** | 0–1000 | **keine gültigen Adressen gefunden** |
 
 ## Definitionen
