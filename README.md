@@ -6,11 +6,10 @@ Ziel ist die **direkte Steuerung der Wallbox per Modbus TCP ohne E3/DC-Hauskraft
 
 Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Vermutungen und Fremdfunde werden ausdrücklich als solche gekennzeichnet.
 
-Multi Connect 1
-```
-E3/DC Multi Connect Wallbox (Multi Connect 1) sollte baugleich sein und nur
-für Schlüsselschalter und Schukosteckdose noch unbekannte Werte liefern
-```
+Multi Connect 1:
+> `E3/DC Multi Connect Wallbox (Multi Connect 1) sollte baugleich sein und nur
+für Schlüsselschalter und Schukosteckdose noch unbekannte Werte liefern`
+
 
 ## Dokumentation
 
