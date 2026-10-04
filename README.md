@@ -6,9 +6,11 @@ Ziel ist die **direkte Steuerung der Wallbox per Modbus TCP ohne E3/DC-Hauskraft
 
 Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Vermutungen und Fremdfunde werden ausdrücklich als solche gekennzeichnet.
 
-Multi Connect 1:
-> `E3/DC Multi Connect Wallbox (Multi Connect 1) sollte baugleich sein und nur
-für Schlüsselschalter und Schukosteckdose noch unbekannte Werte liefern`
+### Hinweis zur E3/DC Multi Connect 1
+
+Die **E3/DC Multi Connect der 1. Generation (Multi Connect 1)** ist nach bisherigem Kenntnisstand technisch weitgehend baugleich zur hier untersuchten Multi Connect II. Daher ist es **wahrscheinlich, dass ein großer Teil der dokumentierten Modbus-Kommunikation und Register auch bei der Multi Connect 1 funktioniert**.
+
+Dies wurde bisher jedoch **nicht praktisch verifiziert**. Abweichungen sind insbesondere bei den zusätzlichen Funktionen der Multi Connect 1 zu erwarten, zum Beispiel beim **Schlüsselschalter** und der **Schuko-Steckdose**. Für diese Funktionen können weitere oder anders belegte Register vorhanden sein.
 
 
 ## Dokumentation
@@ -24,7 +26,10 @@ Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus
 ---
 
 ## Getestete Wallbox
-![Wallbox Front](pictures/E3DC Multi Connect II - Vorne.jpeg)
+
+<p align="center">
+  <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Vorne.jpeg" alt="E3/DC Multi Connect II – Frontansicht" width="50%">
+</p>
 
 **E3/DC Multi Connect II**
 
