@@ -6,11 +6,13 @@ Ziel ist die **direkte Steuerung der Wallbox per Modbus TCP ohne E3/DC-Hauskraft
 
 Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Vermutungen und Fremdfunde werden ausdrücklich als solche gekennzeichnet.
 
-### Hinweis zur E3/DC Multi Connect 1
-
-Die **E3/DC Multi Connect Typ 1 (Multi Connect 1)** ist nach bisherigem Kenntnisstand technisch weitgehend baugleich zur hier untersuchten Multi Connect II. Daher ist es **wahrscheinlich, dass ein großer Teil der dokumentierten Modbus-Kommunikation und Register auch bei der Multi Connect 1 funktioniert**.
-
-Dies wurde bisher jedoch **nicht praktisch verifiziert**. Abweichungen sind insbesondere bei den zusätzlichen Funktionen der Multi Connect 1 zu erwarten, zum Beispiel beim **Schlüsselschalter** und der **Schuko-Steckdose**. Für diese Funktionen können weitere oder anders belegte Register vorhanden sein.
+> [!NOTE]
+> ### E3/DC Multi Connect Typ 1
+> Die **E3/DC Multi Connect Typ 1 (Multi Connect 1)** ist nach bisherigem Kenntnisstand technisch weitgehend baugleich zur hier untersuchten Multi Connect II.
+>
+> Daher ist es **wahrscheinlich, dass ein großer Teil der hier dokumentierten Modbus-Kommunikation und Register auch bei der Multi Connect 1 funktioniert**. Dies wurde bisher jedoch **nicht praktisch verifiziert**.
+>
+> Unterschiede sind insbesondere bei den zusätzlichen Funktionen der Multi Connect 1 zu erwarten, zum Beispiel beim **Schlüsselschalter** und der **Schuko-Steckdose**. Dafür können zusätzliche oder abweichend belegte Register vorhanden sein.
 
 
 ## Dokumentation
@@ -55,51 +57,71 @@ Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw
 
 ### Prüfadapter
 
-Verwendet wird ein **Gossen Metrawatt PRO-TYP II**.
-
-Damit lassen sich die für die Tests benötigten Fahrzeugzustände reproduzierbar simulieren:
-
-**CP – Control Pilot**
-
-- A = kein Fahrzeug
-- B = Fahrzeug angeschlossen, nicht ladebereit
-- C = Fahrzeug angeschlossen und ladebereit
-- D = Fahrzeug angeschlossen und ladebereit, Belüftung erforderlich
-- E = Fehlerzustand
-
-**PP – Proximity Pilot / Kabelstrom**
-
-Am Prüfadapter wurden folgende Kabelströme simuliert:
-
-- kein Kabel
-- 13 A
-- 20 A
-- 32 A
-- 63 A
-
-Produktseite: [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/)
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      Verwendet wird ein <strong>Gossen Metrawatt PRO-TYP II</strong>.<br><br>
+      Damit lassen sich die für die Tests benötigten Fahrzeugzustände reproduzierbar simulieren.<br><br>
+      <strong>CP – Control Pilot</strong>
+      <ul>
+        <li>A = kein Fahrzeug</li>
+        <li>B = Fahrzeug angeschlossen, nicht ladebereit</li>
+        <li>C = Fahrzeug angeschlossen und ladebereit</li>
+        <li>D = Fahrzeug angeschlossen und ladebereit, Belüftung erforderlich</li>
+        <li>E = Fehlerzustand</li>
+      </ul>
+      <strong>PP – Proximity Pilot / Kabelstrom</strong>
+      <ul>
+        <li>kein Kabel</li>
+        <li>13 A</li>
+        <li>20 A</li>
+        <li>32 A</li>
+        <li>63 A</li>
+      </ul>
+      <a href="https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/">Produktseite Gossen Metrawatt PRO-TYP II</a>
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/Gossen%20Metrawatt%20PRO-TYP%20II.jpeg" alt="Gossen Metrawatt PRO-TYP II Prüfadapter" width="50%">
+    </td>
+  </tr>
+</table>
 
 ### Lasttest
 
-Für einen reproduzierbaren Lasttest wurde ein Wasserkocher mit ungefähr **2200 W** an der Prüfsteckdose des PRO-TYP II verwendet.
-
-Zur Gegenmessung der von der Wallbox erfassten Phasenströme wird eine **BEHA AMPROBE AMP-310-EUR** Strommesszange verwendet.
-
-Bei L1 wurden **8,24 A** mit der Strommesszange gemessen; gleichzeitig zeigte das zugeordnete Modbus-Register den Wert **82**. L2 und L3 wurden ebenfalls mit der Strommesszange gegengeprüft.
-
-Die Detailzuordnung und Skalierung der Phasenstromregister wird in [docs/modbus-register.md](docs/modbus-register.md) geführt.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      Für einen reproduzierbaren Lasttest wurde ein Wasserkocher mit ungefähr <strong>2200 W</strong> an der Prüfsteckdose des PRO-TYP II verwendet.<br><br>
+      Zur Gegenmessung der von der Wallbox erfassten Phasenströme wird eine <strong>BEHA AMPROBE AMP-310-EUR</strong> Strommesszange verwendet.<br><br>
+      Bei L1 wurden <strong>8,24 A</strong> mit der Strommesszange gemessen; gleichzeitig zeigte das zugeordnete Modbus-Register den Wert <strong>82</strong>. L2 und L3 wurden ebenfalls mit der Strommesszange gegengeprüft.<br><br>
+      Die Detailzuordnung und Skalierung der Phasenstromregister wird in <a href="docs/modbus-register.md">docs/modbus-register.md</a> geführt.
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/Kenwood%20Wasserkocher.jpeg" alt="Kenwood Wasserkocher als Testlast" width="50%">
+    </td>
+  </tr>
+</table>
 
 ### S0-Energiezähler
 
-Der Testaufbau wurde um einen **Eltako DSZ12D-3x65A** erweitert.
-
-- Drehstromzähler 3x65 A
-- S0-Ausgang
-- **1000 Imp./kWh**
-- S0-Ausgang potenzialfrei über Optokoppler
-- Impulslänge laut Hersteller: **30 ms**
-
-Der Zähler wird für die Untersuchung des internen S0-Anschlusses **J18** verwendet.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      Der Testaufbau wurde um einen <strong>Eltako DSZ12D-3x65A</strong> erweitert.
+      <ul>
+        <li>Drehstromzähler 3x65 A</li>
+        <li>S0-Ausgang</li>
+        <li><strong>1000 Imp./kWh</strong></li>
+        <li>S0-Ausgang potenzialfrei über Optokoppler</li>
+        <li>Impulslänge laut Hersteller: <strong>30 ms</strong></li>
+      </ul>
+      Der Zähler wird für die Untersuchung des internen S0-Anschlusses <strong>J18</strong> verwendet.
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/Eltako%20DSZ12D-3x65A.jpeg" alt="Eltako DSZ12D-3x65A S0-Energiezähler" width="50%">
+    </td>
+  </tr>
+</table>
 
 ### RFID
 
