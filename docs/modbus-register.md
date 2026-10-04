@@ -17,6 +17,9 @@ Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.
 | **FC03 – Read Holding Registers** | 0–60000 | **40001–40102**, **50000–50032**, **55000–55126** |
 | **FC04 – Read Input Registers** | 0–1000 | **keine gültigen Adressen gefunden** |
 
+Nachweis der Scans:
+- [Modbus TCP Scans](docs/Modbus TCP Scans)
+
 ## Definitionen
 
 ### Adressdarstellung
