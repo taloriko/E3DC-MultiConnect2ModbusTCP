@@ -4,6 +4,12 @@ Diese Seite dokumentiert ausschließlich die bei der **E3/DC Multi Connect II** 
 
 Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Verdrahtungen werden von Hypothesen ausdrücklich getrennt.
 
+## Hauptplatine – Steckerübersicht
+
+<p align="center">
+  <img src="../pictures/E3DC%20Multi%20Connect%20II%20-%20Hauptplatine%20Stecker%20beschriftet.jpg" alt="E3/DC Multi Connect II – Hauptplatine mit beschrifteten Steckverbindern" width="100%">
+</p>
+
 ---
 
 ## Übersicht
@@ -23,6 +29,7 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | **J17** | 3-polig | Spulenanschluss des 3-poligen Ausgangsschützes | **Verdrahtung geprüft, Pin 3 offen** |
 | **J18** | 2-polig | S0+ / S0- | Beschriftung geprüft |
 | **J19** | 4-polig | Summenstromwandler; L1, L2, L3 und N werden gemeinsam durchgeführt | **Hardware beobachtet; 6-mA-DC-Überwachung vermutet** |
+| **ohne J-Beschriftung** | 8-polig | Funktion unbekannt | offen |
 
 ---
 
@@ -308,6 +315,7 @@ Diese Funktionszuordnung ist aktuell eine **Hypothese** und noch nicht elektrisc
 - Funktion von J5 klären
 - Funktion von J10 klären
 - Funktion von J16 klären
+- Funktion des **8-poligen Steckers ohne J-Beschriftung** klären
 - Funktion von J1 klären
 - Zusammenhang zwischen J13 und J19 bei der 6-mA-DC-Überwachung klären
 - Nutzung von J18 / S0 prüfen
