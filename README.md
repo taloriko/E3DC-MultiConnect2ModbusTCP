@@ -22,6 +22,8 @@ Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
 - [Direkte Modbus-TCP-Register und Funktionen](docs/modbus-register.md)
 - [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
 - [IP-Symcon Modbus-Vorlage](templates/E3DC_Multi_Connect_II_Modbus.json)
+- [Bilder der Wallbox und des Testaufbaus](pictures/)
+- [Technisches Datenblatt E3/DC Multi Connect II](https://www.e3dc.com/wp-data/uploads/2026/01/TDB-Wallbox-multi-connect-II-2025-08-25.pdf)
 
 Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus-Grundlagen des Tests**.
 
@@ -125,30 +127,48 @@ Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw
 
 ### RFID
 
-Für den RFID-Test wurde eine Karte mit der aufgedruckten ID
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      Für den RFID-Test wurde eine Karte mit der aufgedruckten ID <strong>C08D62C4</strong> verwendet.<br><br>
+      Diese ID konnte vollständig in den Modbus-Registern wiedergefunden werden.
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Frontplatine.jpeg" alt="Frontplatine der E3/DC Multi Connect II mit RFID-Bereich" width="50%">
+    </td>
+  </tr>
+</table>
 
-```text
-C08D62C4
-```
 
-verwendet.
+### Frontsensor / Näherungsschalter
 
-Diese ID konnte vollständig in den Modbus-Registern wiedergefunden werden.
-
-
-### Frontsensor / Kontakt-Sensor
-
-An der Front befindet sich ein Kontakt-Sensor. Wird er etwa **1–4 Sekunden** betätigt, setzt die Wallbox **Coil 5 auf TRUE**. Ein weiterer Tastvorgang setzt Coil 5 nicht zurück. Wird Coil 5 per Modbus auf FALSE gesetzt, kann der Frontsensor ihn anschließend erneut auf TRUE setzen.
-
-Die Hager-Anleitung beschreibt den Kontakt-Sensor bei aktiver Solaroptimierung als Funktion zum Beschleunigen des Ladevorgangs. Die genaue Rücksetzlogik und das Zusammenspiel mit Register 40083 sind noch offen.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      An der Front befindet sich ein Näherungsschalter. Wird er etwa <strong>1–4 Sekunden</strong> betätigt, setzt die Wallbox <strong>Coil 5 auf TRUE</strong>.<br><br>
+      Ein weiterer Tastvorgang setzt Coil 5 nicht zurück. Wird Coil 5 per Modbus auf FALSE gesetzt, kann der Frontsensor ihn anschließend erneut auf TRUE setzen.<br><br>
+      Die Hager-Anleitung beschreibt den Kontakt-Sensor bei aktiver Solaroptimierung als Funktion zum Beschleunigen des Ladevorgangs. Die genaue Rücksetzlogik und das Zusammenspiel mit Register 40083 sind noch offen.
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Frontplatine.jpeg" alt="Frontplatine der E3/DC Multi Connect II mit Frontsensor" width="50%">
+    </td>
+  </tr>
+</table>
 
 ### Interne Taster BP1
 
-Auf beiden Platinen der Wallbox befindet sich jeweils ein Taster mit der Bezeichnung **BP1**.
-
-Beide Taster wurden betätigt. Dabei wurde **keine beobachtbare Änderung** am Verhalten der Wallbox bzw. an den während des Tests überwachten Modbus-Werten festgestellt.
-
-Die Funktion der beiden BP1-Taster ist damit weiterhin **unbekannt**.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      Auf beiden Platinen der Wallbox befindet sich jeweils ein Taster mit der Bezeichnung <strong>BP1</strong>.<br><br>
+      Beide Taster wurden betätigt. Dabei wurde <strong>keine beobachtbare Änderung</strong> am Verhalten der Wallbox bzw. an den während des Tests überwachten Modbus-Werten festgestellt.<br><br>
+      Die Funktion der beiden BP1-Taster ist damit weiterhin <strong>unbekannt</strong>.
+    </td>
+    <td width="50%" valign="top">
+      <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Hauptplatine%20BP1%20Kn%C3%B6pfe.jpeg" alt="BP1-Taster auf der Hauptplatine der E3/DC Multi Connect II" width="50%">
+    </td>
+  </tr>
+</table>
 
 
 ### Interne Steckverbinder
