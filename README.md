@@ -217,6 +217,7 @@ In der Detaildokumentation werden die Ergebnisse so gekennzeichnet:
 - **Hypothese** – technisch plausibel, aber noch nicht vollständig gegengeprüft
 - **Fremdquelle** – Bedeutung stammt aus einer externen Quelle und wurde noch nicht vollständig selbst bestätigt
 - **RO** – lesbar, Schreibzugriff wurde abgewiesen bzw. nicht vorgesehen
+- **R** – lesbar, Schreibzugriff wurde nicht geprüft
 - **RW** – Lesen und Schreiben wurden praktisch bestätigt
 
 ---
