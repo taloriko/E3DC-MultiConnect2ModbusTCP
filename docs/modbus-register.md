@@ -304,7 +304,7 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40020–40035** | R | 32 Byte ASCII, 2 Zeichen/Register | Produktkennung | ergibt **XEVFR**, Rest NUL-Padding | Eigene Messung |
 | **40036–40051** | R | 32 Byte ASCII, 2 Zeichen/Register | Gerätekennung | gerätespezifischer 32-Byte-String | Eigene Messung |
 | **40052–40067** | R | 32 Byte ASCII, 2 Zeichen/Register | Versionsstring | **7.0.5.0/1.0.2.0**, Rest NUL-Padding | Eigene Messung |
-| **40068** | R | UINT16 | I-Max-Drehkodierschalter | 0→32, 10A→10, 13A→13, 16A→16, 20A→20, 25A→25, 32A→32, A→65, B→66, C→67 | Eigene Messung + [Hager Anleitung](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf) |
+| **40068** | R | UINT16 / Enum | I-Max-Drehkodierschalter | 10/13/16/20/25/32 werden als Stromstufe in A geliefert; A→65, B→66, C→67. Drehen unter Spannung auf A oder C löste Fehlercode **129** aus. | Eigene Messung + [Hager Anleitung](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf) |
 | **40069** | R | UINT16 [A] | erkannter PP-Kabelnennstrom | kein Kabel→0, 13A→13, 20A→20, 32A→32, 63A→63 | Eigene Messung mit [Gossen Metrawatt PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/) |
 | **40070** | R | 2 Byte ASCII | interner EVSE-/Ladezustandscode | A/N.C.→`F\0`, A+Kabel→`A1`, B→`A1`, C→`C2`, D→`D1`, E→`E\0` | Eigene Messung mit [PRO-TYP II](https://www.gossenmetrawatt.de/produkte/pro-typ-i-i/) |
 | **40071** | R | UINT16 [%] | CP-PWM Duty Cycle | CP=C: PP13→21%, PP20→33%, PP32→53%, PP63→53%. Bei 40081=6A →10%, bei 32A →53%. | Eigene Messung |
@@ -316,7 +316,7 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40082** | **RW** | UINT16 | Unbekannt | Grundwert 32. 6 und 32 werden angenommen. 40082=6 verändert bei 40081=32 den PWM-Wert nicht. | Eigene Messung |
 | **40083** | **RW** | UINT16 / Enum | extern als Sonnenmodus beschrieben | 1 und 2 bleiben stehen; 3 springt auf 2 zurück. Im Standalone-Test keine direkte Änderung von 40070/40071. | Eigene Messung + [evcc Discussion #14122](https://github.com/evcc-io/evcc/discussions/14122) |
 | **40084** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
-| **40085** | RO | UINT16 | **LED-/Fehlercode** | Normal **0**; CP=E → **2**; CP=D + Kabel → **4**; Schützklebefehler / rotes Dauerlicht → **130**. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl. | Eigene Messung + Handbuch; Bedeutung 130 offen |
+| **40085** | RO | UINT16 | **LED-/Fehlercode** | Normal **0**; CP=E → **2**; CP=D + Kabel → **4**; Codierschalter unter Spannung auf A/C gedreht → **129** verriegelnd; Schützklebefehler → **130**. | Eigene Messung + Handbuch |
 | **40086–40089** | R | 8 Byte ASCII, 2 Zeichen/Register | **RFID-Karten-ID** | Karte `C08D62C4` wird exakt als `C0` + `8D` + `62` + `C4` gelesen | Eigene Messung |
 | **40090–40101** | RO | UINT16 | Unbekannt | keine belastbare Zuordnung; FC06/FC16 abgewiesen | Eigene Messung |
 | **40102** | **RO** | UINT16 | Unbekannt | Wert bleibt im Test konstant bei 3. Auch bei 1-phasigem Laden über Coil 3 = 1 keine Änderung. Schreibversuch auf 1 per FC06 → **ILLEGAL_DATA_ADDRESS**. | Eigene Messung |
@@ -345,6 +345,20 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 Die Bedeutung der Schalterstellungen ist zusätzlich in der [Hager Installationsanleitung](https://assets.hager.com/step-content/P/HA_39675796/Document/std.lang.all/6LE009000B_XEV1KXX2S_EVCS_WITTY-SOLAR_MANUAL_DE_WEB.pdf) beschrieben.
 
 **Besonderheit:** Stellung 0 (Auto/EMC) und Stellung 32 A liefern beide den Registerwert 32. Der Registerwert allein kann diese beiden physischen Schalterstellungen daher nicht unterscheiden.
+
+#### Verhalten der Stellungen A / B / C
+
+Zusätzliche Funktionstests ergaben:
+
+- wird der Codierschalter bei bereits eingeschalteter Wallbox auf **A** oder **C** gedreht, erscheint **Fehlercode 129**
+- der Fehler ist **verriegelnd / blockierend**
+- wird die Wallbox bereits mit Stellung **A**, **B** oder **C** gestartet, leuchtet die Front-LED rot, es wird jedoch **kein Fehlercode in 40085** gesetzt und keine Blockierung festgestellt
+- Start mit **A**: rote LED, kein Fehlercode, keine weitere feststellbare Reaktion
+- Start mit **B**: rote LED; der **3-polige Schütz zieht für etwa 30 Sekunden an**, kein Fehlercode
+- Start mit **C**: rote LED, kein Fehlercode, keine weitere feststellbare Reaktion
+- wird nach einem Start mit A/B/C der Codierschalter in eine andere Position gedreht, wurde ebenfalls **kein Fehlercode** beobachtet
+
+Damit unterscheidet die Wallbox offenbar zwischen einer beim Boot vorhandenen A/B/C-Stellung und einer Änderung des Codierschalters im laufenden Betrieb. Die genaue interne Bedeutung der drei Service-/Sonderstellungen bleibt offen.
 
 ### 40069 – PP-Kabelerkennung
 
@@ -469,6 +483,18 @@ Neuer Funktionstest:
 
 Damit ist Fehlercode **128** für diesen Zustand reproduzierbar belegt. Gleichzeitig wird **Coil 8 = TRUE**. Welche einzelne Frontkomponente intern überwacht wird, ist damit noch nicht getrennt bestimmt; sicher ist der Zusammenhang mit dem fehlenden Front-Flachbandkabel.
 
+### 40085 = 129 – Codierschalter während des Betriebs verstellt
+
+Fehlercode **129** wurde reproduzierbar ausgelöst, wenn der **I-Max-Drehcodierschalter bei eingeschalteter Wallbox auf Stellung A oder C gedreht** wurde.
+
+Beobachtung:
+
+- **40085 = 129**
+- Fehlerzustand **verriegelnd / blockierend**
+- Auslösung bei Änderung auf **A** oder **C** während des laufenden Betriebs
+
+Wichtig ist die Abgrenzung zum Startzustand: Wird die Wallbox bereits mit Stellung **A**, **B** oder **C** eingeschaltet, leuchtet die Front-LED zwar rot, **40085 bleibt jedoch ohne Fehlercode**.
+
 Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 40085 und der roten LED-Fehleranzeige.
 
 | Code | Bedeutung | Nachweis |
@@ -482,6 +508,7 @@ Die bisherigen Tests zeigen einen deutlichen Zusammenhang zwischen Register 4008
 | **6** | Keine korrekte Freigabe vom Fahrzeug zum Ladebeginn | **aus Betriebsanleitung abgeleitet** |
 | **8** | Gleichstromfehler über 6 mA in der Fahrzeugversorgung | **aus Betriebsanleitung abgeleitet** |
 | **128** | Frontmodul nicht verbunden: Flachbandkabel zur Front mit LED, Reader und Näherungssensor nicht gesteckt | **selbst getestet** |
+| **129** | Verriegelnder Fehler beim Verstellen des I-Max-Codierschalters im laufenden Betrieb auf Stellung A oder C | **selbst getestet** |
 | **130** | Blockierender Fehler mit rotem Dauerlicht; im Test durch simulierte Schützklebeüberwachung ausgelöst | **selbst getestet** |
 
 Die Betriebsanleitung ordnet den normalen roten Blinkfehlern die Blinkimpulse **1, 2, 3, 4, 5, 6 und 8** zu. Die eigenen Tests bestätigen bisher, dass **40085 denselben Zahlenwert liefert**:
@@ -756,6 +783,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: aktuell TRUE bei Fehlercode 128 (Front-Flachbandkabel/Frontmodul nicht verbunden) und 130 (Schützklebefehler), FALSE bei den getesteten Blinkfehlern 2/4
-11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 130=Schützklebefehler. Bei Blinkfehlern entspricht der Wert bisher der Blinkimpulszahl.
+11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 129=Codierschalter unter Spannung auf A/C verstellt, 130=Schützklebefehler.
 12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
