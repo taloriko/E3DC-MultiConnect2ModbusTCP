@@ -25,7 +25,8 @@ Diese README beschreibt den **Testaufbau, die verwendete Hardware und die Modbus
 ---
 
 ## Getestete Wallbox
-![Logo](pictures/logo.png)
+![Wallbox Front](pictures/E3DC Multi Connect II - Vorne.jpeg)
+
 **E3/DC Multi Connect II**
 
 - Referenz / Typ: **XEV1K22T2E3DC**
