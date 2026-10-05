@@ -119,17 +119,63 @@ Die Adressen **0–8**, **9999–10000** und **14999** sind lesbar.
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
-| **9999** | **RW-Test** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **FALSE / 0**. FC05-Schreiben wird akzeptiert. Funktion und Auswirkung sind noch unbekannt. | Schreiben bestätigt; Bedeutung offen |
-| **10000** | **R** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **TRUE / 1**. Schreibversuch per FC05 mit **TRUE** führte in IP-Symcon zum Verlust der Modbus-TCP-Socket-Verbindung, obwohl TRUE bereits anlag. Deshalb kein Schreibzugriff in der Vorlage. | **Auffälliger Schreibzugriff; Bedeutung offen** |
-| **14999** | **RW-Test** | Unbekannt | Im FC01-Scan gültige Antwort; Ausgangswert **FALSE / 0**. FC05-Schreiben wird akzeptiert. Funktion und Auswirkung sind noch unbekannt. | Schreiben bestätigt; Bedeutung offen |
+| **9999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. FALSE erneut schreiben: keine erkennbare Wirkung. TRUE schreiben: wird akzeptiert und fällt kurz darauf selbstständig wieder auf FALSE. Ping bleibt dabei unverändert. | **Trigger-/Quittierbit vermutet; Bedeutung offen** |
+| **10000** | **RW-Test** | **Hypothese: DHCP EIN/AUS** | Ausgangswert **TRUE**. TRUE erneut schreiben: Ping fällt kurz aus und kommt wieder. FALSE schreiben: Ping und Modbus verschwinden und kommen auch nach AUS/EIN der Steuersicherung nicht zurück. Nach ca. 10 s BP1 auf der Netzwerkplatine sind Ping und Modbus wieder erreichbar und Coil 10000 steht wieder auf TRUE. | **Hypothese DHCP EIN/AUS; Verifizierung erst mit bekannter bzw. setzbarer Fallback-IP möglich** |
+| **14999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. FALSE erneut schreiben: keine erkennbare Wirkung. TRUE schreiben: wird akzeptiert und fällt kurz darauf selbstständig wieder auf FALSE. Ping bleibt dabei unverändert. | **Trigger-/Quittierbit vermutet; Bedeutung offen** |
 
 ## Weitere gültige, noch unbekannte Coils
 
-Die vollständigen FC01-Scans zeigen zusätzlich die gültigen Adressen **9999**, **10000** und **14999**. Die Bedeutung aller drei Coils ist weiterhin unbekannt.
+Die vollständigen FC01-Scans zeigen zusätzlich die gültigen Adressen **9999**, **10000** und **14999**.
 
-- **9999**: FC05-Schreiben wird akzeptiert; Ausgangswert im Test war **FALSE**. Wird in der IP-Symcon-Vorlage als schreibbar geführt.
-- **10000**: Ausgangswert im Test war **TRUE**. Ein FC05-Schreibversuch mit **TRUE** führte zum Verlust der Modbus-TCP-Socket-Verbindung in IP-Symcon. Deshalb wird dieser Coil in der Vorlage bewusst **nur lesend** geführt.
-- **14999**: FC05-Schreiben wird akzeptiert; Ausgangswert im Test war **FALSE**. Wird in der IP-Symcon-Vorlage als schreibbar geführt.
+### Coil 9999 – Bedeutung offen
+
+Verifiziertes Verhalten:
+
+- Ausgangszustand **FALSE**
+- **FALSE** erneut schreiben → keine erkennbare Änderung
+- **TRUE** schreiben → wird akzeptiert
+- kurz darauf fällt Coil 9999 selbstständig wieder auf **FALSE**
+- am Ping ist währenddessen keine Unterbrechung erkennbar
+
+Die Funktion bleibt unbekannt. Das Verhalten passt zu einem **Trigger-/Anforderungs- oder Quittierbit**, das von einer übergeordneten Steuerung wie dem Hauskraftwerk gesetzt werden könnte und anschließend wieder zurückgesetzt bzw. bestätigt wird. Diese Zuordnung ist bisher nur eine Hypothese.
+
+### Coil 10000 – Hypothese DHCP EIN/AUS
+
+Coil 10000 zeigt ein deutliches und reproduzierbares Verhalten der Netzwerkschnittstelle.
+
+Test mit Ausgangszustand **TRUE**:
+
+1. **TRUE erneut schreiben**
+   - Ping fällt kurz aus
+   - Netzwerk kommt anschließend selbstständig wieder
+   - Coil 10000 steht danach wieder auf **TRUE**
+
+2. **FALSE schreiben**
+   - Ping fällt aus
+   - Modbus TCP ist nicht mehr erreichbar
+   - Steuersicherung AUS/EIN stellt die Erreichbarkeit nicht wieder her
+   - Front-LED leuchtet dabei dauerhaft grün
+   - BP1 auf der Netzwerkplatine etwa **10 Sekunden drücken**
+   - anschließend sind Ping und Modbus TCP wieder erreichbar
+   - Coil 10000 steht wieder auf **TRUE**
+
+**Hypothese:** Coil 10000 schaltet **DHCP EIN/AUS**. Ein Schreiben auf TRUE könnte die Netzwerkkonfiguration neu initialisieren. Bei FALSE könnte die Wallbox auf eine bisher unbekannte statische bzw. Fallback-IP wechseln und wäre deshalb unter der bisherigen DHCP-Adresse nicht mehr erreichbar.
+
+Die Hypothese kann erst verifiziert werden, wenn die **Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann**. Bis dahin ist nicht sicher nachgewiesen, ob FALSE tatsächlich DHCP deaktiviert oder die Netzwerkschnittstelle auf andere Weise umschaltet.
+
+Wegen des möglichen Verlusts der Netzwerkverbindung bleibt Coil 10000 in der IP-Symcon-Vorlage vorsorglich **nur lesend**.
+
+### Coil 14999 – Bedeutung offen
+
+Verifiziertes Verhalten:
+
+- Ausgangszustand **FALSE**
+- **FALSE** erneut schreiben → keine erkennbare Änderung
+- **TRUE** schreiben → wird akzeptiert
+- kurz darauf fällt Coil 14999 selbstständig wieder auf **FALSE**
+- am Ping ist währenddessen keine Unterbrechung erkennbar
+
+Wie bei Coil 9999 wird ein **Trigger-/Anforderungs- oder Quittierbit** vermutet. Die genaue Funktion bleibt offen.
 
 ## Coil 0 – Bedeutung offen
 
@@ -801,3 +847,5 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 129=Codierschalter unter Spannung auf A/C verstellt, 130=Schützklebefehler.
 12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
+14. **Coil 10000 / DHCP-Hypothese** verifizieren, sobald die Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann
+15. Bedeutung von **Coil 9999 und 14999** als mögliche Trigger-/Anforderungs-/Quittierbits weiter untersuchen
