@@ -4,7 +4,8 @@ Diese Seite dokumentiert die direkt an der **E3/DC Multi Connect II Wallbox** ge
 
 Sie enthält ausschließlich die **technische Zuordnung der gefundenen Modbus-Adressen**, deren Bedeutung sowie die dazu durchgeführten Funktionstests.
 
-Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.md) beschrieben.
+Testaufbau, Hardware und Kommunikationsparameter sind in der [README](../README.md) beschrieben.  
+Die Gegenüberstellung der Einstellungen aus der Betriebsanleitung BTA V2.10 mit den bisher gefundenen Modbus-Funktionen steht unter [Einstellungen und Steuerlogik](einstellungen/README.md).
 
 **Firmwarestand des getesteten Geräts: 7.0.5.0/1.0.2.0**
 
@@ -115,7 +116,7 @@ Die Adressen **0–8**, **9999–10000** und **14999** sind lesbar.
 | **2** | **RW** | Unbekannt | Auf 0 gesetzt: Laden weiterhin möglich; beide Leistungsschütze ziehen an. Damit im getesteten Zustand weder Ladefreigabe noch 1P-Auswahl. | Bedeutung offen |
 | **3** | **RW** | **Phasenwahl** | 0 = 3-phasig, 1 = 1-phasig. Wirkung wird beim nächsten Ladebeginn übernommen. | **Verifiziert** |
 | **4** | **RW-Test** | Unbekannt | Lesen und FC05-Schreiben möglich. Beobachtung: Coil 4 fällt selbstständig etwa alle **60 s auf FALSE** zurück. Funktion noch nicht zugeordnet. | Bedeutung offen; periodisches Rücksetzen beobachtet |
-| **5** | **RW** | **Boost-Anforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. | **Verifiziertes Verhalten; Rücksetzlogik offen** |
+| **5** | **RW** | **Lademodus-Umschaltanforderung über Frontsensor** | Frontsensor 1–4 s betätigt → Coil 5 wird TRUE. Erneutes Betätigen setzt ihn nicht zurück. Nach Modbus-Schreiben auf FALSE kann der Sensor ihn erneut auf TRUE setzen. BTA V2.10: Näherungssensor schaltet zwischen Sonnenmodus und Mischbetrieb. | **Verhalten verifiziert; Quittierung/Rücksetzung durch E3/DC offen** |
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
@@ -255,7 +256,11 @@ Eigener Test:
 - Coil 5 per Modbus auf **FALSE** setzen
 - Frontsensor erneut betätigen → Coil 5 wird wieder **TRUE**
 
-Damit ist das Verhalten des Frontsensors auf Coil 5 verifiziert. Die Rücksetzlogik ist noch offen. Laut Hager-Anleitung dient der Kontakt-Sensor bei Solaroptimierung zum Beschleunigen des Ladevorgangs.
+Damit ist das Verhalten des Frontsensors auf Coil 5 verifiziert.
+
+Die Betriebsanleitung **Wallbox multi connect I und II BTA V2.10** beschreibt den Näherungssensor der Multi Connect II ausdrücklich zum Umschalten zwischen **Sonnenmodus und Mischbetrieb**. Sie weist außerdem darauf hin, dass diese Umschaltung nur in Verbindung mit einem **E3/DC-Speichersystem** möglich ist.
+
+Zusammen mit dem beobachteten Setzen auf TRUE spricht das dafür, dass Coil 5 keine dauerhaft gespeicherte Moduswahl ist, sondern eine **Umschaltanforderung / ein Trigger** an das übergeordnete E3/DC-System. Dass ein zweiter Tastvorgang das Bit nicht zurücksetzt und ein Modbus-Schreiben auf FALSE den Sensor wieder auslösbar macht, passt zu einer externen Quittierung bzw. Rücksetzung. Dieser Ablauf ist eine **Hypothese**; die Quittierung durch ein echtes E3/DC-System wurde noch nicht mitgeschnitten.
 
 ## Coil 6 – Stecker nach Ladeende verriegelt lassen
 
@@ -519,6 +524,21 @@ Verifizierter Testablauf:
 - der Fallbackwert wird dabei in **40081** als neuer Ladestrom-Sollwert übernommen
 - nach Wiederherstellung der Verbindung bleibt dieser begrenzte Wert in **40081** bestehen
 - soll wieder ein höherer Ladestrom gelten, muss **40081 erneut beschrieben** werden
+
+Die BTA V2.10 führt in der Bedienoberfläche zwei getrennte Einstellungen auf:
+
+- **Laden bei Verbindungsverlust**: erlaubt / unterbunden
+- **Max. Ladestrom bei Verbindungsverlust**
+
+Auf Modbus-Ebene wurde bisher nur **40082** eindeutig als passender Stellwert gefunden. Da **40082 = 0 A** die Ladung bei Kommunikationsverlust stoppt und Werte > 0 A das Weiterladen mit der eingestellten Grenze ermöglichen, ist folgende interne Abbildung plausibel:
+
+```text
+40082 = 0 A   -> Laden bei Verbindungsverlust unterbunden
+40082 > 0 A   -> Laden bei Verbindungsverlust erlaubt,
+                 Wert = maximale Stromgrenze
+```
+
+Diese Zusammenfassung beider GUI-Parameter in einem Modbus-Wert ist derzeit eine **Hypothese**. Ein separates Freigabebit wurde bisher nicht gefunden.
 
 Beispiel:
 
@@ -912,7 +932,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 5. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 6. Leistungs- und Energiezählerregister
 7. Bedeutung der noch offenen **Coils 2 und 4**
-8. Zusammenspiel **Coil 5 / 40083** und Rücksetzlogik des Frontsensor-Bits klären
+8. **Quittier-/Rücksetzlogik von Coil 5** durch ein echtes E3/DC-System mitschneiden; die Frontsensor-Funktion „Sonnenmodus ↔ Mischbetrieb“ ist durch die BTA V2.10 zugeordnet
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: aktuell TRUE bei Fehlercode 128 (Front-Flachbandkabel/Frontmodul nicht verbunden) und 130 (Schützklebefehler), FALSE bei den getesteten Blinkfehlern 2/4
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 129=Codierschalter unter Spannung auf A/C verstellt, 130=Schützklebefehler.
@@ -920,3 +940,4 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
 14. **Coil 10000 / DHCP-Hypothese** verifizieren, sobald die Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann
 15. Bedeutung von **Coil 9999** weiter untersuchen; bei **Coil 14999** ist der Zusammenhang mit 55001 (8 → 7) bestätigt, die genaue Funktion von Zustand/Trigger bleibt offen
+16. Prüfen, ob für **„Laden bei Verbindungsverlust erlaubt/unterbunden“** ein separates Modbus-Bit existiert oder ob die Funktion vollständig über **40082 = 0 A / > 0 A** kodiert wird
