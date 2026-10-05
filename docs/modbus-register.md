@@ -119,9 +119,9 @@ Die Adressen **0–8**, **9999–10000** und **14999** sind lesbar.
 | **6** | **RW** | **Stecker nach Ladeende verriegelt lassen** | Coil 6 = 0 → beim Wechsel von CP B auf CP A wird der Stecker entriegelt. Coil 6 = 1 → beim gleichen Wechsel bleibt der Stecker verriegelt. | **Verifiziert** |
 | **7** | **RO** | Unbekannt | Lesen möglich; FC05-Schreibversuch → **02 Illegal Data Address**. Bei CP=E bleibt Coil 7 **TRUE**, ohne Zustandsänderung. | Schreibzugriff abgewiesen; Bedeutung offen |
 | **8** | **RO** | **blockierender Hardware-/Systemfehlerstatus** | Normale rote Blinkfehler (CP D/E): **FALSE**. Front-Flachbandkabel abgezogen / Fehlercode 128: **TRUE**. Simulierter Schützklebefehler / Fehlercode 130: **TRUE** und dort bis Steuersicherung AUS/EIN verriegelt. FC05 → **02 Illegal Data Address**. | **Verifiziert für Fehler 128 und 130; genaue Fehlergruppe offen** |
-| **9999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. FALSE erneut schreiben: keine erkennbare Wirkung. TRUE schreiben: wird akzeptiert und fällt kurz darauf selbstständig wieder auf FALSE. Ping bleibt dabei unverändert. | **Trigger-/Quittierbit vermutet; Bedeutung offen** |
+| **9999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. FALSE erneut schreiben: keine erkennbare Wirkung. TRUE schreiben: wird akzeptiert und fällt kurz darauf selbstständig wieder auf FALSE. Ping bleibt unverändert. Im Vergleichstest keine Auswirkung auf 55001 festgestellt. | **Bedeutung offen** |
 | **10000** | **RW-Test** | **Hypothese: DHCP EIN/AUS** | Ausgangswert **TRUE**. TRUE erneut schreiben: Ping fällt kurz aus und kommt wieder. FALSE schreiben: Ping und Modbus verschwinden und kommen auch nach AUS/EIN der Steuersicherung nicht zurück. Nach ca. 10 s BP1 auf der Netzwerkplatine sind Ping und Modbus wieder erreichbar und Coil 10000 steht wieder auf TRUE. | **Hypothese DHCP EIN/AUS; Verifizierung erst mit bekannter bzw. setzbarer Fallback-IP möglich** |
-| **14999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. FALSE erneut schreiben: keine erkennbare Wirkung. TRUE schreiben: wird akzeptiert und fällt kurz darauf selbstständig wieder auf FALSE. Ping bleibt dabei unverändert. | **Trigger-/Quittierbit vermutet; Bedeutung offen** |
+| **14999** | **RW-Test** | Unbekannt | Ausgangswert **FALSE**. TRUE schreiben: 55001 wechselt reproduzierbar von 8 auf 7. Wiederholtes TRUE ändert den Wert 7 nicht weiter; FALSE bewirkt ebenfalls keine Rückkehr auf 8. Coil 14999 fällt kurz darauf wieder auf FALSE. | **Zusammenhang mit 55001 verifiziert; genaue Funktion offen** |
 
 ## Weitere gültige, noch unbekannte Coils
 
@@ -137,7 +137,7 @@ Verifiziertes Verhalten:
 - kurz darauf fällt Coil 9999 selbstständig wieder auf **FALSE**
 - am Ping ist währenddessen keine Unterbrechung erkennbar
 
-Die Funktion bleibt unbekannt. Das Verhalten passt zu einem **Trigger-/Anforderungs- oder Quittierbit**, das von einer übergeordneten Steuerung wie dem Hauskraftwerk gesetzt werden könnte und anschließend wieder zurückgesetzt bzw. bestätigt wird. Diese Zuordnung ist bisher nur eine Hypothese.
+Die Funktion bleibt unbekannt. Im direkten Vergleichstest hatte Coil 9999 **keine erkennbare Auswirkung auf Register 55001**. Eine darüber hinausgehende Funktion ist weiterhin offen.
 
 ### Coil 10000 – Hypothese DHCP EIN/AUS
 
@@ -165,17 +165,19 @@ Die Hypothese kann erst verifiziert werden, wenn die **Fallback-/statische IP be
 
 Wegen des möglichen Verlusts der Netzwerkverbindung bleibt Coil 10000 in der IP-Symcon-Vorlage vorsorglich **nur lesend**.
 
-### Coil 14999 – Bedeutung offen
+### Coil 14999 – Zusammenhang mit 55001
 
 Verifiziertes Verhalten:
 
-- Ausgangszustand **FALSE**
-- **FALSE** erneut schreiben → keine erkennbare Änderung
-- **TRUE** schreiben → wird akzeptiert
-- kurz darauf fällt Coil 14999 selbstständig wieder auf **FALSE**
-- am Ping ist währenddessen keine Unterbrechung erkennbar
+- Ausgangszustand nach Neustart: **55001 = 8**
+- **Coil 14999 = TRUE** schreiben
+- Register **55001 wechselt von 8 auf 7**
+- Coil 14999 fällt kurz darauf selbstständig wieder auf **FALSE**
+- erneutes Schreiben von **TRUE** verändert 55001 nicht weiter; der Wert bleibt **7**
+- Schreiben von **FALSE** auf Coil 14999 setzt 55001 ebenfalls nicht zurück
+- Coil 9999 zeigte im Vergleichstest keine Auswirkung auf 55001
 
-Wie bei Coil 9999 wird ein **Trigger-/Anforderungs- oder Quittierbit** vermutet. Die genaue Funktion bleibt offen.
+Damit ist ein direkter Zusammenhang zwischen **Coil 14999** und **Register 55001** verifiziert. Die genaue Bedeutung von Zustand 7/8 und die Funktion des Triggers sind weiterhin offen.
 
 ## Coil 0 – Bedeutung offen
 
@@ -827,6 +829,9 @@ Der Block ist weiterhin funktional nicht zugeordnet.
 
 - **55001 ist nicht statisch**: bisher wurden die Werte **7** und **8** beobachtet
 - nach **Steuersicherung AUS / EIN** stand 55001 wieder auf **8**
+- Schreiben von **Coil 14999 = TRUE** setzt 55001 reproduzierbar von **8 auf 7**
+- weiteres TRUE oder FALSE auf Coil 14999 ändert den bereits erreichten Wert 7 nicht
+- Coil 9999 hatte im Vergleichstest keine Auswirkung auf 55001
 - **55000 sowie 55002–55126** wurden im bisherigen Grundzustand mit 0 beobachtet
 
 Schreibtests:
@@ -914,4 +919,4 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 12. Bedeutung des Blocks **55000–55126** klären; 55000/55001 sind RO, 55002 ist RW bestätigt, 55003–55126 akzeptieren bisher nur den Testwert 0
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
 14. **Coil 10000 / DHCP-Hypothese** verifizieren, sobald die Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann
-15. Bedeutung von **Coil 9999 und 14999** als mögliche Trigger-/Anforderungs-/Quittierbits weiter untersuchen
+15. Bedeutung von **Coil 9999** weiter untersuchen; bei **Coil 14999** ist der Zusammenhang mit 55001 (8 → 7) bestätigt, die genaue Funktion von Zustand/Trigger bleibt offen
