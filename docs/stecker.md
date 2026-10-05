@@ -24,7 +24,7 @@ Die Angaben beziehen sich auf das im Projekt untersuchte Gerät. Verifizierte Ve
 | **J9** | 6-polig | Stromwandler L1 / L2 / L3 | **Verdrahtung geprüft** |
 | **J10** | 6-polig | Funktion unbekannt | offen |
 | **J12** | 5-polig | PP, CP, PE und Motor Steckerverriegelung | **Verdrahtung geprüft** |
-| **J13** | 6-polig | laut mitgelieferter Anleitung Sensoranschluss 6 mA | Dokumentationshinweis |
+| **J13** | 6-polig | BTA V2.10, Abb. 4: **Sensoranschluss 6 mA** | **Zuordnung aus Betriebsanleitung; Pinbelegung elektrisch noch offen** |
 | **J14** | 2-polig | Spannungsrückmeldung L1 hinter dem Ausgangsschütz; sehr wahrscheinlich Schützklebeüberwachung | **Verdrahtung geprüft; Funktion durch Fehler-Simulation stark gestützt** |
 | **J15** | 2-polig | N / L vom 2-poligen C16-Automaten Hager NFT716 | **Verdrahtung geprüft** |
 | **J16** | 4-polig | Pins 30–33, Funktion unbekannt; elektrische Testreihe dokumentiert | **Zuordnung offen / weitere Tests gestoppt** |
@@ -171,13 +171,16 @@ Die Verkabelung wurde geprüft.
 ---
 
 
-## J13
+## J13 – Sensoranschluss 6 mA
 
 - **Nicht belegt**
 - **6-polig**
-- laut der mitgelieferten Anleitung als **Sensoranschluss 6 mA** bezeichnet
+- in der mitgelieferten Betriebsanleitung **Wallbox multi connect I und II BTA V2.10**, Abb. 4 „Innenansicht“, ist die entsprechende Position **[1]** als **„Sensoranschluss 6 mA“** bezeichnet
+- auf der untersuchten Hauptplatine ist dieser 6-polige Anschluss als **J13** beschriftet
 
-Die genaue interne Zuordnung wurde bisher nicht elektrisch nachverfolgt.
+Damit wird J13 in dieser Dokumentation als **Sensoranschluss 6 mA** geführt. Diese Zuordnung stammt aus der Betriebsanleitung und der Lage auf der untersuchten Platine; die einzelnen Pins wurden bisher **nicht elektrisch nachverfolgt**.
+
+Die Betriebsanleitung legt an dieser Stelle keine Pinbelegung oder Signalbeschreibung offen.
 
 ---
 
@@ -311,6 +314,8 @@ Da **kein passender Stecker vorhanden** ist und die Kontaktierung nur provisoris
 Die ursprüngliche Vermutung eines Anschlusses für **L1 / L2 / L3 / N** passt nicht zu den Messungen, da Pin 30 und Pin 32 direkt miteinander verbunden sind und zwischen den Pinpaaren nur etwa 11,6 V DC anliegen.
 
 Aufgrund der zwei ähnlich aufgebauten Kanäle wäre grundsätzlich eine optionale externe Schaltfunktion denkbar. Als mögliche Erklärung wurde ein Anschluss für den **Schlüsselschalter einer anderen Wallboxvariante, z. B. Multi Connect 1**, betrachtet. Dafür liegt jedoch **kein Nachweis** vor.
+
+Auch in der ausgewerteten Betriebsanleitung **BTA V2.10** wurde keine Funktion gefunden, die sich anhand der Platinenbezeichnung oder der Abbildung belastbar J16 zuordnen lässt.
 
 **Status:** Funktion unbekannt. Weitere elektrische Tests wurden beendet, um eine Beschädigung der Wallbox zu vermeiden. Die Klärung bleibt ein **Nice-to-have**.
 
