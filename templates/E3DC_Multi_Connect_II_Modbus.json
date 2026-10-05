@@ -1147,13 +1147,13 @@
             "Factor": 0,
             "Ident": "register_55000_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55000 (R)",
+            "Name": "Unbekannt 55000 (RW-Test)",
             "Profile": "",
             "ReadAddress": 14999,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 14999,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1162,13 +1162,13 @@
             "Factor": 0,
             "Ident": "register_55001_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55001 (R) - dynamisch 7/8",
+            "Name": "Unbekannt 55001 (RW-Test) - dynamisch 7/8",
             "Profile": "",
             "ReadAddress": 15000,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15000,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1177,13 +1177,13 @@
             "Factor": 0,
             "Ident": "register_55002_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55002 (R)",
+            "Name": "Unbekannt 55002 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15001,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15001,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1192,13 +1192,13 @@
             "Factor": 0,
             "Ident": "register_55003_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55003 (R)",
+            "Name": "Unbekannt 55003 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15002,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15002,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1207,13 +1207,13 @@
             "Factor": 0,
             "Ident": "register_55004_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55004 (R)",
+            "Name": "Unbekannt 55004 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15003,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15003,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1222,13 +1222,13 @@
             "Factor": 0,
             "Ident": "register_55005_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55005 (R)",
+            "Name": "Unbekannt 55005 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15004,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15004,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1237,13 +1237,13 @@
             "Factor": 0,
             "Ident": "register_55006_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55006 (R)",
+            "Name": "Unbekannt 55006 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15005,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15005,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1252,13 +1252,13 @@
             "Factor": 0,
             "Ident": "register_55007_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55007 (R)",
+            "Name": "Unbekannt 55007 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15006,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15006,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1267,13 +1267,13 @@
             "Factor": 0,
             "Ident": "register_55008_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55008 (R)",
+            "Name": "Unbekannt 55008 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15007,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15007,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1282,13 +1282,13 @@
             "Factor": 0,
             "Ident": "register_55009_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55009 (R)",
+            "Name": "Unbekannt 55009 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15008,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15008,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1297,13 +1297,13 @@
             "Factor": 0,
             "Ident": "register_55010_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55010 (R)",
+            "Name": "Unbekannt 55010 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15009,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15009,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1312,13 +1312,13 @@
             "Factor": 0,
             "Ident": "register_55011_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55011 (R)",
+            "Name": "Unbekannt 55011 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15010,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15010,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1327,13 +1327,13 @@
             "Factor": 0,
             "Ident": "register_55012_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55012 (R)",
+            "Name": "Unbekannt 55012 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15011,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15011,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1342,13 +1342,13 @@
             "Factor": 0,
             "Ident": "register_55013_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55013 (R)",
+            "Name": "Unbekannt 55013 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15012,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15012,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1357,13 +1357,13 @@
             "Factor": 0,
             "Ident": "register_55014_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55014 (R)",
+            "Name": "Unbekannt 55014 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15013,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15013,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1372,13 +1372,13 @@
             "Factor": 0,
             "Ident": "register_55015_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55015 (R)",
+            "Name": "Unbekannt 55015 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15014,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15014,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1387,13 +1387,13 @@
             "Factor": 0,
             "Ident": "register_55016_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55016 (R)",
+            "Name": "Unbekannt 55016 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15015,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15015,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1402,13 +1402,13 @@
             "Factor": 0,
             "Ident": "register_55017_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55017 (R)",
+            "Name": "Unbekannt 55017 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15016,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15016,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1417,13 +1417,13 @@
             "Factor": 0,
             "Ident": "register_55018_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55018 (R)",
+            "Name": "Unbekannt 55018 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15017,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15017,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1432,13 +1432,13 @@
             "Factor": 0,
             "Ident": "register_55019_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55019 (R)",
+            "Name": "Unbekannt 55019 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15018,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15018,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1447,13 +1447,13 @@
             "Factor": 0,
             "Ident": "register_55020_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55020 (R)",
+            "Name": "Unbekannt 55020 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15019,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15019,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1462,13 +1462,13 @@
             "Factor": 0,
             "Ident": "register_55021_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55021 (R)",
+            "Name": "Unbekannt 55021 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15020,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15020,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1477,13 +1477,13 @@
             "Factor": 0,
             "Ident": "register_55022_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55022 (R)",
+            "Name": "Unbekannt 55022 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15021,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15021,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1492,13 +1492,13 @@
             "Factor": 0,
             "Ident": "register_55023_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55023 (R)",
+            "Name": "Unbekannt 55023 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15022,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15022,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1507,13 +1507,13 @@
             "Factor": 0,
             "Ident": "register_55024_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55024 (R)",
+            "Name": "Unbekannt 55024 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15023,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15023,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1522,13 +1522,13 @@
             "Factor": 0,
             "Ident": "register_55025_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55025 (R)",
+            "Name": "Unbekannt 55025 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15024,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15024,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1537,13 +1537,13 @@
             "Factor": 0,
             "Ident": "register_55026_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55026 (R)",
+            "Name": "Unbekannt 55026 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15025,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15025,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1552,13 +1552,13 @@
             "Factor": 0,
             "Ident": "register_55027_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55027 (R)",
+            "Name": "Unbekannt 55027 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15026,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15026,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1567,13 +1567,13 @@
             "Factor": 0,
             "Ident": "register_55028_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55028 (R)",
+            "Name": "Unbekannt 55028 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15027,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15027,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1582,13 +1582,13 @@
             "Factor": 0,
             "Ident": "register_55029_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55029 (R)",
+            "Name": "Unbekannt 55029 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15028,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15028,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1597,13 +1597,13 @@
             "Factor": 0,
             "Ident": "register_55030_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55030 (R)",
+            "Name": "Unbekannt 55030 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15029,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15029,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1612,13 +1612,13 @@
             "Factor": 0,
             "Ident": "register_55031_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55031 (R)",
+            "Name": "Unbekannt 55031 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15030,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15030,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1627,13 +1627,13 @@
             "Factor": 0,
             "Ident": "register_55032_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55032 (R)",
+            "Name": "Unbekannt 55032 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15031,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15031,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1642,13 +1642,13 @@
             "Factor": 0,
             "Ident": "register_55033_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55033 (R)",
+            "Name": "Unbekannt 55033 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15032,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15032,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1657,13 +1657,13 @@
             "Factor": 0,
             "Ident": "register_55034_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55034 (R)",
+            "Name": "Unbekannt 55034 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15033,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15033,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1672,13 +1672,13 @@
             "Factor": 0,
             "Ident": "register_55035_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55035 (R)",
+            "Name": "Unbekannt 55035 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15034,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15034,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1687,13 +1687,13 @@
             "Factor": 0,
             "Ident": "register_55036_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55036 (R)",
+            "Name": "Unbekannt 55036 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15035,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15035,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1702,13 +1702,13 @@
             "Factor": 0,
             "Ident": "register_55037_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55037 (R)",
+            "Name": "Unbekannt 55037 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15036,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15036,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1717,13 +1717,13 @@
             "Factor": 0,
             "Ident": "register_55038_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55038 (R)",
+            "Name": "Unbekannt 55038 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15037,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15037,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1732,13 +1732,13 @@
             "Factor": 0,
             "Ident": "register_55039_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55039 (R)",
+            "Name": "Unbekannt 55039 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15038,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15038,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1747,13 +1747,13 @@
             "Factor": 0,
             "Ident": "register_55040_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55040 (R)",
+            "Name": "Unbekannt 55040 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15039,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15039,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1762,13 +1762,13 @@
             "Factor": 0,
             "Ident": "register_55041_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55041 (R)",
+            "Name": "Unbekannt 55041 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15040,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15040,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1777,13 +1777,13 @@
             "Factor": 0,
             "Ident": "register_55042_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55042 (R)",
+            "Name": "Unbekannt 55042 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15041,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15041,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1792,13 +1792,13 @@
             "Factor": 0,
             "Ident": "register_55043_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55043 (R)",
+            "Name": "Unbekannt 55043 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15042,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15042,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1807,13 +1807,13 @@
             "Factor": 0,
             "Ident": "register_55044_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55044 (R)",
+            "Name": "Unbekannt 55044 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15043,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15043,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1822,13 +1822,13 @@
             "Factor": 0,
             "Ident": "register_55045_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55045 (R)",
+            "Name": "Unbekannt 55045 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15044,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15044,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1837,13 +1837,13 @@
             "Factor": 0,
             "Ident": "register_55046_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55046 (R)",
+            "Name": "Unbekannt 55046 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15045,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15045,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1852,13 +1852,13 @@
             "Factor": 0,
             "Ident": "register_55047_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55047 (R)",
+            "Name": "Unbekannt 55047 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15046,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15046,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1867,13 +1867,13 @@
             "Factor": 0,
             "Ident": "register_55048_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55048 (R)",
+            "Name": "Unbekannt 55048 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15047,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15047,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1882,13 +1882,13 @@
             "Factor": 0,
             "Ident": "register_55049_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55049 (R)",
+            "Name": "Unbekannt 55049 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15048,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15048,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1897,13 +1897,13 @@
             "Factor": 0,
             "Ident": "register_55050_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55050 (R)",
+            "Name": "Unbekannt 55050 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15049,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15049,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1912,13 +1912,13 @@
             "Factor": 0,
             "Ident": "register_55051_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55051 (R)",
+            "Name": "Unbekannt 55051 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15050,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15050,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1927,13 +1927,13 @@
             "Factor": 0,
             "Ident": "register_55052_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55052 (R)",
+            "Name": "Unbekannt 55052 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15051,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15051,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1942,13 +1942,13 @@
             "Factor": 0,
             "Ident": "register_55053_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55053 (R)",
+            "Name": "Unbekannt 55053 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15052,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15052,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1957,13 +1957,13 @@
             "Factor": 0,
             "Ident": "register_55054_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55054 (R)",
+            "Name": "Unbekannt 55054 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15053,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15053,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1972,13 +1972,13 @@
             "Factor": 0,
             "Ident": "register_55055_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55055 (R)",
+            "Name": "Unbekannt 55055 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15054,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15054,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -1987,13 +1987,13 @@
             "Factor": 0,
             "Ident": "register_55056_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55056 (R)",
+            "Name": "Unbekannt 55056 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15055,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15055,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2002,13 +2002,13 @@
             "Factor": 0,
             "Ident": "register_55057_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55057 (R)",
+            "Name": "Unbekannt 55057 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15056,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15056,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2017,13 +2017,13 @@
             "Factor": 0,
             "Ident": "register_55058_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55058 (R)",
+            "Name": "Unbekannt 55058 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15057,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15057,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2032,13 +2032,13 @@
             "Factor": 0,
             "Ident": "register_55059_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55059 (R)",
+            "Name": "Unbekannt 55059 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15058,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15058,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2047,13 +2047,13 @@
             "Factor": 0,
             "Ident": "register_55060_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55060 (R)",
+            "Name": "Unbekannt 55060 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15059,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15059,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2062,13 +2062,13 @@
             "Factor": 0,
             "Ident": "register_55061_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55061 (R)",
+            "Name": "Unbekannt 55061 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15060,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15060,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2077,13 +2077,13 @@
             "Factor": 0,
             "Ident": "register_55062_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55062 (R)",
+            "Name": "Unbekannt 55062 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15061,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15061,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2092,13 +2092,13 @@
             "Factor": 0,
             "Ident": "register_55063_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55063 (R)",
+            "Name": "Unbekannt 55063 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15062,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15062,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2107,13 +2107,13 @@
             "Factor": 0,
             "Ident": "register_55064_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55064 (R)",
+            "Name": "Unbekannt 55064 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15063,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15063,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2122,13 +2122,13 @@
             "Factor": 0,
             "Ident": "register_55065_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55065 (R)",
+            "Name": "Unbekannt 55065 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15064,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15064,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2137,13 +2137,13 @@
             "Factor": 0,
             "Ident": "register_55066_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55066 (R)",
+            "Name": "Unbekannt 55066 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15065,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15065,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2152,13 +2152,13 @@
             "Factor": 0,
             "Ident": "register_55067_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55067 (R)",
+            "Name": "Unbekannt 55067 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15066,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15066,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2167,13 +2167,13 @@
             "Factor": 0,
             "Ident": "register_55068_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55068 (R)",
+            "Name": "Unbekannt 55068 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15067,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15067,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2182,13 +2182,13 @@
             "Factor": 0,
             "Ident": "register_55069_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55069 (R)",
+            "Name": "Unbekannt 55069 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15068,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15068,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2197,13 +2197,13 @@
             "Factor": 0,
             "Ident": "register_55070_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55070 (R)",
+            "Name": "Unbekannt 55070 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15069,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15069,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2212,13 +2212,13 @@
             "Factor": 0,
             "Ident": "register_55071_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55071 (R)",
+            "Name": "Unbekannt 55071 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15070,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15070,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2227,13 +2227,13 @@
             "Factor": 0,
             "Ident": "register_55072_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55072 (R)",
+            "Name": "Unbekannt 55072 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15071,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15071,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2242,13 +2242,13 @@
             "Factor": 0,
             "Ident": "register_55073_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55073 (R)",
+            "Name": "Unbekannt 55073 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15072,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15072,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2257,13 +2257,13 @@
             "Factor": 0,
             "Ident": "register_55074_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55074 (R)",
+            "Name": "Unbekannt 55074 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15073,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15073,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2272,13 +2272,13 @@
             "Factor": 0,
             "Ident": "register_55075_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55075 (R)",
+            "Name": "Unbekannt 55075 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15074,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15074,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2287,13 +2287,13 @@
             "Factor": 0,
             "Ident": "register_55076_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55076 (R)",
+            "Name": "Unbekannt 55076 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15075,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15075,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2302,13 +2302,13 @@
             "Factor": 0,
             "Ident": "register_55077_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55077 (R)",
+            "Name": "Unbekannt 55077 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15076,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15076,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2317,13 +2317,13 @@
             "Factor": 0,
             "Ident": "register_55078_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55078 (R)",
+            "Name": "Unbekannt 55078 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15077,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15077,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2332,13 +2332,13 @@
             "Factor": 0,
             "Ident": "register_55079_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55079 (R)",
+            "Name": "Unbekannt 55079 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15078,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15078,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2347,13 +2347,13 @@
             "Factor": 0,
             "Ident": "register_55080_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55080 (R)",
+            "Name": "Unbekannt 55080 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15079,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15079,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2362,13 +2362,13 @@
             "Factor": 0,
             "Ident": "register_55081_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55081 (R)",
+            "Name": "Unbekannt 55081 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15080,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15080,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2377,13 +2377,13 @@
             "Factor": 0,
             "Ident": "register_55082_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55082 (R)",
+            "Name": "Unbekannt 55082 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15081,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15081,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2392,13 +2392,13 @@
             "Factor": 0,
             "Ident": "register_55083_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55083 (R)",
+            "Name": "Unbekannt 55083 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15082,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15082,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2407,13 +2407,13 @@
             "Factor": 0,
             "Ident": "register_55084_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55084 (R)",
+            "Name": "Unbekannt 55084 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15083,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15083,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2422,13 +2422,13 @@
             "Factor": 0,
             "Ident": "register_55085_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55085 (R)",
+            "Name": "Unbekannt 55085 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15084,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15084,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2437,13 +2437,13 @@
             "Factor": 0,
             "Ident": "register_55086_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55086 (R)",
+            "Name": "Unbekannt 55086 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15085,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15085,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2452,13 +2452,13 @@
             "Factor": 0,
             "Ident": "register_55087_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55087 (R)",
+            "Name": "Unbekannt 55087 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15086,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15086,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2467,13 +2467,13 @@
             "Factor": 0,
             "Ident": "register_55088_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55088 (R)",
+            "Name": "Unbekannt 55088 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15087,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15087,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2482,13 +2482,13 @@
             "Factor": 0,
             "Ident": "register_55089_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55089 (R)",
+            "Name": "Unbekannt 55089 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15088,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15088,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2497,13 +2497,13 @@
             "Factor": 0,
             "Ident": "register_55090_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55090 (R)",
+            "Name": "Unbekannt 55090 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15089,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15089,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2512,13 +2512,13 @@
             "Factor": 0,
             "Ident": "register_55091_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55091 (R)",
+            "Name": "Unbekannt 55091 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15090,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15090,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2527,13 +2527,13 @@
             "Factor": 0,
             "Ident": "register_55092_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55092 (R)",
+            "Name": "Unbekannt 55092 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15091,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15091,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2542,13 +2542,13 @@
             "Factor": 0,
             "Ident": "register_55093_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55093 (R)",
+            "Name": "Unbekannt 55093 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15092,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15092,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2557,13 +2557,13 @@
             "Factor": 0,
             "Ident": "register_55094_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55094 (R)",
+            "Name": "Unbekannt 55094 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15093,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15093,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2572,13 +2572,13 @@
             "Factor": 0,
             "Ident": "register_55095_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55095 (R)",
+            "Name": "Unbekannt 55095 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15094,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15094,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2587,13 +2587,13 @@
             "Factor": 0,
             "Ident": "register_55096_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55096 (R)",
+            "Name": "Unbekannt 55096 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15095,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15095,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2602,13 +2602,13 @@
             "Factor": 0,
             "Ident": "register_55097_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55097 (R)",
+            "Name": "Unbekannt 55097 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15096,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15096,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2617,13 +2617,13 @@
             "Factor": 0,
             "Ident": "register_55098_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55098 (R)",
+            "Name": "Unbekannt 55098 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15097,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15097,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2632,13 +2632,13 @@
             "Factor": 0,
             "Ident": "register_55099_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55099 (R)",
+            "Name": "Unbekannt 55099 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15098,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15098,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2647,13 +2647,13 @@
             "Factor": 0,
             "Ident": "register_55100_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55100 (R)",
+            "Name": "Unbekannt 55100 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15099,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15099,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2662,13 +2662,13 @@
             "Factor": 0,
             "Ident": "register_55101_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55101 (R)",
+            "Name": "Unbekannt 55101 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15100,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15100,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2677,13 +2677,13 @@
             "Factor": 0,
             "Ident": "register_55102_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55102 (R)",
+            "Name": "Unbekannt 55102 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15101,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15101,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2692,13 +2692,13 @@
             "Factor": 0,
             "Ident": "register_55103_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55103 (R)",
+            "Name": "Unbekannt 55103 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15102,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15102,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2707,13 +2707,13 @@
             "Factor": 0,
             "Ident": "register_55104_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55104 (R)",
+            "Name": "Unbekannt 55104 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15103,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15103,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2722,13 +2722,13 @@
             "Factor": 0,
             "Ident": "register_55105_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55105 (R)",
+            "Name": "Unbekannt 55105 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15104,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15104,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2737,13 +2737,13 @@
             "Factor": 0,
             "Ident": "register_55106_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55106 (R)",
+            "Name": "Unbekannt 55106 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15105,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15105,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2752,13 +2752,13 @@
             "Factor": 0,
             "Ident": "register_55107_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55107 (R)",
+            "Name": "Unbekannt 55107 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15106,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15106,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2767,13 +2767,13 @@
             "Factor": 0,
             "Ident": "register_55108_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55108 (R)",
+            "Name": "Unbekannt 55108 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15107,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15107,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2782,13 +2782,13 @@
             "Factor": 0,
             "Ident": "register_55109_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55109 (R)",
+            "Name": "Unbekannt 55109 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15108,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15108,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2797,13 +2797,13 @@
             "Factor": 0,
             "Ident": "register_55110_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55110 (R)",
+            "Name": "Unbekannt 55110 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15109,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15109,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2812,13 +2812,13 @@
             "Factor": 0,
             "Ident": "register_55111_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55111 (R)",
+            "Name": "Unbekannt 55111 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15110,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15110,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2827,13 +2827,13 @@
             "Factor": 0,
             "Ident": "register_55112_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55112 (R)",
+            "Name": "Unbekannt 55112 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15111,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15111,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2842,13 +2842,13 @@
             "Factor": 0,
             "Ident": "register_55113_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55113 (R)",
+            "Name": "Unbekannt 55113 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15112,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15112,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2857,13 +2857,13 @@
             "Factor": 0,
             "Ident": "register_55114_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55114 (R)",
+            "Name": "Unbekannt 55114 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15113,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15113,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2872,13 +2872,13 @@
             "Factor": 0,
             "Ident": "register_55115_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55115 (R)",
+            "Name": "Unbekannt 55115 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15114,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15114,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2887,13 +2887,13 @@
             "Factor": 0,
             "Ident": "register_55116_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55116 (R)",
+            "Name": "Unbekannt 55116 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15115,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15115,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2902,13 +2902,13 @@
             "Factor": 0,
             "Ident": "register_55117_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55117 (R)",
+            "Name": "Unbekannt 55117 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15116,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15116,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2917,13 +2917,13 @@
             "Factor": 0,
             "Ident": "register_55118_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55118 (R)",
+            "Name": "Unbekannt 55118 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15117,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15117,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2932,13 +2932,13 @@
             "Factor": 0,
             "Ident": "register_55119_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55119 (R)",
+            "Name": "Unbekannt 55119 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15118,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15118,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2947,13 +2947,13 @@
             "Factor": 0,
             "Ident": "register_55120_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55120 (R)",
+            "Name": "Unbekannt 55120 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15119,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15119,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2962,13 +2962,13 @@
             "Factor": 0,
             "Ident": "register_55121_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55121 (R)",
+            "Name": "Unbekannt 55121 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15120,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15120,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2977,13 +2977,13 @@
             "Factor": 0,
             "Ident": "register_55122_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55122 (R)",
+            "Name": "Unbekannt 55122 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15121,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15121,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -2992,13 +2992,13 @@
             "Factor": 0,
             "Ident": "register_55123_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55123 (R)",
+            "Name": "Unbekannt 55123 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15122,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15122,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -3007,13 +3007,13 @@
             "Factor": 0,
             "Ident": "register_55124_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55124 (R)",
+            "Name": "Unbekannt 55124 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15123,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15123,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -3022,13 +3022,13 @@
             "Factor": 0,
             "Ident": "register_55125_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55125 (R)",
+            "Name": "Unbekannt 55125 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15124,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15124,
+            "WriteFunctionCode": 6
         },
         {
             "Active": true,
@@ -3037,13 +3037,13 @@
             "Factor": 0,
             "Ident": "register_55126_unknown",
             "Length": 0,
-            "Name": "Unbekannt 55126 (R)",
+            "Name": "Unbekannt 55126 (RW-Test)",
             "Profile": "",
             "ReadAddress": 15125,
             "ReadFunctionCode": 3,
             "Translation": [],
-            "WriteAddress": 0,
-            "WriteFunctionCode": 0
+            "WriteAddress": 15125,
+            "WriteFunctionCode": 6
         }
     ],
     "ByteOrder": 0,
