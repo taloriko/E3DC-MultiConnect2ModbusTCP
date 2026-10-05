@@ -50,7 +50,7 @@ Beobachtungen:
 
 - die LED des USB-Sticks leuchtet dauerhaft, der Anschluss stellt also Versorgungsspannung bereit
 - während des Tests wurde **kein Blinken der Aktivitäts-LED** beobachtet, das auf einen längeren Lese- oder Schreibzugriff hindeuten würde
-- Betätigung von **BP1** einzeln und von **beiden BP1-Tastern** führte zu keiner erkennbaren USB-Aktivität
+- Betätigung von **BP1 auf der Hauptplatine** und **BP1 auf der Netzwerkplatine** einzeln sowie gemeinsam führte zu keiner erkennbaren USB-Aktivität
 - auch nach einem **Neustart der Wallbox** wurde keine USB-Aktivität beobachtet
 - der Test wurde zusätzlich mit bereits eingestecktem USB-Stick während des Bootvorgangs durchgeführt
 - auf dem USB-Stick wurden **keine Dateien oder Verzeichnisse angelegt**
@@ -59,6 +59,8 @@ Beobachtungen:
 Ein sehr kurzer Zugriff, der von der Aktivitäts-LED des verwendeten Sticks nicht sichtbar angezeigt wird, kann mit diesem Test nicht vollständig ausgeschlossen werden.
 
 **Ergebnis:** J1 liefert USB-Versorgung, eine Daten-, Log- oder Exportfunktion konnte bisher jedoch nicht nachgewiesen werden.
+
+**Hinweis zu BP1:** Die inzwischen nachgewiesene Funktion von **BP1 auf der Netzwerkplatine** ist eine Netzwerk-Rücksetzung / Reaktivierung durch etwa **10 Sekunden gedrückt halten**. Ein Zusammenhang dieses Tasters mit J1/USB konnte weiterhin nicht festgestellt werden. Die Funktion von **BP1 auf der Hauptplatine** bleibt unbekannt.
 
 ---
 
