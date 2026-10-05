@@ -20,6 +20,7 @@ Die Ergebnisse stammen überwiegend aus eigenen Messungen und Funktionstests. Ve
 Die eigentliche Register- und Funktionsdokumentation befindet sich hier:
 
 - [Direkte Modbus-TCP-Register und Funktionen](docs/modbus-register.md)
+- [Einstellungen und Steuerlogik aus der Betriebsanleitung BTA V2.10](docs/einstellungen/README.md)
 - [Interne Steckverbinder und Anschlussbelegung](docs/stecker.md)
 - [IP-Symcon Modbus-Vorlage](templates/E3DC_Multi_Connect_II_Modbus.json)
 - [Bilder der Wallbox und des Testaufbaus](pictures/)
@@ -147,7 +148,8 @@ Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw
     <td width="50%" valign="top">
       An der Front befindet sich ein Näherungsschalter. Wird er etwa <strong>1–4 Sekunden</strong> betätigt, setzt die Wallbox <strong>Coil 5 auf TRUE</strong>.<br><br>
       Ein weiterer Tastvorgang setzt Coil 5 nicht zurück. Wird Coil 5 per Modbus auf FALSE gesetzt, kann der Frontsensor ihn anschließend erneut auf TRUE setzen.<br><br>
-      Die Hager-Anleitung beschreibt den Kontakt-Sensor bei aktiver Solaroptimierung als Funktion zum Beschleunigen des Ladevorgangs. Die genaue Rücksetzlogik und das Zusammenspiel mit Register 40083 sind noch offen.
+      Die Betriebsanleitung <strong>Wallbox multi connect I und II BTA V2.10</strong> beschreibt den Näherungssensor der Multi Connect II ausdrücklich zum Umschalten zwischen <strong>Sonnenmodus und Mischbetrieb</strong>. Laut Anleitung ist diese Umschaltung nur in Verbindung mit einem E3/DC-Speichersystem möglich.<br><br>
+      Zusammen mit dem beobachteten Coil-Verhalten spricht das dafür, dass Coil 5 eine <strong>Umschaltanforderung / einen Trigger</strong> an das übergeordnete E3/DC-System signalisiert. Die genaue Quittier- und Rücksetzlogik durch das E3/DC-System ist noch offen.
     </td>
     <td width="50%" valign="top">
       <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Frontplatine.jpeg" alt="Frontplatine der E3/DC Multi Connect II mit Frontsensor" width="50%">
@@ -158,6 +160,8 @@ Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw
 ### Interne Taster BP1
 
 In der Wallbox befinden sich zwei Taster mit der Bezeichnung **BP1**. Die beiden Taster werden getrennt dokumentiert, da sie sich auf unterschiedlichen Platinen befinden und nicht dieselbe nachgewiesene Funktion haben.
+
+Die Betriebsanleitung **BTA V2.10** beschreibt die beiden Taster nicht unter der Platinenbezeichnung **BP1**. Die folgenden Zuordnungen stammen daher ausschließlich aus eigenen Funktionstests.
 
 #### BP1 – Netzwerkplatine
 
