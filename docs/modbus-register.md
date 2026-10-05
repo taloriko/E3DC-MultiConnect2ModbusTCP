@@ -374,7 +374,7 @@ Für die IP-Symcon-Vorlage werden die FC02-Variablen deshalb weggelassen; gelese
 | **40074** | RO | UINT16, **0,1 A/Digit** | **Strom L3** | Mit Strommesszange auf L3 gegengeprüft; FC06/FC16 abgewiesen. | Eigene Messung, verifiziert |
 | **40075–40080** | RO | UINT16 | Unbekannt | bisher jeweils **65535 = 0xFFFF**; FC06/FC16 abgewiesen | Eigene Messung |
 | **40081** | **RW** | UINT16 [A] | **Ladestrom-Sollwert / angebotener Maximalstrom** | 6A → 40071=10%; 32A → 40071=53%. FC06 und FC16 funktionieren. | Eigene Messung |
-| **40082** | **RW** | UINT16 | Unbekannt | Grundwert 32. 6 und 32 werden angenommen. 40082=6 verändert bei 40081=32 den PWM-Wert nicht. | Eigene Messung |
+| **40082** | **RW** | UINT16 [A] | **Max. Ladestrom bei Verbindungsverlust** | Bei Kommunikationsverlust nach ca. 5 s wirksam. 0 A stoppt die Ladung; 7/8/9 A wurden als Weiterladegrenze bestätigt. Der begrenzte Wert wird in 40081 übernommen und bleibt nach Wiederkehr der Verbindung bestehen, bis 40081 neu beschrieben wird. Bei 5/6 A und ca. 8,1 A Last wurde abgeschaltet; Überstrom-/Grenzwertüberwachung ist hierfür eine Hypothese. | Eigene Messung + Betriebsanleitung |
 | **40083** | **RW** | UINT16 / Enum | extern als Sonnenmodus beschrieben | 1 und 2 bleiben stehen; 3 springt auf 2 zurück. Im Standalone-Test keine direkte Änderung von 40070/40071. | Eigene Messung + [evcc Discussion #14122](https://github.com/evcc-io/evcc/discussions/14122) |
 | **40084** | RO | UINT16 | Unbekannt | FC06/FC16 abgewiesen | Eigene Messung |
 | **40085** | RO | UINT16 | **LED-/Fehlercode** | Normal **0**; CP=E → **2**; CP=D + Kabel → **4**; Codierschalter unter Spannung auf A/C gedreht → **129** verriegelnd; Schützklebefehler → **130**. | Eigene Messung + Handbuch |
@@ -501,14 +501,43 @@ Bei CP=C / PP=32 A:
 
 Damit ist 40081 der direkte Ladestrom-Sollwert in Ampere.
 
-### 40082 – unbekanntes RW-Register
+### 40082 – Max. Ladestrom bei Verbindungsverlust
 
-- Grundwert: 32
-- 6 und 32 lassen sich schreiben
-- FC06 und FC16 funktionieren
-- 40082=6 verändert bei 40081=32 den CP-PWM-Wert nicht
+**RW verifiziert über FC06 und FC16.**
 
-Eine Funktion als Sicherungs-/Installationsgrenze wäre denkbar, ist aber **nicht belegt**.
+Die Funktion entspricht dem Parameter **„Max. Ladestrom bei Verbindungsverlust“** aus der Betriebsanleitung.
+
+Verifizierter Testablauf:
+
+- Wallbox lädt bei bestehender Ethernet-/Modbus-Verbindung
+- Verbindung wird getrennt
+- nach ungefähr **5 Sekunden** greift der in 40082 eingestellte Wert
+- **40082 = 0 A** → die Schütze fallen ab und die Ladung wird unterbrochen
+- **40082 = 7 A, 8 A oder 9 A** → die Ladung läuft bei Verbindungsverlust weiter
+- der Fallbackwert wird dabei in **40081** als neuer Ladestrom-Sollwert übernommen
+- nach Wiederherstellung der Verbindung bleibt dieser begrenzte Wert in **40081** bestehen
+- soll wieder ein höherer Ladestrom gelten, muss **40081 erneut beschrieben** werden
+
+Beispiel:
+
+```text
+40081 = 12 A
+40082 = 8 A
+Ethernet-Verbindung fällt aus
+→ nach ca. 5 s wird auf 8 A begrenzt
+→ 40081 liefert anschließend 8 A
+Ethernet-Verbindung kommt zurück
+→ 40081 bleibt 8 A
+→ für 12 A muss 40081 erneut auf 12 geschrieben werden
+```
+
+#### Beobachtung bei 5 A / 6 A
+
+Mit der verwendeten Testlast von ungefähr **8,1 A** wurde bei **40082 = 5 A** und **40082 = 6 A** die Ladung nach dem Verbindungsverlust ebenfalls abgeschaltet.
+
+Da **6 A** grundsätzlich ein zulässiger regulärer Ladestrom ist, wird dies nicht als „6 A = AUS“ interpretiert.
+
+**Hypothese:** Die Wallbox überwacht bei Verbindungsverlust den tatsächlichen Strom gegen den eingestellten Fallback-Grenzwert und schaltet bei einer Überschreitung ab. Diese Überstrom-/Grenzwertlogik ist noch nicht separat verifiziert.
 
 ### 40083 – extern als Sonnenmodus beschrieben
 
@@ -717,7 +746,7 @@ Bis diese Sequenz reproduzierbar bestätigt ist, bleibt sie als **Hypothese / ge
 | Register | FC06 | FC16 | Bedeutung |
 |---:|:---:|:---:|---|
 | 40081 | ✅ | ✅ | Ladestrom-Sollwert |
-| 40082 | ✅ | ✅ | unbekannt |
+| 40082 | ✅ | ✅ | Max. Ladestrom bei Verbindungsverlust |
 | 40083 | ✅ | ✅ | extern Sonnenmodus |
 
 ### Als nicht beschreibbar getestet
@@ -794,12 +823,14 @@ Eine IPv4-Adresse bzw. Subnetzmaske belegt damit **zwei Register**, eine MAC-Adr
 
 ### Beobachtete Werte
 
-Im aufgenommenen Grundzustand gilt:
+Der Block ist weiterhin funktional nicht zugeordnet.
 
-- **55001 = 8**
-- **55000 sowie 55002–55126 = 0**
+- **55001 ist nicht statisch**: bisher wurden die Werte **7** und **8** beobachtet
+- nach **Steuersicherung AUS / EIN** stand 55001 wieder auf **8**
+- damit ist 55001 eindeutig ein veränderlicher Zustands-/Statuswert und keine feste Konstante
+- **55000 sowie 55002–55126** wurden im bisherigen Grundzustand mit 0 beobachtet
 
-Eine Funktionszuordnung ist daraus noch nicht möglich. Die Schreibbarkeit wurde nicht getestet. In der IP-Symcon-Vorlage wird der gesamte Block daher vorsorglich **nur lesend** angelegt und mit englischen Unknown-Idents geführt.
+Eine genaue Funktionszuordnung von 55001 ist noch nicht möglich. Die Schreibbarkeit des Blocks wurde nicht getestet. In der IP-Symcon-Vorlage bleibt der gesamte Block daher vorsorglich **nur lesend** angelegt.
 
 ---
 
@@ -836,7 +867,6 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 ## Offene Punkte
 
 1. Phasenumschalt-Sequenz am realen Fahrzeug verifizieren: **40081=0 A → Schütze aus → Coil 3 ändern → 40081 wieder >0 A**
-3. Bedeutung von **40082**
 4. Bedeutung von **40075–40080**
 5. Modbus-Mechanismus für **RFID-Autorisierung / Ladefreigabe**
 6. Leistungs- und Energiezählerregister
@@ -845,7 +875,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: aktuell TRUE bei Fehlercode 128 (Front-Flachbandkabel/Frontmodul nicht verbunden) und 130 (Schützklebefehler), FALSE bei den getesteten Blinkfehlern 2/4
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 129=Codierschalter unter Spannung auf A/C verstellt, 130=Schützklebefehler.
-12. Bedeutung des Blocks **55000–55126** klären; aktuell nur 55001=8, Rest 0
+12. Bedeutung des Blocks **55000–55126** klären; 55001 ist dynamisch und wurde bisher mit 7 und 8 beobachtet, nach Steuersicherung AUS/EIN wieder 8
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
 14. **Coil 10000 / DHCP-Hypothese** verifizieren, sobald die Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann
 15. Bedeutung von **Coil 9999 und 14999** als mögliche Trigger-/Anforderungs-/Quittierbits weiter untersuchen
