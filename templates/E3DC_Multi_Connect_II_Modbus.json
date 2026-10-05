@@ -157,7 +157,7 @@
             "Factor": 0,
             "Ident": "coil_10000_unknown",
             "Length": 0,
-            "Name": "Coil 10000 (R) - Bedeutung unbekannt / Schreiben trennt Verbindung",
+            "Name": "Coil 10000 (R) - Hypothese DHCP EIN/AUS",
             "Profile": "~Switch",
             "ReadAddress": 10000,
             "ReadFunctionCode": 1,
