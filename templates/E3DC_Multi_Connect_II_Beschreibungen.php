@@ -17,7 +17,7 @@ $descriptions = [
     'coil_7_unknown' => 'Modbus Coil 7 | Lesen: FC01 | Nur Lesen | Schreibversuch FC05: 02 Illegal Data Address | Bei CP=E bleibt TRUE; keine Zustandsänderung, Bedeutung offen',
     'blocking_fault_status' => 'Modbus Coil 8 | Lesen: FC01 | Nur Lesen | FC05: 02 Illegal Data Address | Blinkfehler CP D/E: FALSE | Fehlercode 128 bei abgezogenem Front-Flachbandkabel: TRUE | Fehlercode 130 Schützklebefehler: TRUE, dort verriegelt bis Steuersicherung AUS/EIN',
     'coil_9999_unknown' => 'Modbus Coil 9999 | Lesen: FC01 | Schreiben: FC05, Coil 9999 | Ausgangswert im Test FALSE | Funktion und Auswirkung unbekannt',
-    'coil_10000_unknown' => 'Modbus Coil 10000 | Lesen: FC01 | In Vorlage nur Lesen | Ausgangswert TRUE | FC05-Schreibversuch mit TRUE führte zum Verlust der Modbus-TCP-Socket-Verbindung in IP-Symcon | Bedeutung unbekannt',
+    'coil_10000_unknown' => 'Modbus Coil 10000 | Lesen: FC01 | In Vorlage nur Lesen | Hypothese: DHCP EIN/AUS | Ausgangswert TRUE | TRUE erneut schreiben: Netzwerk wird kurz unterbrochen und kommt wieder | FALSE schreiben: Ping und Modbus fallen aus und bleiben auch nach Steuersicherung AUS/EIN weg | BP1 Netzwerkplatine ca. 10 s drücken: Netzwerk kommt zurück und Coil 10000 steht wieder TRUE | Verifizierung der DHCP-Hypothese erst mit bekannter bzw. setzbarer Fallback-/statischer IP möglich',
     'coil_14999_unknown' => 'Modbus Coil 14999 | Lesen: FC01 | Schreiben: FC05, Coil 14999 | Ausgangswert im Test FALSE | Funktion und Auswirkung unbekannt',
     'protocol_signature' => 'Holding Register 40001 | PDU-Adresse 0 | Lesen: FC03 | Nur Lesen',
     'register_40002_unknown' => 'Holding Register 40002 | PDU-Adresse 1 | Lesen: FC03 | Nur Lesen',
