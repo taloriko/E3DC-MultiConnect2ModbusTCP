@@ -3212,9 +3212,52 @@
         }
     },
     "Requests": {
-        "DataBlocks": [],
-        "Interval": 1000,
-        "Type": 0
+        "DataBlocks": [
+            {
+                "Address": 0,
+                "Function": 1,
+                "Poller": 1000,
+                "Quantity": 9
+            },
+            {
+                "Address": 9999,
+                "Function": 1,
+                "Poller": 1000,
+                "Quantity": 2
+            },
+            {
+                "Address": 14999,
+                "Function": 1,
+                "Poller": 1000,
+                "Quantity": 1
+            },
+            {
+                "Address": 0,
+                "Function": 3,
+                "Poller": 1000,
+                "Quantity": 102
+            },
+            {
+                "Address": 9999,
+                "Function": 3,
+                "Poller": 1000,
+                "Quantity": 33
+            },
+            {
+                "Address": 14999,
+                "Function": 3,
+                "Poller": 1000,
+                "Quantity": 125
+            },
+            {
+                "Address": 15124,
+                "Function": 3,
+                "Poller": 1000,
+                "Quantity": 2
+            }
+        ],
+        "Interval": 5000,
+        "Type": 1
     },
     "VirtualAddresses": []
 }
