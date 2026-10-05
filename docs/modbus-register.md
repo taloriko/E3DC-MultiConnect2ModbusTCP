@@ -20,9 +20,7 @@ Die Gegenüberstellung der Einstellungen aus der Betriebsanleitung BTA V2.10 mit
 
 Plausibilitätsprüfung der Scan-Dateien:
 
-- FC01, FC2 und FC03 decken den vollständigen Modbus-Adressraum **0–65535** ab.
 - Die FC02-Scan-Dateien sind in allen Teilbereichen inhaltlich identisch zu FC01. Damit spiegelt FC02 auch im Scan die gültigen FC01-Adressen **0–8**, **9999–10000** und **14999**.
-- FC04 wurde bis Adresse **10000** gescant; im gesamten Bereich kommt ausschließlich **02 Illegal Data Address** zurück.
 
 Nachweis der Scans:
 - [Modbus TCP Scans](<./Modbus TCP Scans/>)
