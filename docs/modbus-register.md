@@ -821,17 +821,40 @@ Eine IPv4-Adresse bzw. Subnetzmaske belegt damit **zwei Register**, eine MAC-Adr
 
 ## FC03 – Holding Register 55000–55126
 
-### Beobachtete Werte
+### Beobachtete Werte und Schreibtests
 
 Der Block ist weiterhin funktional nicht zugeordnet.
 
 - **55001 ist nicht statisch**: bisher wurden die Werte **7** und **8** beobachtet
 - nach **Steuersicherung AUS / EIN** stand 55001 wieder auf **8**
-- damit ist 55001 eindeutig ein veränderlicher Zustands-/Statuswert und keine feste Konstante
 - **55000 sowie 55002–55126** wurden im bisherigen Grundzustand mit 0 beobachtet
 
-Eine genaue Funktionszuordnung von 55001 ist noch nicht möglich. Die Schreibbarkeit des Blocks wurde nicht getestet. In der IP-Symcon-Vorlage bleibt der gesamte Block daher vorsorglich **nur lesend** angelegt.
+Schreibtest mit **FC06**:
 
+- **55000**: Schreiben abgewiesen → **RO**
+- **55001**: Schreiben abgewiesen → **RO**
+- **55002–55126**: der vorhandene Wert **0** lässt sich jeweils ohne Modbus-Fehler erneut schreiben
+
+Bei **55002–55126** ist damit nur bestätigt, dass FC06 auf diesen Adressen den Wert 0 akzeptiert. Da vorher bereits 0 anlag, ist noch nicht bewiesen, dass ein abweichender Wert gespeichert oder funktional ausgewertet wird.
+
+### Darstellung in der IP-Symcon-Testvorlage
+
+Für die weitere Suche nach Netzwerk-/IP-Konfigurationswerten werden **alle Register 55000–55126 als 2-Byte-STRING/HEX** dargestellt.
+
+Damit entspricht ein einzelnes Register direkt seinem 16-Bit-Rohwert, zum Beispiel:
+
+```text
+192.168.178.243
+→ 550xx     = C0A8
+→ 550xx + 1 = B2F3
+```
+
+- **55000 und 55001** bleiben in der Vorlage **RO**
+- **55002–55126** bleiben **RW-Test**
+- für die STRING-Schreibtests verwendet die Vorlage **FC16**
+- FC16 ist für diesen 55000er-Block noch nicht separat als schreibbar bestätigt und wird mit dieser Testdarstellung gezielt geprüft
+
+Ziel ist, mögliche Netzwerk-Konfigurationsbereiche zu erkennen, in die sich die bekannten IP-/Gateway-/Subnetz-Rohwerte zurückschreiben lassen.
 ---
 
 ## Externe Quellen zur Registerzuordnung
@@ -875,7 +898,7 @@ Dort wurde bereits ein direkter Register-Dump der Wallbox diskutiert. Die eigene
 9. Bedeutung und Schreibbarkeit von **Coil 0** prüfen
 10. **Coil 8** weiter eingrenzen: aktuell TRUE bei Fehlercode 128 (Front-Flachbandkabel/Frontmodul nicht verbunden) und 130 (Schützklebefehler), FALSE bei den getesteten Blinkfehlern 2/4
 11. Weitere **40085-Fehlercodes** prüfen: aktuell 0=normal, 2=CP E, 4=CP D, 128=Front-Flachbandkabel/Frontmodul nicht verbunden, 129=Codierschalter unter Spannung auf A/C verstellt, 130=Schützklebefehler.
-12. Bedeutung des Blocks **55000–55126** klären; 55001 ist dynamisch und wurde bisher mit 7 und 8 beobachtet, nach Steuersicherung AUS/EIN wieder 8
+12. Bedeutung des Blocks **55000–55126** klären; 55000/55001 sind RO, 55002–55126 akzeptieren FC06 mit Wert 0; STRING/HEX-FC16-Test auf mögliche Netzwerk-Konfigurationswerte läuft
 13. FC02 ist als vollständiger Read-Only-Spiegel von FC01 1–8 bestätigt; keine weitere Funktionszuordnung erforderlich
 14. **Coil 10000 / DHCP-Hypothese** verifizieren, sobald die Fallback-/statische IP bekannt ist oder gezielt gesetzt werden kann
 15. Bedeutung von **Coil 9999 und 14999** als mögliche Trigger-/Anforderungs-/Quittierbits weiter untersuchen
