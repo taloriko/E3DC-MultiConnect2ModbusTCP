@@ -157,12 +157,31 @@ Die hier dokumentierten Ergebnisse beziehen sich auf genau dieses Testgerät bzw
 
 ### Interne Taster BP1
 
+In der Wallbox befinden sich zwei Taster mit der Bezeichnung **BP1**. Die beiden Taster werden getrennt dokumentiert, da sie sich auf unterschiedlichen Platinen befinden und nicht dieselbe nachgewiesene Funktion haben.
+
+#### BP1 – Netzwerkplatine
+
+Der BP1-Taster auf der **Netzwerkplatine** kann die Netzwerkfunktion zurücksetzen bzw. wieder aktivieren.
+
+Verifizierter Test:
+
+- Ausgangszustand nach Modbus-Schreiben von **Coil 10000 = FALSE**: Ping und Modbus TCP nicht mehr erreichbar
+- Steuersicherung AUS/EIN: Netzwerk bleibt weiterhin nicht erreichbar
+- BP1 auf der Netzwerkplatine etwa **10 Sekunden gedrückt halten**
+- anschließend kommt die Netzwerkverbindung wieder
+- Ping und Modbus TCP funktionieren wieder
+- **Coil 10000 steht danach wieder auf TRUE**
+
+Damit ist für BP1 auf der Netzwerkplatine eine **Netzwerk-Rücksetzung / Reaktivierung** nachgewiesen. Ob dabei weitere Netzwerkeinstellungen zurückgesetzt werden, ist noch offen.
+
+#### BP1 – Hauptplatine
+
+Der BP1-Taster auf der **Hauptplatine** wurde ebenfalls betätigt. Dabei konnte bisher **keine eindeutige Funktion** festgestellt werden. Insbesondere wurden bei den bisherigen Tests keine reproduzierbaren Änderungen an den überwachten Modbus-Werten beobachtet.
+
 <table>
   <tr>
     <td width="50%" valign="top">
-      Auf beiden Platinen der Wallbox befindet sich jeweils ein Taster mit der Bezeichnung <strong>BP1</strong>.<br><br>
-      Beide Taster wurden betätigt. Dabei wurde <strong>keine beobachtbare Änderung</strong> am Verhalten der Wallbox bzw. an den während des Tests überwachten Modbus-Werten festgestellt.<br><br>
-      Die Funktion der beiden BP1-Taster ist damit weiterhin <strong>unbekannt</strong>.
+      Die Funktion von <strong>BP1 auf der Hauptplatine</strong> bleibt weiterhin <strong>unbekannt</strong>.
     </td>
     <td width="50%" valign="top">
       <img src="pictures/E3DC%20Multi%20Connect%20II%20-%20Hauptplatine%20BP1%20Kn%C3%B6pfe.jpeg" alt="BP1-Taster auf der Hauptplatine der E3/DC Multi Connect II" width="50%">
