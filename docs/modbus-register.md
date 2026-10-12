@@ -16,7 +16,7 @@ Die Gegenüberstellung der Einstellungen aus der Betriebsanleitung BTA V2.10 mit
 | **FC01 – Read Coils** | **0–65535 vollständig** | **0–8**, **9999–10000**, **14999** |
 | **FC02 – Read Discrete Inputs** | **0–65535 vollständig** | **0–8**, **9999–10000**, **14999** |
 | **FC03 – Read Holding Registers** | **0–65535 vollständig** | **40001–40102**, **50000–50032**, **55000–55126** |
-| **FC04 – Read Input Registers** | **0–10000** | **keine gültigen Adressen gefunden** |
+| **FC04 – Read Input Registers** | **0–65535 vollständig** | **keine gültigen Adressen gefunden** |
 
 Plausibilitätsprüfung der Scan-Dateien:
 
